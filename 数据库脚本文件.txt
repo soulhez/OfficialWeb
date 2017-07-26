@@ -1,0 +1,22 @@
+create database officialwebDB;
+ use officialwebDB;
+ create table articletypeTB(id int not null auto_increment primary key comment"文章类型ID",
+      name nvarchar(50) not null comment"文章类型名称");
+
+ create table nvntitleTB(
+    id int not null auto_increment primary key comment"导航标题ID",
+    content nvarchar(20) not null comment"导航标题内容");
+
+
+create table materialTB(
+     id int not null auto_increment primary key comment"素材ID",
+     name nvarchar(20) not null comment"素材名称",
+     type nvarchar(20) comment "素材类型");
+
+ create table articleTB(
+  id int not null auto_increment primary key comment"文章ID",
+  articletitle nvarchar(30) not null comment"文章内容",
+  nvntitletbID int,
+  articletypetbID int,
+  foreign key(nvntitletbID) references nvntitletb(id),
+  foreign key(articletypetbID) references articletypetb(id));
