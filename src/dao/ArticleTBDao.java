@@ -5,7 +5,7 @@ import java.util.List;
 import entity.ArticleTB;
 
 /**
- * 文章
+ * 文章接口
  * @author Administrator
  *
  */
