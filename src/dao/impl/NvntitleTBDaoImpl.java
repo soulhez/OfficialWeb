@@ -25,4 +25,6 @@ public class NvntitleTBDaoImpl extends BaseDao implements NvntitleTBDao {
 		return 0;
 	}
 
+	
+
 }

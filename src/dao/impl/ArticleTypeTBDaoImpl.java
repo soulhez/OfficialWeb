@@ -40,7 +40,9 @@ public class ArticleTypeTBDaoImpl extends BaseDao implements ArticleTypeTBDao {
 	 * 修改文章类型
 	 */
 	public int updateArticleTypeTB(String aId, ArticleTypeTB articleTypeTB) {
+		// TODO Auto-generated method stub
 		return 0;
 	}
+	
 
 }
