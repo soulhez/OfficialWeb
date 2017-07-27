@@ -4,6 +4,8 @@ import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.beanutils.BeanUtilsBean;
+
 import com.sun.org.apache.commons.beanutils.BeanUtils;
 /**
  * JavaBeanπ§æﬂ¿‡
@@ -26,9 +28,10 @@ public class WebUtils {
 		}
 		return bean;
 	}
-	public void copyBean(Object a,Object b){
+	public static void copyBean(Object a,Object b){
 		try {
-			BeanUtils.copyProperties(b, a);
+			BeanUtilsBean beanUtilsBean = new BeanUtilsBean();  
+			beanUtilsBean.copyProperties(a, b);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
