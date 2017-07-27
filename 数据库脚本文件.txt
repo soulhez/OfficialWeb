@@ -21,3 +21,8 @@ create table materialTB(
   articletypetbID int comment"关联的文章类型ID",
   foreign key(nvntitletbID) references nvntitletb(id),
   foreign key(articletypetbID) references articletypetb(id));
+ create table adminTB(
+ id int not null auto_increment primary key comment"管理员ID",
+ userName nvarchar(20) not null comment"管理员姓名",
+ Email nvarchar(30) not null comment"管理员登录邮箱",
+ pwd nvarchar(30) not null comment "管理员密码");
