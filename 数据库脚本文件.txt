@@ -1,28 +1,34 @@
 create database officialwebDB;
  use officialwebDB;
- create table articletypeTB(id int not null auto_increment primary key comment"文章类型ID",
-      name nvarchar(50) not null comment"文章类型名称");
-
+ 
  create table nvntitleTB(
     id int not null auto_increment primary key comment"导航标题ID",
     content nvarchar(20) not null comment"导航标题内容");
+    
+ create table adminTB(
+ 	id int not null auto_increment primary key comment"管理员ID",
+ 	userName nvarchar(20) not null comment"管理员姓名",
+ 	Email nvarchar(30) not null comment"管理员登录邮箱",
+ 	pwd nvarchar(30) not null comment "管理员密码");
+    
 
 
 create table materialTB(
      id int not null auto_increment primary key comment"素材ID",
      name nvarchar(20) not null comment"素材名称",
      type nvarchar(20) comment "素材类型");
+     
+ create table articletypeTB(
+ 	  id int not null auto_increment primary key comment"文章类型ID",
+      name nvarchar(50) not null comment"文章类型名称",
+      nvntitleTBid int not null comment"所属导航标题ID",
+      foreign key(nvntitleTBid) references nvntitleTB(id));
+
 
  create table articleTB(
   id int not null auto_increment primary key comment"文章ID",
   articletitle nvarchar(30) not null comment"文章内容",
   newDate datetime not null comment"文章创建时间",
-  nvntitletbID int comment"关联的导航标题ID",
   articletypetbID int comment"关联的文章类型ID",
-  foreign key(nvntitletbID) references nvntitletb(id),
-  foreign key(articletypetbID) references articletypetb(id));
- create table adminTB(
- id int not null auto_increment primary key comment"管理员ID",
- userName nvarchar(20) not null comment"管理员姓名",
- Email nvarchar(30) not null comment"管理员登录邮箱",
- pwd nvarchar(30) not null comment "管理员密码");
+  foreign key(articletypetbID) references articletypeTB(id));
+  
