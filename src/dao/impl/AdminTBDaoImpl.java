@@ -14,7 +14,7 @@ public class AdminTBDaoImpl extends BaseDao implements AdminTBDao {
 	/**
 	 * µÇÂ¼
 	 */
-	public AdminTB login(LoginBean login) {
+	public AdminTB login(AdminTB login) {
 		return null;
 	}
 

@@ -9,5 +9,5 @@ import entity.AdminTB;
  *
  */
 public interface AdminTBDao {
-	  AdminTB login(LoginBean login);//µÇÂ¼
+	  AdminTB login(AdminTB login);//µÇÂ¼
 }
