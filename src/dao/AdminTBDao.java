@@ -4,7 +4,7 @@ import bean.LoginBean;
 import entity.AdminTB;
 
 /**
- * 管理员
+ * 管理员接口
  * @author Administrator
  *
  */
