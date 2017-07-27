@@ -27,7 +27,8 @@ create table materialTB(
 
  create table articleTB(
   id int not null auto_increment primary key comment"文章ID",
-  articletitle nvarchar(30) not null comment"文章内容",
+  articletitle nvarchar(30) not null comment"文章标题",
+  articlecontent nvarchar(2000) comment"文章内容",
   newDate datetime not null comment"文章创建时间",
   articletypetbID int comment"关联的文章类型ID",
   foreign key(articletypetbID) references articletypeTB(id));

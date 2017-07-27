@@ -1,9 +1,12 @@
 package dao.impl;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.ArticleTypeTBDao;
 import dao.BaseDao;
+import entity.ArticleTB;
 import entity.ArticleTypeTB;
 
 /**
@@ -16,32 +19,60 @@ public class ArticleTypeTBDaoImpl extends BaseDao implements ArticleTypeTBDao {
 	 * 添加文章类型
 	 */
 	public int addArticleTypeTB(ArticleTypeTB articleTypeTB) {
-		return 0;
+		String sql="insert into articletypeTB(name,nvntitleTBid) value(?,?)";
+		return executeUpdate(sql,articleTypeTB.getaName(),articleTypeTB.getaNvntitleTBid());
 	}
 	/**
 	 * 删除文章类型
 	 */
 	public int deleteArticleTypeTB(String aId) {
-		return 0;
+		String sql="delete from articletypeTB where id=?";
+		return executeUpdate(sql,aId);
 	}
 	/**
 	 * 根据所属导航标题id查询所有文章类型
 	 */
 	public List<ArticleTypeTB> searchArticleTypeTB(String aNvntitleTBid) {
-		return null;
+		List<ArticleTypeTB> list=new ArrayList<ArticleTypeTB>();
+		ArticleTypeTB at=null;
+		String sql="select * from articletypeTB where nvntitleTBid=?";
+		rs=executeQuery(sql,aNvntitleTBid);
+		try {
+			while(rs.next()){
+				at=new ArticleTypeTB(rs.getString("id"),rs.getString("name"),rs.getString("nvntitleTBid"));
+				list.add(at);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException();
+		}finally{
+			closeAll();
+		}
+		return list;
 	}
 	/**
 	 * 根据文章id查询文章类型
 	 */
 	public ArticleTypeTB searchArticleTypeTBByArticleTBId(String aID) {
-		return null;
+		ArticleTypeTB at=null;
+		String sql="select * from articletypeTB where id=?";
+		rs=executeQuery(sql,aID);
+		try {
+			while(rs.next()){
+				at=new ArticleTypeTB(rs.getString("id"),rs.getString("name"),rs.getString("nvntitleTBid"));
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException();
+		}finally{
+			closeAll();
+		}
+		return at;
 	}
 	/**
 	 * 修改文章类型
 	 */
 	public int updateArticleTypeTB(String aId, ArticleTypeTB articleTypeTB) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql="update articleTB set name=?,nvntitleTBid=? where id=?";
+		return executeUpdate(sql,articleTypeTB.getaName(),articleTypeTB.getaNvntitleTBid(),articleTypeTB.getaId());
 	}
 	
 
