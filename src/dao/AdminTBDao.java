@@ -10,4 +10,5 @@ import entity.AdminTB;
  */
 public interface AdminTBDao {
 	  AdminTB login(AdminTB login);//µÇÂ¼
+	  int updateAdminTB(String aId,AdminTB adminTB);
 }

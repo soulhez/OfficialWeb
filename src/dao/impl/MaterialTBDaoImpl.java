@@ -31,5 +31,4 @@ public class MaterialTBDaoImpl extends BaseDao implements MaterialTBDao {
 	public int updateMaterialTB(String mId, MaterialTB materialTB) {
 		return 0;
 	}
-	
 }

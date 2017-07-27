@@ -24,7 +24,4 @@ public class NvntitleTBDaoImpl extends BaseDao implements NvntitleTBDao {
 	public int updateNvntitleTB(String nId, String nNontent) {
 		return 0;
 	}
-
-	
-
 }

@@ -54,7 +54,7 @@ public class ArticleTypeTBDaoImpl extends BaseDao implements ArticleTypeTBDao {
 	 */
 	public ArticleTypeTB searchArticleTypeTBByArticleTBId(String aID) {
 		ArticleTypeTB at=null;
-		String sql="select * from articletypeTB where id=?";
+		String sql="select * from articletypeTB t inner join articleTB a on a.articletypetbID=t.id where a.id=?";
 		rs=executeQuery(sql,aID);
 		try {
 			while(rs.next()){
@@ -71,7 +71,7 @@ public class ArticleTypeTBDaoImpl extends BaseDao implements ArticleTypeTBDao {
 	 * 修改文章类型
 	 */
 	public int updateArticleTypeTB(String aId, ArticleTypeTB articleTypeTB) {
-		String sql="update articleTB set name=?,nvntitleTBid=? where id=?";
+		String sql="update articletypeTB set name=?,nvntitleTBid=? where id=?";
 		return executeUpdate(sql,articleTypeTB.getaName(),articleTypeTB.getaNvntitleTBid(),articleTypeTB.getaId());
 	}
 	
