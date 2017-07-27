@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import util.WebUtils;
 
-import bean.TestLoginBean;
+import bean.LoginBean;
 
 public class TestLoginBeanServlet extends HttpServlet {
 	@Override
@@ -18,7 +18,7 @@ public class TestLoginBeanServlet extends HttpServlet {
 			throws ServletException, IOException {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
-			TestLoginBean loginbean=WebUtils.beanFrom(request, TestLoginBean.class);
+			LoginBean loginbean=WebUtils.beanFrom(request, LoginBean.class);
 			String name=request.getParameter("name");
 			
 	}

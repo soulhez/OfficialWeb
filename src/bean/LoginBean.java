@@ -1,14 +1,14 @@
 package bean;
 
-public class TestLoginBean {
+public class LoginBean {
 	private String aEmail;
 	private String aPwd;
-	public TestLoginBean(String aEmail, String aPwd) {
+	public LoginBean(String aEmail, String aPwd) {
 		super();
 		this.aEmail = aEmail;
 		this.aPwd = aPwd;
 	}
-	public TestLoginBean() {
+	public LoginBean() {
 		super();
 	}
 	public String getaEmail() {
