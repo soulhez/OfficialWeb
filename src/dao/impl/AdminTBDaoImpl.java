@@ -15,7 +15,6 @@ public class AdminTBDaoImpl extends BaseDao implements AdminTBDao {
 	 * µÇÂ¼
 	 */
 	public AdminTB login(LoginBean login) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
