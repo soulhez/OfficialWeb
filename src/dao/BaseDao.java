@@ -14,7 +14,6 @@ public class BaseDao {
 	private static final String URL="jdbc:mysql://localhost/officialwebdb";
 	private static final String USER="root";
 	private static final String PWD="ok";
-	
 	protected Connection con=null;
 	protected PreparedStatement pstmt=null;
 	protected ResultSet rs=null;
