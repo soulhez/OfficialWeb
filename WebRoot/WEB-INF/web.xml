@@ -5,10 +5,6 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   <servlet>
-    <servlet-name>TestLoginBeanServlet</servlet-name>
-    <servlet-class>servlet.TestLoginBeanServlet</servlet-class>
-  </servlet>
-  <servlet>
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>servlet.LoginServlet</servlet-class>
   </servlet>
@@ -16,13 +12,24 @@
     <servlet-name>NvntitleTBServlet</servlet-name>
     <servlet-class>servlet.NvntitleTBServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ArticleTBServlet</servlet-name>
+    <servlet-class>servlet.ArticleTBServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ArticleTypeTBServlet</servlet-name>
+    <servlet-class>servlet.ArticleTypeTBServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>MaterrialTBServlet</servlet-name>
+    <servlet-class>servlet.MaterrialTBServlet</servlet-class>
+  </servlet>
 
 
 
-  <servlet-mapping>
-    <servlet-name>TestLoginBeanServlet</servlet-name>
-    <url-pattern>/TestLoginBeanServlet</url-pattern>
-  </servlet-mapping>
+
+
+
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
@@ -30,6 +37,18 @@
   <servlet-mapping>
     <servlet-name>NvntitleTBServlet</servlet-name>
     <url-pattern>/NvntitleTBServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ArticleTBServlet</servlet-name>
+    <url-pattern>/ArticleTBServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ArticleTypeTBServlet</servlet-name>
+    <url-pattern>/ArticleTypeTBServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MaterrialTBServlet</servlet-name>
+    <url-pattern>/MaterrialTBServlet</url-pattern>
   </servlet-mapping>
   <filter>
   <filter-name>IsLoginFilter</filter-name>

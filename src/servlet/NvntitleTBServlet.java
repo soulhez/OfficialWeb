@@ -16,6 +16,11 @@ import dao.impl.NvntitleTBDaoImpl;
 import entity.NvntitleTB;
 
 public class NvntitleTBServlet extends HttpServlet {
+	/**
+	 * µ¼º½servlet
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

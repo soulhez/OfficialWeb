@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 public class IsLoginFilter implements Filter {
 	private FilterConfig filterConfig=null;
 	public void destroy() {
-		// TODO Auto-generated method stub
 		
 	}
 
