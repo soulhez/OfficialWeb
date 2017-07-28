@@ -53,8 +53,9 @@ public class ArticleTBServlet extends HttpServlet {
 			}//根据文章ID查询文章
 			else if(method.equalsIgnoreCase("searchArticleTBByID")){
 				
-			}else{
-				//根据文章id查询文章类型
+			}//根据文章id查询文章类型
+			else{
+				
 			}
 	}
 }
