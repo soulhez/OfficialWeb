@@ -10,5 +10,5 @@ import entity.AdminTB;
  */
 public interface AdminTBDao {
 	  AdminTB login(LoginBean login);//登录
-	  int updateAdminTB(String aId,AdminTB adminTB);
+	  int updateAdminTB(String aId,AdminTB adminTB);//修改管理员账号信息
 }

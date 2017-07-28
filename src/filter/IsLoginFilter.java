@@ -23,8 +23,10 @@ public class IsLoginFilter implements Filter {
 		HttpServletResponse response=(HttpServletResponse)servletResponse;
 		String loginFilterPath=filterConfig.getInitParameter("loginFilterPath");
 		String[] paths=loginFilterPath.split(";");
+		String pathString=request.getContextPath();
 		for (String path : paths) {
-			if (path.contains("login.html")||path.equalsIgnoreCase("login.html")) {
+			if (pathString.contains(path)
+					||pathString.equalsIgnoreCase(path)) {
 				chain.doFilter(request, response);
 			}else{
 				if (request.getSession().getAttribute("admin")==null) {

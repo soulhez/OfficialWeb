@@ -7,12 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.BaseDao;
 import dao.impl.AdminTBDaoImpl;
 
 import entity.AdminTB;
 
-import test.AdminTBDaoImplTest;
 import util.WebUtils;
 
 import bean.LoginBean;
