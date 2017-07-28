@@ -35,12 +35,15 @@ public class NvntitleTBDaoImpl extends BaseDao implements NvntitleTBDao {
 		return list;
 	}
 	/**
-	 * 修改导航
+	 * 修改导航(通过获取的id和新的导航内容)
 	 */
 	public int updateNvntitleTB(String nId, String nNontent) {
 		String sql="update nvntitleTB set content=? where id=?";
 		return executeUpdate(sql,nNontent,nId);
 	}
+	/**
+	 * 根据导航标题内容查找导航ID
+	 */
 	public NvntitleTB searchnNontent(String nContent) {
 		String sql="select *from nvntitleTB where content=?";
 		rs=executeQuery(sql,nContent);

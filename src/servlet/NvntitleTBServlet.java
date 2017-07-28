@@ -30,14 +30,17 @@ public class NvntitleTBServlet extends HttpServlet {
 			PrintWriter out=response.getWriter();
 			if (method.equalsIgnoreCase("update")) {
 				String content= request.getParameter("content");
+				//根据导航内容获取导航id
 				String id=new NvntitleTBDaoImpl().searchnNontent(content).getnId();
 				String newContent=request.getParameter("newContent");
+				//通过获取的id和新的导航内容修改导航内容
 				if (new NvntitleTBDaoImpl().updateNvntitleTB(id, newContent)>0) {
 					out.write(newContent);
 				}else{
 					out.write(content);
 				}
 			}else{
+				//显示所有导航
 				List<NvntitleTB> list=new NvntitleTBDaoImpl().searchNvntitleTB();
 				JSONArray nvnTitleTBlist=new JSONArray().fromObject(list);
 				out.write(nvnTitleTBlist.toString());

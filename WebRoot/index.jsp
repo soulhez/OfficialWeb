@@ -19,7 +19,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
   </head>
-  
   <body>
   <form action="TestLoginBeanServlet" method="post">
   <input type="text" value="你好" name="name"/>

@@ -23,6 +23,13 @@ public class ArticleTBDaoImpl extends BaseDao implements ArticleTBDao {
 		return executeUpdate(sql, articleTB.getaArticleTitle(),articleTB.getaArticlecontent(),articleTB.getaNewDate(),articleTB.getaArticleTypetbID());
 	}
 	/**
+	 * 根据文章ID修改文章
+	 */
+	public int updateArticleTB(String aId, ArticleTB articleTB) {
+		String sql="update articleTB set articletitle=?,articlecontent=?,newDate=?,articletypetbID=? where id=?";
+		return executeUpdate(sql,articleTB.getaArticleTitle(),articleTB.getaArticlecontent(),articleTB.getaNewDate(),articleTB.getaArticleTypetbID(),aId);
+	}
+	/**
 	 * 根据文章ID删除文章
 	 */
 	public int deleteArticleTB(String aId) {
@@ -67,13 +74,7 @@ public class ArticleTBDaoImpl extends BaseDao implements ArticleTBDao {
 		}
 		return at;
 	}
-	/**
-	 * 根据文章ID修改文章
-	 */
-	public int updateArticleTB(String aId, ArticleTB articleTB) {
-		String sql="update articleTB set articletitle=?,articlecontent=?,newDate=?,articletypetbID=? where id=?";
-		return executeUpdate(sql,articleTB.getaArticleTitle(),articleTB.getaArticlecontent(),articleTB.getaNewDate(),articleTB.getaArticleTypetbID(),aId);
-	}
+	
 	/**
 	 * 根据文章id查询文章类型
 	 */
