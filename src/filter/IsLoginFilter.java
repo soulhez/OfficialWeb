@@ -11,7 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 public class IsLoginFilter implements Filter {
-
+	private FilterConfig filterConfig=null;
 	public void destroy() {
 		// TODO Auto-generated method stub
 		
@@ -21,11 +21,21 @@ public class IsLoginFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request=(HttpServletRequest)servletRequest;
 		HttpServletResponse response=(HttpServletResponse)servletResponse;
-			chain.doFilter(request, response);
+		String loginFilterPath=filterConfig.getInitParameter("loginFilterPath");
+		String[] paths=loginFilterPath.split(";");
+		for (String path : paths) {
+			if (path.contains("login.html")||path.equalsIgnoreCase("login.html")) {
+				chain.doFilter(request, response);
+			}else{
+				if (request.getParameter("admin")==null) {
+					response.sendRedirect("index.html");
+					break;
+				}
+			}
+		}
 	}
 
-	public void init(FilterConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
-		
+	public void init(FilterConfig config) throws ServletException {
+		filterConfig=config;
 	}
 }
