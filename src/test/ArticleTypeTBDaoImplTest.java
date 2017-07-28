@@ -24,12 +24,10 @@ public class ArticleTypeTBDaoImplTest {
 			System.out.println("文章id"+item.getaId());
 		}
 		
-		//根据文章id查询文章类型Test
-		ArticleTypeTB articleTypeTB2=new ArticleTypeTBDaoImpl().searchArticleTypeTBByArticleTBId("3");
-		System.out.println("根据文章ID查询类型"+articleTypeTB2.getaId());
+	
 		
 		////修改文章类型Test
-		number=new ArticleTypeTBDaoImpl().updateArticleTypeTB(articleTypeTB2.getaId(), articleTypeTB2);
+		number=new ArticleTypeTBDaoImpl().updateArticleTypeTB(articleTypeTB.getaId(), articleTypeTB);
 		System.out.println("修改的影响行数"+number);
 		
 		//删除文章类型Test

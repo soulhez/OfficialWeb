@@ -2,7 +2,6 @@ package dao.impl;
 
 import java.sql.SQLException;
 
-import bean.LoginBean;
 import dao.AdminTBDao;
 import dao.BaseDao;
 import entity.AdminTB;

@@ -1,5 +1,7 @@
 package dao.impl;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.BaseDao;
@@ -16,12 +18,27 @@ public class NvntitleTBDaoImpl extends BaseDao implements NvntitleTBDao {
 	 * 查看所有导航
 	 */
 	public List<NvntitleTB> searchNvntitleTB() {
-		return null;
+		String sql="select *from nvntitleTB";
+		rs=executeQuery(sql);
+		List<NvntitleTB> list=new ArrayList<NvntitleTB>();
+		NvntitleTB nvntitleTB=null;
+		try {
+			while(rs.next()){
+				nvntitleTB=new NvntitleTB(rs.getString("id"),rs.getString("content"));
+				list.add(nvntitleTB);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			closeAll();
+		}
+		return list;
 	}
 	/**
 	 * 修改导航
 	 */
 	public int updateNvntitleTB(String nId, String nNontent) {
-		return 0;
+		String sql="update nvntitleTB set content=? where id=?";
+		return executeUpdate(sql,nNontent,nId);
 	}
 }
