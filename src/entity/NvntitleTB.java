@@ -6,18 +6,18 @@ package entity;
  */
 public class NvntitleTB {
 	private String nId;//导航标题ID
-	private String nNontent;//导航标题内容
+	private String nContent;//导航标题内容
 	public NvntitleTB() {
 		super();
 	}
 	public NvntitleTB(String nNontent) {
 		super();
-		this.nNontent = nNontent;
+		this.nContent = nNontent;
 	}
 	public NvntitleTB(String nId, String nNontent) {
 		super();
 		this.nId = nId;
-		this.nNontent = nNontent;
+		this.nContent = nNontent;
 	}
 	public String getnId() {
 		return nId;
@@ -26,10 +26,10 @@ public class NvntitleTB {
 		this.nId = nId;
 	}
 	public String getnNontent() {
-		return nNontent;
+		return nContent;
 	}
 	public void setnNontent(String nNontent) {
-		this.nNontent = nNontent;
+		this.nContent = nNontent;
 	}
 	
 }

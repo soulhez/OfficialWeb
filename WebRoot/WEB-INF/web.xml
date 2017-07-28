@@ -8,10 +8,28 @@
     <servlet-name>TestLoginBeanServlet</servlet-name>
     <servlet-class>servlet.TestLoginBeanServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>servlet.LoginServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>NvntitleTBServlet</servlet-name>
+    <servlet-class>servlet.NvntitleTBServlet</servlet-class>
+  </servlet>
+
+
 
   <servlet-mapping>
     <servlet-name>TestLoginBeanServlet</servlet-name>
     <url-pattern>/TestLoginBeanServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>NvntitleTBServlet</servlet-name>
+    <url-pattern>/NvntitleTBServlet</url-pattern>
   </servlet-mapping>
   <filter>
   <filter-name>IsLoginFilter</filter-name>

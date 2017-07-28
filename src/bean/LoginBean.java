@@ -23,6 +23,14 @@ public class LoginBean {
 	public void setaPwd(String aPwd) {
 		this.aPwd = aPwd;
 	}
-	
+	public boolean isLogin(){
+		if (this.aEmail=="") {
+			return false;
+		}
+		if (this.aPwd=="") {
+			return false;
+		}
+		return true;
+	}
 	
 }

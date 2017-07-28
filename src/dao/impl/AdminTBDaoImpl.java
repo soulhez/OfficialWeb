@@ -2,6 +2,8 @@ package dao.impl;
 
 import java.sql.SQLException;
 
+import bean.LoginBean;
+
 import dao.AdminTBDao;
 import dao.BaseDao;
 import entity.AdminTB;
@@ -15,7 +17,7 @@ public class AdminTBDaoImpl extends BaseDao implements AdminTBDao {
 	/**
 	 * µÇÂ¼
 	 */
-	public AdminTB login(AdminTB login) {
+	public AdminTB login(LoginBean login) {
 		AdminTB at=null;
 		String sql="select * from adminTB where Email=? and pwd=?";
 		rs=executeQuery(sql, login.getaEmail(),login.getaPwd());

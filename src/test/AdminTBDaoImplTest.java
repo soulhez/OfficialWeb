@@ -1,5 +1,6 @@
 package test;
 
+import bean.LoginBean;
 import dao.impl.AdminTBDaoImpl;
 import entity.AdminTB;
 
@@ -12,7 +13,7 @@ public class AdminTBDaoImplTest {
 	public static void main(String[] args) {
 		String aEmail="zhangsan@admin.com";
 		String aPwd="admin";
-		AdminTB login=new AdminTB();
+		LoginBean login=new LoginBean();
 		login.setaEmail(aEmail);
 		login.setaPwd(aPwd);
 		AdminTB adminTB=new AdminTBDaoImpl().login(login);

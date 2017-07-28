@@ -27,9 +27,11 @@ public class IsLoginFilter implements Filter {
 			if (path.contains("login.html")||path.equalsIgnoreCase("login.html")) {
 				chain.doFilter(request, response);
 			}else{
-				if (request.getParameter("admin")==null) {
+				if (request.getSession().getAttribute("admin")==null) {
 					response.sendRedirect("index.html");
 					break;
+				}else{
+					chain.doFilter(request, response);	
 				}
 			}
 		}

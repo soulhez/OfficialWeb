@@ -1,5 +1,6 @@
 package dao;
 
+import bean.LoginBean;
 import entity.AdminTB;
 
 /**
@@ -8,6 +9,6 @@ import entity.AdminTB;
  *
  */
 public interface AdminTBDao {
-	  AdminTB login(AdminTB login);//µÇÂ¼
+	  AdminTB login(LoginBean login);//µÇÂ¼
 	  int updateAdminTB(String aId,AdminTB adminTB);
 }
