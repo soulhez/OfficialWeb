@@ -6,7 +6,6 @@ import java.util.List;
 
 import dao.ArticleTypeTBDao;
 import dao.BaseDao;
-import entity.ArticleTB;
 import entity.ArticleTypeTB;
 
 /**
@@ -49,24 +48,7 @@ public class ArticleTypeTBDaoImpl extends BaseDao implements ArticleTypeTBDao {
 		}
 		return list;
 	}
-	/**
-	 * 根据文章id查询文章类型
-	 */
-	public ArticleTypeTB searchArticleTypeTBByArticleTBId(String aID) {
-		ArticleTypeTB at=null;
-		String sql="select * from articletypeTB t inner join articleTB a on a.articletypetbID=t.id where a.id=?";
-		rs=executeQuery(sql,aID);
-		try {
-			while(rs.next()){
-				at=new ArticleTypeTB(rs.getString("id"),rs.getString("name"),rs.getString("nvntitleTBid"));
-			}
-		} catch (SQLException e) {
-			throw new RuntimeException();
-		}finally{
-			closeAll();
-		}
-		return at;
-	}
+	
 	/**
 	 * 修改文章类型
 	 */

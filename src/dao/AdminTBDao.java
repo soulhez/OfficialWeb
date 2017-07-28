@@ -1,6 +1,5 @@
 package dao;
 
-import bean.LoginBean;
 import entity.AdminTB;
 
 /**
