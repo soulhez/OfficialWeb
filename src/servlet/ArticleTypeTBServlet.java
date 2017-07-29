@@ -19,9 +19,9 @@ public class ArticleTypeTBServlet extends HttpServlet {
 			throws ServletException, IOException {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
-			ArticleTypeTB articleTypeTB=null;
+			ArticleTypeTB articleTypeTB=null;//文章类型对象
 			String method =request.getParameter("method");
-			String aId=null;
+			String aId=null;//文章类型ID
 			//添加文章类型
 			if(method.equalsIgnoreCase("add")){
 				
