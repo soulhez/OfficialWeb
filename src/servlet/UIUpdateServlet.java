@@ -1,15 +1,19 @@
 package servlet;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class MaterrialTBServlet extends HttpServlet {
+import entity.ArticleTB;
+import entity.ArticleTypeTB;
+public class UIUpdateServlet extends HttpServlet {
+	
 
 	/**
-	 * 素材servlet
+	 * 转修改页面的servlet
 	 */
 	private static final long serialVersionUID = 1L;
 	@Override
@@ -18,11 +22,11 @@ public class MaterrialTBServlet extends HttpServlet {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
 			String method=request.getParameter("method");
-			//根据素材类型查询一个素材的名称
-			if(method.equalsIgnoreCase("name")){
+			String aId=null;
+			//文章
+			if(method.equalsIgnoreCase("articleTB")){
 				
-			}
-			//根据素材类型查询此类型的素材集合
+			}//文章类型
 			else{
 				
 			}

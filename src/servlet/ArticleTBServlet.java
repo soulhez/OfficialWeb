@@ -47,15 +47,6 @@ public class ArticleTBServlet extends HttpServlet {
 			}//根据文章ID修改文章
 			else if(method.equalsIgnoreCase("update")){
 				
-			}//根据文章类型ID查询文章后，以文章创建时间降序排列
-			else if(method.equalsIgnoreCase("searchArticleTB")){
-				
-			}//根据文章ID查询文章
-			else if(method.equalsIgnoreCase("searchArticleTBByID")){
-				
-			}//根据文章id查询文章类型
-			else{
-				
 			}
 	}
 }

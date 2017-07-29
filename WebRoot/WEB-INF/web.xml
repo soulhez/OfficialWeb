@@ -24,6 +24,16 @@
     <servlet-name>MaterrialTBServlet</servlet-name>
     <servlet-class>servlet.MaterrialTBServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>IDServlet</servlet-name>
+    <servlet-class>servlet.IDServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UIUpdateServlet</servlet-name>
+    <servlet-class>servlet.UIUpdateServlet</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -49,6 +59,14 @@
   <servlet-mapping>
     <servlet-name>MaterrialTBServlet</servlet-name>
     <url-pattern>/MaterrialTBServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>IDServlet</servlet-name>
+    <url-pattern>/IDServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UIUpdateServlet</servlet-name>
+    <url-pattern>/UIUpdateServlet</url-pattern>
   </servlet-mapping>
   <filter>
   <filter-name>IsLoginFilter</filter-name>
