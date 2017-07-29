@@ -30,10 +30,11 @@ public class ArticleTBServlet extends HttpServlet {
 			String aArticleTypetbID=null;//文章类型id
 			String method =request.getParameter("method");
 			PrintWriter out=response.getWriter();
+			int number=0;
 			//添加文章
 			if (method.equalsIgnoreCase("add")) {
 				articleTB=new WebUtils().beanFrom(request, ArticleTB.class);
-				int number=new ArticleTBDaoImpl().addArticleTB(articleTB);
+				 number=new ArticleTBDaoImpl().addArticleTB(articleTB);
 				if (number>0) {
 					out.write("添加成功");
 					return;
@@ -43,10 +44,27 @@ public class ArticleTBServlet extends HttpServlet {
 				}
 			}//根据文章ID删除文章
 			else if(method.equalsIgnoreCase("delete")){
-				
+				aId=request.getParameter("id");
+				 number=new ArticleTBDaoImpl().deleteArticleTB(aId);
+				if (number>0) {
+					out.write("删除成功");
+					return;
+				}else{
+					out.write("删除失败");
+					return;
+				}
 			}//根据文章ID修改文章
 			else if(method.equalsIgnoreCase("update")){
-				
+				articleTB=new WebUtils().beanFrom(request, ArticleTB.class);
+				aId=request.getParameter("id");
+				number=new ArticleTBDaoImpl().updateArticleTB(aId, articleTB);
+				if (number>0) {
+					out.write("添加成功");
+					return;
+				}else{
+					out.write("添加失败");
+					return;
+				}
 			}
 	}
 }
