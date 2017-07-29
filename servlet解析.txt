@@ -1,0 +1,57 @@
+﻿素材Servlet
+	1://根据素材类型查询素材名称
+		调用接口中的searchMaterialTBmName()返回一个String，并用out.write()输出这个素材名称	解决
+	2://根据素材类型查询此类型的素材集合
+		调用接口中的searchMaterialTBmName()返回一个List集合，然后用jsonArray对象转换成json数据，并用out.write()输出这个json数据		解决
+
+
+idServlet 根据Id获取对象
+	先判断"method=?"
+	如果method=导航标题id	
+		从request.getAttribute("id"),中获取导航标题的id,调用接口中的实现方法返回文章类型集合List，然后把文章类型集合List转化为json格式数据，用out.write()方法输出这个json数据	解决
+	如果method=文章类型id  
+		从request.getAttribute("id"),中获取文章类型的id,调用接口中的实现方法返回文章集合List，然后把文章集合List转化为json格式数据，用out.write()方法输出这个json数据		解决
+	如果method=文章id  	
+		从request.getAttribute("id"),中获取文章的id,调用接口中的实现方法返回文章对象，然后把文章对象转化为json格式数据，用out.write()方法输出这个json数据			解决
+	如果method=""  		
+		从sessionz中获取admin对象，然后用转化为json格式数据，用out.write()方法输出这个json数据			解
+
+
+文章的Servlet
+	1:添加文章
+		从表单获取文章对象的数据，调用接口中的添加方法				解决
+	2:删除文章					
+		是从文章列表中的一行有删除按钮，这一个要有一个隐藏<td>存放id，调用删除的servlet，传id删除	解决
+		根据文章id删除文章,进行删除
+	3:根据文章ID修改文章					
+		是从文章列表中的一行有修改按钮，这一个要有一个隐藏<td>存放id,跳到UIupdateservlet?method="文章"&id=隐藏域中的id,现在已经在修改页面了，修改页面用ajax的uri地址是
+		idServlet?method=文章id，获取到数据并展示数据，当用户点击修改页面的提交按钮是就用当前的servlet	解决
+		根据文章id修改文章,进行修改
+文章类型的Servlet
+	1：添加文章类型
+		判断如果该导航标题下面的文章类型数据不能大于5，如果该导航标题下面的文章类型数量=5，不让管理员进行添加，只能修改
+	2:修改文章类型					
+		是从文章类型中的一行有修改按钮，这一个要有一个隐藏<td>存放id,跳到UIupdateservlet??method="文章类型"&id=隐藏域中的id,现在已经在修改页面了，修改页面用ajax的uri地址是
+		idServlet?method=文章id，获取到数据并展示数据，当用户点击修改页面的提交按钮是就用当前的servlet	解决
+		获取文章类型的id,然后进行修改				
+	3：删除文章类型			
+		是从文章类型列表中的一行有删除按钮，这一个要有一个隐藏<td>存放id，调用删除的servlet，传id删除	解决
+		获取文章类型的id,然后进行删除
+
+
+UIupdateservlet								解决
+	获取id
+		if判断是修改文章还是修改文章类型
+		如果是method="文章"	
+			request.getParameter("id"),然后把id存到，request.setAttribute("id"),然后跳转到文章的修改页面update.jsp
+		如果是method="文章类型"
+			request.getParameter("id"),然后把id存到，request.setAttribute("id"),然后跳转到文章类型的修改页面update.jsp
+
+
+
+
+
+
+
+
+
