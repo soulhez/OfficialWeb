@@ -22,13 +22,14 @@ public class UIUpdateServlet extends HttpServlet {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
 			String method=request.getParameter("method");
-			String aId=null;
+			String aId=request.getParameter("id");
+			request.setAttribute("id",aId);
 			//文章
 			if(method.equalsIgnoreCase("articleTB")){
-				
+				request.getRequestDispatcher("").forward(request, response);
 			}//文章类型
 			else{
-				
+				request.getRequestDispatcher("").forward(request, response);
 			}
 	}
 }
