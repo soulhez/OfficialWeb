@@ -2,8 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +26,6 @@ public class ArticleTBServlet extends HttpServlet {
 			response.setContentType("text/html; charset=utf-8");
 			ArticleTB articleTB=null;//文章对象
 			String aId=null;//文章id
-			String aArticleTypetbID=null;//文章类型id
 			String method =request.getParameter("method");
 			if (method==null) {
 				System.out.println("null");
@@ -38,9 +35,8 @@ public class ArticleTBServlet extends HttpServlet {
 			int number=0;
 			//添加文章
 			if (method.equalsIgnoreCase("add")) {
-				articleTB=new WebUtils().beanFrom(request, ArticleTB.class);
-				ServletContext sc=request.getSession().getServletContext();
-				 number=new ArticleTBDaoImpl().addArticleTB(sc.getRealPath("/")+"\\news\\",articleTB);
+				articleTB=WebUtils.beanFrom(request, ArticleTB.class);
+				 number=new ArticleTBDaoImpl().addArticleTB(WebUtils.getPath(request),articleTB);
 				if (number>0) {
 					out.write("添加成功");
 					return;
@@ -51,7 +47,7 @@ public class ArticleTBServlet extends HttpServlet {
 			}//根据文章ID删除文章
 			else if(method.equalsIgnoreCase("delete")){
 				aId=request.getParameter("id");
-				 number=new ArticleTBDaoImpl().deleteArticleTB(aId);
+				 number=new ArticleTBDaoImpl().deleteArticleTB(aId,WebUtils.getPath(request));
 				if (number>0) {
 					out.write("删除成功");
 					return;
@@ -61,13 +57,13 @@ public class ArticleTBServlet extends HttpServlet {
 				}
 			}//根据文章ID修改文章
 			else if(method.equalsIgnoreCase("update")){
-				articleTB=new WebUtils().beanFrom(request, ArticleTB.class);
-				number=new ArticleTBDaoImpl().updateArticleTB(articleTB);
+				articleTB=WebUtils.beanFrom(request, ArticleTB.class);
+				number=new ArticleTBDaoImpl().updateArticleTB(articleTB,WebUtils.getPath(request));
 				if (number>0) {
-					out.write("添加成功");
+					out.write("修改成功");
 					return;
 				}else{
-					out.write("添加失败");
+					out.write("修改失败");
 					return;
 				}
 			}

@@ -36,7 +36,7 @@ public class MaterrialTBServlet extends HttpServlet {
 			//根据素材类型查询此类型的素材集合
 			else{
 				List<String> list=new MaterialTBDaoImpl().searchMaterialTB(mType);
-				JSONArray ja=new JSONArray().fromObject(list);
+				JSONArray ja=JSONArray.fromObject(list);
 				out.write(ja.toString());
 				return;
 			}

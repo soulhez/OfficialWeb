@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.impl.ArticleTypeTBDaoImpl;
 
-import sun.awt.SunToolkit.InfiniteLoop;
 import util.WebUtils;
 
 import entity.ArticleTypeTB;
@@ -32,7 +31,7 @@ public class ArticleTypeTBServlet extends HttpServlet {
 			PrintWriter out=response.getWriter();
 			//添加文章类型
 			if(method.equalsIgnoreCase("add")){
-				articleTypeTB=new WebUtils().beanFrom(request, ArticleTypeTB.class);
+				articleTypeTB=WebUtils.beanFrom(request, ArticleTypeTB.class);
 				number=new ArticleTypeTBDaoImpl().addArticleTypeTB(articleTypeTB);
 				if(number>0){
 					out.write("添加成功");
@@ -44,7 +43,7 @@ public class ArticleTypeTBServlet extends HttpServlet {
 				
 			}//修改文章类型
 			else if(method.equalsIgnoreCase("update")){
-				articleTypeTB=new WebUtils().beanFrom(request, ArticleTypeTB.class);
+				articleTypeTB= WebUtils.beanFrom(request, ArticleTypeTB.class);
 				number=new ArticleTypeTBDaoImpl().updateArticleTypeTB(articleTypeTB);
 				if(number>0){
 					out.write("修改成功");

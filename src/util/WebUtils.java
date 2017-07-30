@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
 
+import com.mysql.jdbc.Field;
 import com.sun.org.apache.commons.beanutils.BeanUtils;
 /**
  * JavaBeanπ§æﬂ¿‡
@@ -21,6 +22,10 @@ import com.sun.org.apache.commons.beanutils.BeanUtils;
  *
  */
 public class WebUtils {
+	public static String getPath(HttpServletRequest request){
+		return request.getSession().getServletContext().getRealPath("/")+"\\news\\";
+	}
+	@SuppressWarnings("unchecked")
 	public static <T> T beanFrom(HttpServletRequest request,Class<T> from){
 		T bean;
 		try {
@@ -78,9 +83,9 @@ public class WebUtils {
 		}
 		return num;
 	}
-	public static String readFile(String path){
+	public static String readFile(String path,String name){
 		String str=null;
-		File file=new File(path);
+		File file=new File(path+name+".txt");
 		Reader reader=null;
 		BufferedReader breader=null;
 		try {
@@ -106,5 +111,9 @@ public class WebUtils {
 			}
 		}
 		return str; 
+	}
+	public static boolean deleteFile(String path,String name){
+		File file=new File(path+name+".txt");
+		return file.delete();
 	}
 }

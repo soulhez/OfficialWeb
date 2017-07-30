@@ -42,7 +42,7 @@ public class NvntitleTBServlet extends HttpServlet {
 			}else{
 				//显示所有导航
 				List<NvntitleTB> list=new NvntitleTBDaoImpl().searchNvntitleTB();
-				JSONArray nvnTitleTBlist=new JSONArray().fromObject(list);
+				JSONArray nvnTitleTBlist=JSONArray.fromObject(list);
 				out.write(nvnTitleTBlist.toString());
 			}
 	}
