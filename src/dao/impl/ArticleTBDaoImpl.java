@@ -2,7 +2,6 @@ package dao.impl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import util.WebUtils;
@@ -34,9 +33,9 @@ public class ArticleTBDaoImpl extends BaseDao implements ArticleTBDao {
 	/**
 	 * 根据文章ID修改文章
 	 */
-	public int updateArticleTB(String aId, ArticleTB articleTB) {
+	public int updateArticleTB(ArticleTB articleTB) {
 		String sql="update articleTB set articletitle=?,articlecontent=?,newDate=?,articletypetbID=? where id=?";
-		return executeUpdate(sql,articleTB.getaArticleTitle(),articleTB.getaArticlePath(),articleTB.getaNewDate(),articleTB.getaArticleTypetbID(),aId);
+		return executeUpdate(sql,articleTB.getaArticleTitle(),articleTB.getaArticlePath(),articleTB.getaNewDate(),articleTB.getaArticleTypetbID(),articleTB.getaId());
 	}
 	/**
 	 * 根据文章ID删除文章

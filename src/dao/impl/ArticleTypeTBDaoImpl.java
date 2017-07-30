@@ -52,7 +52,7 @@ public class ArticleTypeTBDaoImpl extends BaseDao implements ArticleTypeTBDao {
 	/**
 	 * 修改文章类型
 	 */
-	public int updateArticleTypeTB(String aId, ArticleTypeTB articleTypeTB) {
+	public int updateArticleTypeTB(ArticleTypeTB articleTypeTB) {
 		String sql="update articletypeTB set name=?,nvntitleTBid=? where id=?";
 		return executeUpdate(sql,articleTypeTB.getaName(),articleTypeTB.getaNvntitleTBid(),articleTypeTB.getaId());
 	}

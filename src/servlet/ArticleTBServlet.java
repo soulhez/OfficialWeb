@@ -62,8 +62,7 @@ public class ArticleTBServlet extends HttpServlet {
 			}//根据文章ID修改文章
 			else if(method.equalsIgnoreCase("update")){
 				articleTB=new WebUtils().beanFrom(request, ArticleTB.class);
-				aId=request.getParameter("id");
-				number=new ArticleTBDaoImpl().updateArticleTB(aId, articleTB);
+				number=new ArticleTBDaoImpl().updateArticleTB(articleTB);
 				if (number>0) {
 					out.write("添加成功");
 					return;
