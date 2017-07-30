@@ -1,0 +1,183 @@
+/*导航样式*/
+[name='hiddennav']{
+	display: none;
+	padding-left: 30px;
+}
+.navli{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+hr{
+	padding: 0px;
+	margin-left: 0px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+[name='hiddennav'] a{
+	cursor: pointer;
+	color: black;
+}
+.title a{
+	color: #D43F3A;
+	font-size: 17px;
+	font-weight: bold;
+}
+#imagesLength li{
+	background-color:gray;
+	margin-left: 10px;
+	margin-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+#imagesLength{
+	position: relative;
+	bottom: 30px;
+}
+
+/*轮播样式*/
+*{margin:0;padding:0;}
+#box{
+    width:1400px;
+    height:535px;
+    margin: 30px auto;
+    border: 1px solid #ccc;
+    position:relative;
+}
+.imglist{
+    width: 1400px;
+    height:535px;
+    list-style: none;
+}
+.imglist li{
+    width: 100%;
+    height:100%;
+    position:relative;
+    overflow: hidden;
+    display:none;
+}
+.imglist li img{
+    position:absolute;
+}
+.imglist li .txt{
+    left:-760px;
+    cursor: pointer;
+}
+.imglist li .con{
+    left:-25px;
+    display: none;
+}
+.numlist{
+    list-style: none;
+    width: 180px;
+    height:20px;
+    position:absolute;
+    right:20px;
+    bottom: 20px;
+}
+.numlist li{
+    width: 20px;
+    height:20px;
+    float:left;
+    margin-right:10px;
+    border:1px solid #fff;
+    cursor: pointer;
+}
+.active{
+    background: #fff;
+}
+.aright{
+    right:0;
+    background-position: -54px 0;
+}
+
+/*地图样式*/
+[id*=dw]{
+	position: relative;
+	cursor: pointer;
+}
+[id*=dwimg]{
+	position: relative;
+	opacity: 0.8;
+	background-color: white;
+	width: 210px;
+	display: none;
+}
+[id*=dwimg] h4{
+	 margin-top: 0px;
+}
+#dw0{
+	bottom: 260px;
+	left: 620px;
+}
+#dwimg0{
+	bottom: 585px;
+	left: 635px;
+}
+#dw1{
+	bottom: 330px;
+	left: 670px;
+}
+#dwimg1{
+	bottom: 640px;
+	left: 685px;
+}
+#dw2{
+	bottom: 280px;
+	left: 720px;
+}
+#dwimg2{
+	bottom: 570px;
+	left: 735px;
+}
+#dw3{
+	bottom: 200px;
+	left: 720px;
+}
+#dwimg3{
+	bottom: 470px;
+	left: 735px;
+}
+#dw4{
+	bottom: 180px;
+	left: 700px;
+}
+#dwimg4{
+	bottom: 430px;
+	left: 715px;
+}
+#dw5{
+	bottom: 290px;
+	left: 610px;
+}
+#dwimg5{
+	bottom: 520px;
+	left: 625px;
+}
+#dw6{
+	bottom: 290px;
+	left: 610px;
+}
+#dwimg6{
+	bottom: 500px;
+	left: 625px;
+}
+/*页脚样式*/
+footer{
+	background-color: #333;
+	color: #eee;
+	font-size: 11px;
+	padding: 20px;
+	margin-top: 20px;
+}
+footer a{
+	color: #ADADAD;
+}
+footer dt{
+	font-size: 15px;
+}
+footer dd{
+	padding: 3px;
+	padding-left: 24px;
+}
