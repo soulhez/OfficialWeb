@@ -12,11 +12,11 @@ public class ArticleTB {
 	public ArticleTB() {
 		super();
 	}
-	public ArticleTB(String aArticleTitle, String aContent, String aNewDate,
+	public ArticleTB(String aId, String aArticleTitle, String aNewDate,
 			String aArticleTypetbID) {
 		super();
+		this.aId = aId;
 		this.aArticleTitle = aArticleTitle;
-		this.aContent = aContent;
 		this.aNewDate = aNewDate;
 		this.aArticleTypetbID = aArticleTypetbID;
 	}

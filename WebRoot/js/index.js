@@ -38,20 +38,37 @@ $(function(){
 	$("[name='hiddennav']").live("mouseout",function(){
 		$("[name='hiddennav']").eq(navindex).slideUp();
 	});
-	$("[name='hiddennav'] a").hover(function(){
-		$(this).css("text-decoration","none");
-	},function(){
+	$("[name='hiddennav'] a").live("mouseover",function(){
 		$(this).css("text-decoration","none");
 	});
-	$("footer a").hover(function(){
+	$("[name='hiddennav'] a").live("mouseout",function(){
+		$(this).css("text-decoration","none");
+	});
+	$("[name='hiddennav'] a").live("click",function(){
+		$.ajax({
+			type:"POST",
+			dataType:"json",
+			url:"IDServlet",
+			data:{
+				"method":"searchArticleTBByID",
+				"id":$(this).next("input").val()
+			},
+			success:function(data){
+				alert(data['aContent']);
+			}
+		});
+	});
+	$("footer a").live("mouseover",function(){
 		$(this).css({"color":"white","text-decoration":"none"});
-	},function(){
+	});
+	$("footer a").live("mouseout",function(){
 		$(this).css({"color":"#ADADAD","text-decoration":"none"});
 	});
 	//轮播图鼠标悬浮离开事件
-	$("#box").hover(function(){
+	$("#box").live("mouseover",function(){
 		window.clearInterval(timer);
-	},function(){
+	});
+	$("#box").live("mouseout",function(){
 		timer=window.setInterval(step,4000);
 	});
 	//数字点击方法
@@ -60,7 +77,7 @@ $(function(){
 	    change()
 	});
 	//视频播放
-	$("#dongcha img").click(function(){
+	$("#dongcha img").live("click",function(){
 		$(this).parent().append('<video src="video/dongcha.mp4" autoplay="autoplay" width="1278" height="441"></video>');
 		$("#dongcha img").hide();
 	});

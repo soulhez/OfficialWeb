@@ -30,8 +30,8 @@ public class ArticleTBDaoImplTest {
 		System.out.println("根据文章ID查询类型"+articleTypeTB2.getaId());
 		*/
 		//根据文章ID查询文章Test
-		ArticleTB articleTB2=new ArticleTBDaoImpl().searchArticleTBByID(articleTB.getaId());
-		System.out.println("根据文章ID查询文章成功"+articleTB2.getaArticlePath());
+//		ArticleTB articleTB2=new ArticleTBDaoImpl().searchArticleTBByID(articleTB.getaId());
+//		System.out.println("根据文章ID查询文章成功"+articleTB2.getaArticlePath());
 		/**
 		//根据文章ID修改文章Test
 		number=new ArticleTBDaoImpl().updateArticleTB(articleTB2.getaId(), articleTB2);

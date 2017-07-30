@@ -33,10 +33,8 @@ public class IDServlet extends HttpServlet {
 			throws ServletException, IOException {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
-			String method=null;
-			method=request.getParameter("method");
-			String id=null;
-			id=(String)request.getAttribute("id");
+			String method=request.getParameter("method");
+			String id=(String)request.getParameter("id");
 			String start=null;
 			start=request.getParameter("start");
 			String end=null;
@@ -53,7 +51,7 @@ public class IDServlet extends HttpServlet {
 			else if(method.equalsIgnoreCase("searchArticleTBByID")){
 				ArticleTB at=new  ArticleTBDaoImpl().searchArticleTBByID(id,WebUtils.getPath(request));
 				JSONObject json=JSONObject.fromObject(at);
-				out.write(json.toString());
+				out.print(json);
 				return;
 			}
 			 //根据导航ID查询文章类型集合
