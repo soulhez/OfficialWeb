@@ -51,7 +51,7 @@ public class IDServlet extends HttpServlet {
 			else if(method.equalsIgnoreCase("searchArticleTBByID")){
 				ArticleTB at=new  ArticleTBDaoImpl().searchArticleTBByID(id,WebUtils.getPath(request));
 				JSONObject json=JSONObject.fromObject(at);
-				out.print(json);
+				out.write(json.toString());
 				return;
 			}
 			 //根据导航ID查询文章类型集合

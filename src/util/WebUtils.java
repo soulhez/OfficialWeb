@@ -3,9 +3,11 @@ package util;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.Enumeration;
@@ -14,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
 
-import com.mysql.jdbc.Field;
 import com.sun.org.apache.commons.beanutils.BeanUtils;
 /**
  * JavaBeanπ§æﬂ¿‡
@@ -86,11 +87,11 @@ public class WebUtils {
 	public static String readFile(String path,String name){
 		String str=null;
 		File file=new File(path+name+".txt");
-		Reader reader=null;
+		InputStreamReader isr = null;
 		BufferedReader breader=null;
 		try {
-			reader=new FileReader(file);
-			breader=new BufferedReader(reader);
+			isr=new InputStreamReader(new FileInputStream(file), "UTF-8");
+			breader=new BufferedReader(isr);
 			str=breader.readLine();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -102,9 +103,9 @@ public class WebUtils {
 					e.printStackTrace();
 				}
 			}
-			if(reader!=null){
+			if(isr!=null){
 				try {
-					reader.close();
+					isr.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

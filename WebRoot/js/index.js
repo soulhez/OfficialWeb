@@ -44,19 +44,36 @@ $(function(){
 	$("[name='hiddennav'] a").live("mouseout",function(){
 		$(this).css("text-decoration","none");
 	});
-	$("[name='hiddennav'] a").live("click",function(){
-		$.ajax({
-			type:"POST",
-			dataType:"json",
-			url:"IDServlet",
-			data:{
-				"method":"searchArticleTBByID",
-				"id":$(this).next("input").val()
-			},
-			success:function(data){
-				alert(data['aContent']);
-			}
-		});
+	$("[name='hiddennav'] span").live("click",function(){
+		var id=$(this).next("input").val();
+		$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
+		setTimeout(function(){
+			var div='<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">';
+			div+="<img src='img/newsTop.jpg' width='100%'>";
+			div+="<div class='container'><hr/><div>";
+			div+="</div>";
+			$.ajax({
+				url:"IDServlet",
+				type:"POST",
+				async:false,
+				dataType:"json",
+				cache:false,
+				data:{
+					"method":"searchArticleTBByID",
+					"id":id
+				},
+				beforeSend:function(){
+					$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
+				},
+				success:function(data){
+					div+="<div class='container'>";
+					div+="<h1 class='text-center'>"+data['aArticleTitle']+"</h1><br/><br/>";
+					div+=data['aContent'];
+					div+="</div>";
+					$("#body").html(div);
+				}
+			});
+		},2000);
 	});
 	$("footer a").live("mouseover",function(){
 		$(this).css({"color":"white","text-decoration":"none"});

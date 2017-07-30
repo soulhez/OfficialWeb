@@ -13,11 +13,11 @@ hr{
 	margin-top: 15px;
 	margin-bottom: 15px;
 }
-[name='hiddennav'] a{
+[name='hiddennav'] span{
 	cursor: pointer;
 	color: black;
 }
-.title a{
+.title span{
 	color: #D43F3A;
 	font-size: 17px;
 	font-weight: bold;
@@ -171,7 +171,7 @@ footer{
 	padding: 20px;
 	margin-top: 20px;
 }
-footer a{
+footer span{
 	color: #ADADAD;
 }
 footer dt{
