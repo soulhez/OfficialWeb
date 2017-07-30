@@ -28,11 +28,94 @@ create table materialTB(
  create table articleTB(
   id int not null auto_increment primary key comment"文章ID",
   articletitle nvarchar(30) not null comment"文章标题",
-  articlepath  nvarchar(200) comment"文章内容存放地址",
   newDate datetime  default CURRENT_TIMESTAMP comment"文章创建时间",
   articletypetbID int comment"关联的文章类型ID",
   foreign key(articletypetbID) references articletypeTB(id));
 
-	insert into nvntitleTB(content) value('标题已');
-	insert into articletypeTB(name,nvntitleTBid) value('文章类型',1);
   
+ use officialwebDB;
+insert into nvntitleTB(content) value('新闻');
+insert into nvntitleTB(content) value('产品及解决方案');
+insert into nvntitleTB(content) value('服务');
+insert into nvntitleTB(content) value('关于我们');
+
+insert into adminTB(userName,Email,pwd) value('admin','suwanjin@qq.com','8888');
+
+insert into materialTB(name,type) value('logo.png','导航logo');
+insert into materialTB(name,type) value('navleft1.jpg','导航下拉');
+insert into materialTB(name,type) value('navleft2.jpg','导航下拉');
+insert into materialTB(name,type) value('navleft3.jpg','导航下拉');
+insert into materialTB(name,type) value('con1.jpg','轮播图');
+insert into materialTB(name,type) value('con2.jpg','轮播图');
+insert into materialTB(name,type) value('con3.jpg','轮播图');
+insert into materialTB(name,type) value('text1.png','轮播图文字');
+insert into materialTB(name,type) value('text2.png','轮播图文字');
+insert into materialTB(name,type) value('text3.png','轮播图文字');
+insert into materialTB(name,type) value('dongcha.mp4','视频');
+insert into materialTB(name,type) value('hexin1.jpg','核心能力');
+insert into materialTB(name,type) value('hexin2.jpg','核心能力');
+insert into materialTB(name,type) value('hexin3.jpg','核心能力');
+
+insert into articletypeTB(name,nvntitleTBid) value('新闻',1);
+insert into articletypeTB(name,nvntitleTBid) value('政务级解决方案',2);
+insert into articletypeTB(name,nvntitleTBid) value('行业与企业级解决方案',2);
+insert into articletypeTB(name,nvntitleTBid) value('咨询与解决方案',3);
+insert into articletypeTB(name,nvntitleTBid) value('技术服务',3);
+insert into articletypeTB(name,nvntitleTBid) value('互联网服务',3);
+insert into articletypeTB(name,nvntitleTBid) value('其他',3);
+insert into articletypeTB(name,nvntitleTBid) value('关于我们',4);
+
+insert into articleTB(articletitle,articletypetbID) value('软通动力董事长刘天文：互联网+与智慧城市相呼应 拉动产业转型升级','1');
+insert into articleTB(articletitle,articletypetbID) value('软通动力城市云解决方案','1');
+insert into articleTB(articletitle,articletypetbID) value('软通动力云服务平台','1');
+insert into articleTB(articletitle,articletypetbID) value('软通动力智慧业务 中小企业云','1');
+insert into articleTB(articletitle,articletypetbID) value('软通动力智慧业务 跨境电商','1');
+insert into articleTB(articletitle,articletypetbID) value('软通动力企业金融解决方案','1');
+insert into articleTB(articletitle,articletypetbID) value('开启城市发展新篇章 软通动力牵头成立城市运营专委会','1');
+insert into articleTB(articletitle,articletypetbID) value('城市云解决方案','2');
+insert into articleTB(articletitle,articletypetbID) value('云数据中心解决方案','2');
+insert into articleTB(articletitle,articletypetbID) value('智慧农业解决方案','2');
+insert into articleTB(articletitle,articletypetbID) value('智慧工业解决方案','2');
+insert into articleTB(articletitle,articletypetbID) value('智慧环保解决方案','2');
+insert into articleTB(articletitle,articletypetbID) value('智慧能源解决方案','2');
+insert into articleTB(articletitle,articletypetbID) value('智慧文旅解决方案','2');
+insert into articleTB(articletitle,articletypetbID) value('智慧医疗解决方案','2');
+insert into articleTB(articletitle,articletypetbID) value('智慧康养解决方案','2');
+insert into articleTB(articletitle,articletypetbID) value('智慧政务解决方案','2');
+insert into articleTB(articletitle,articletypetbID) value('智慧社区解决方案','2');
+insert into articleTB(articletitle,articletypetbID) value('智慧园区解决方案','2');
+insert into articleTB(articletitle,articletypetbID) value('智慧物流解决方案','2');
+insert into articleTB(articletitle,articletypetbID) value('基于云服务的教育资源管理解决方案','2');
+insert into articleTB(articletitle,articletypetbID) value('IT基础设施解决方案','2');
+insert into articleTB(articletitle,articletypetbID) value('产业互联网解决方案','2');
+insert into articleTB(articletitle,articletypetbID) value('智慧城市科学规划平台|Cityfusion','2');
+insert into articleTB(articletitle,articletypetbID) value('城市轨迹｜Urban·VRP—城市大数据可视化综合运营管理规划平台','2');
+insert into articleTB(articletitle,articletypetbID) value('大数据+混合智能城市服务洞察平台','2');
+insert into articleTB(articletitle,articletypetbID) value('政产学研联合创新中心解决方案','2');
+insert into articleTB(articletitle,articletypetbID) value('乐业空间解决方案','2');
+insert into articleTB(articletitle,articletypetbID) value('创新体验中心','2');
+insert into articleTB(articletitle,articletypetbID) value('展厅系统|iAVATAR','2');
+insert into articleTB(articletitle,articletypetbID) value('银行业解决方案','3');
+insert into articleTB(articletitle,articletypetbID) value('企业金融解决方案','3');
+insert into articleTB(articletitle,articletypetbID) value('保险行业解决方案','3');
+insert into articleTB(articletitle,articletypetbID) value('地产行业解决方案','3');
+insert into articleTB(articletitle,articletypetbID) value('能源行业解决方案','3');
+insert into articleTB(articletitle,articletypetbID) value('汽车行业解决方案','3');
+insert into articleTB(articletitle,articletypetbID) value('智能终端测试解决方案','3');
+insert into articleTB(articletitle,articletypetbID) value('运营商大数据解决方案','3');
+insert into articleTB(articletitle,articletypetbID) value('跨境电商解决方案','3');
+insert into articleTB(articletitle,articletypetbID) value('智能制造平台解决方案','3');
+insert into articleTB(articletitle,articletypetbID) value('证券业解决方案','3');
+insert into articleTB(articletitle,articletypetbID) value('咨询','4');
+insert into articleTB(articletitle,articletypetbID) value('系统集成','4');
+insert into articleTB(articletitle,articletypetbID) value('信息系统设计与开发','5');
+insert into articleTB(articletitle,articletypetbID) value('测试','5');
+insert into articleTB(articletitle,articletypetbID) value('运行维护','5');
+insert into articleTB(articletitle,articletypetbID) value('业务流程外包（BPO）','5');
+insert into articleTB(articletitle,articletypetbID) value('中小企业云一站式服务平台','6');
+insert into articleTB(articletitle,articletypetbID) value('数据开放及API分发服务平台','6');
+insert into articleTB(articletitle,articletypetbID) value('IT服务众包平台','6');
+insert into articleTB(articletitle,articletypetbID) value('跨境贸易一站式服务平台','6');
+insert into articleTB(articletitle,articletypetbID) value('协同制造平台','6');
+insert into articleTB(articletitle,articletypetbID) value('乐业空间','7');
+insert into articleTB(articletitle,articletypetbID) value('苏皖晋信息技术（集团）有限公司','8');
