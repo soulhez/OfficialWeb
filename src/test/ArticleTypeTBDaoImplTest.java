@@ -27,7 +27,7 @@ public class ArticleTypeTBDaoImplTest {
 	
 		
 		////修改文章类型Test
-		number=new ArticleTypeTBDaoImpl().updateArticleTypeTB(articleTypeTB.getaId(), articleTypeTB);
+		number=new ArticleTypeTBDaoImpl().updateArticleTypeTB(articleTypeTB);
 		System.out.println("修改的影响行数"+number);
 		
 		//删除文章类型Test
