@@ -31,10 +31,14 @@ public class IDServlet extends HttpServlet {
 			throws ServletException, IOException {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
-			String method=request.getParameter("method");
-			String id=(String)request.getAttribute("id");
-			String start=request.getParameter("start");
-			String end=request.getParameter("end");
+			String method=null;
+			method=request.getParameter("method");
+			String id=null;
+			id=(String)request.getAttribute("id");
+			String start=null;
+			start=request.getParameter("start");
+			String end=null;
+			end=request.getParameter("end");
 			
 			//根据文章类型ID查询文章后，以文章创建时间降序排列
 			PrintWriter out=response.getWriter();

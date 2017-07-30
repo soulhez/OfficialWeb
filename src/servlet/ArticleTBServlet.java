@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,12 +30,17 @@ public class ArticleTBServlet extends HttpServlet {
 			String aId=null;//文章id
 			String aArticleTypetbID=null;//文章类型id
 			String method =request.getParameter("method");
+			if (method==null) {
+				System.out.println("null");
+				return;
+			}
 			PrintWriter out=response.getWriter();
 			int number=0;
 			//添加文章
 			if (method.equalsIgnoreCase("add")) {
 				articleTB=new WebUtils().beanFrom(request, ArticleTB.class);
-				 number=new ArticleTBDaoImpl().addArticleTB(articleTB);
+				ServletContext sc=request.getSession().getServletContext();
+				 number=new ArticleTBDaoImpl().addArticleTB(sc.getRealPath("/")+"\\news\\",articleTB);
 				if (number>0) {
 					out.write("添加成功");
 					return;
