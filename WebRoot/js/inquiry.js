@@ -3,8 +3,9 @@ function select(address){
 	$.ajax({
 		url:address,
 		type:"post",
+		cache:false,
 		dataType:"json",
-		async:false,
+		data:{"method":"searchArticleTB","id":"","start":0,"end":5},
 		error:function(e){
 		alert(e.status);
 		},
@@ -15,5 +16,8 @@ function select(address){
 	return datas;
 }
 $(function(){
-	var bean=select("");
+	var bean=select("IDServlet");
+	alert(bean);
+	alert("1");
+	alert("2");
 });
