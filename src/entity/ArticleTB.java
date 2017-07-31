@@ -9,25 +9,28 @@ public class ArticleTB {
 	private String aContent;//文章内容
 	private String aNewDate;//文章创建时间
 	private String aArticleTypetbID;//关联的文章类型ID
+	private String aArticleTypetbName;//关联的文章类型名称
 	public ArticleTB() {
 		super();
 	}
-	public ArticleTB(String aId, String aArticleTitle, String aNewDate,
-			String aArticleTypetbID) {
+	public ArticleTB(String aArticleTitle, String aContent, String aNewDate,
+			String aArticleTypetbID, String aArticleTypetbName) {
 		super();
-		this.aId = aId;
 		this.aArticleTitle = aArticleTitle;
+		this.aContent = aContent;
 		this.aNewDate = aNewDate;
 		this.aArticleTypetbID = aArticleTypetbID;
+		this.aArticleTypetbName = aArticleTypetbName;
 	}
 	public ArticleTB(String aId, String aArticleTitle, String aContent,
-			String aNewDate, String aArticleTypetbID) {
+			String aNewDate, String aArticleTypetbID, String aArticleTypetbName) {
 		super();
 		this.aId = aId;
 		this.aArticleTitle = aArticleTitle;
 		this.aContent = aContent;
 		this.aNewDate = aNewDate;
 		this.aArticleTypetbID = aArticleTypetbID;
+		this.aArticleTypetbName = aArticleTypetbName;
 	}
 	public String getaId() {
 		return aId;
@@ -58,5 +61,11 @@ public class ArticleTB {
 	}
 	public void setaArticleTypetbID(String aArticleTypetbID) {
 		this.aArticleTypetbID = aArticleTypetbID;
+	}
+	public String getaArticleTypetbName() {
+		return aArticleTypetbName;
+	}
+	public void setaArticleTypetbName(String aArticleTypetbName) {
+		this.aArticleTypetbName = aArticleTypetbName;
 	}
 }

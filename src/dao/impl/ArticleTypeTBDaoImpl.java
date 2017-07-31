@@ -34,7 +34,12 @@ public class ArticleTypeTBDaoImpl extends BaseDao implements ArticleTypeTBDao {
 	public List<ArticleTypeTB> searchArticleTypeTB(String aNvntitleTBid) {
 		List<ArticleTypeTB> list=new ArrayList<ArticleTypeTB>();
 		ArticleTypeTB at=null;
-		String sql="select * from articletypeTB where nvntitleTBid=?";
+		String sql=null;
+		if(aNvntitleTBid.equals("")||aNvntitleTBid==null){
+			sql="select * from articletypeTB";
+		}else{
+			sql="select * from articletypeTB where nvntitleTBid=?";
+		}
 		rs=executeQuery(sql,aNvntitleTBid);
 		try {
 			while(rs.next()){
@@ -56,6 +61,4 @@ public class ArticleTypeTBDaoImpl extends BaseDao implements ArticleTypeTBDao {
 		String sql="update articletypeTB set name=?,nvntitleTBid=? where id=?";
 		return executeUpdate(sql,articleTypeTB.getaName(),articleTypeTB.getaNvntitleTBid(),articleTypeTB.getaId());
 	}
-	
-
 }

@@ -54,16 +54,16 @@ public class ArticleTBDaoImpl extends BaseDao implements ArticleTBDao {
 	public List<ArticleTB> searchArticleTB(String aArticleTypetbID, String start,String end) {
 		String sql=null;
 		if(aArticleTypetbID.equals("")||aArticleTypetbID==null){
-			sql="select at.articletitle,newDate,ty.name from ArticleTB at inner join articletypetb ty  at.articletypetbID=ty.id order by newDate desc limit ?,?";
+			sql="select at.id,at.articletitle,newDate,ty.name,ty.id from ArticleTB at inner join articletypetb ty on  at.articletypetbID=ty.id order by newDate desc limit ?,?";
 		}else{
-			sql="select at.articletitle,newDate,ty.name from ArticleTB at inner join articletypetb ty  at.articletypetbID=ty.id where articletypetbID=?  order by newDate desc limit ?,?";
+			sql="select at.id,at.articletitle,newDate,ty.name,ty.id from ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id where articletypetbID=?  order by newDate desc limit ?,?";
 		}
 		List<ArticleTB> list=new ArrayList<ArticleTB>();
 		ArticleTB at=null;
 		rs=executeQuery(sql,aArticleTypetbID,Integer.parseInt(start),Integer.parseInt(end));
 		try {
 			while(rs.next()){
-				at=new ArticleTB(rs.getString("id"),rs.getString("articletitle"),rs.getString("newDate"),rs.getString("articletypetbID"));
+				at=new ArticleTB(rs.getString("at.id"),rs.getString("at.articletitlee"),rs.getString("at.newDate"),rs.getString("ty.id"),rs.getString("ty.name"));
 				list.add(at);
 			}
 		} catch (SQLException e) {
@@ -78,11 +78,11 @@ public class ArticleTBDaoImpl extends BaseDao implements ArticleTBDao {
 	 */
 	public ArticleTB searchArticleTBByID(String aId,String path) {
 		ArticleTB at=null;
-		String sql="select * from articleTB where id=?";
+		String sql="select at.id,at.articletitle,at.newDate,ty.name,ty.id from  ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id articleTB where id=?";
 		rs=executeQuery(sql,aId);
 		try {
 			while(rs.next()){
-				at=new ArticleTB(rs.getString("id"),rs.getString("articletitle"),rs.getString("newDate"),rs.getString("articletypetbID"));
+				at=new ArticleTB(rs.getString("at.id"),rs.getString("at.articletitlee"),rs.getString("at.newDate"),rs.getString("ty.id"),rs.getString("ty.name"));
 				at.setaContent(WebUtils.readFile(path,at.getaArticleTitle()));
 			}
 		} catch (SQLException e) {
