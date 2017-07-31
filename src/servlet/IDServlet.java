@@ -34,7 +34,8 @@ public class IDServlet extends HttpServlet {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
 			String method=request.getParameter("method");
-			String id=(String)request.getParameter("id");
+			String id=null;
+			id=request.getParameter("id");
 			String start=null;
 			start=request.getParameter("start");
 			String end=null;

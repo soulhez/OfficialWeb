@@ -52,9 +52,14 @@ public class ArticleTBDaoImpl extends BaseDao implements ArticleTBDao {
 	 * 根据文章类型ID查询文章后，以文章创建时间降序排列
 	 */
 	public List<ArticleTB> searchArticleTB(String aArticleTypetbID, String start,String end) {
+		String sql=null;
+		if(aArticleTypetbID.equals("")||aArticleTypetbID==null){
+			sql="select at.articletitle,newDate,ty.name from ArticleTB at inner join articletypetb ty  at.articletypetbID=ty.id order by newDate desc limit ?,?";
+		}else{
+			sql="select at.articletitle,newDate,ty.name from ArticleTB at inner join articletypetb ty  at.articletypetbID=ty.id where articletypetbID=?  order by newDate desc limit ?,?";
+		}
 		List<ArticleTB> list=new ArrayList<ArticleTB>();
 		ArticleTB at=null;
-		String sql="select * from ArticleTB where articletypetbID=? order by newDate desc limit ?,?";
 		rs=executeQuery(sql,aArticleTypetbID,Integer.parseInt(start),Integer.parseInt(end));
 		try {
 			while(rs.next()){
