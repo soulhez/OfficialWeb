@@ -18,7 +18,7 @@ public class NvntitleTBDaoImpl extends BaseDao implements NvntitleTBDao {
 	 * 查看所有导航
 	 */
 	public List<NvntitleTB> searchNvntitleTB() {
-		String sql="select *from nvntitleTB";
+		String sql="select * from nvntitleTB";
 		rs=executeQuery(sql);
 		List<NvntitleTB> list=new ArrayList<NvntitleTB>();
 		NvntitleTB nvntitleTB=null;
