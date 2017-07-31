@@ -6,7 +6,7 @@ function select(address){
 		cache:false,
 		async:false,
 		dataType:"json",
-		data:{"method":"searchArticleTB","id":"","start":0,"end":5},
+		data:{"method":"searchArticleTB","start":0,"end":5},
 		error:function(e){
 		alert(e.status);
 		},
@@ -18,7 +18,7 @@ function select(address){
 }
 $(function(){
 	var bean=select("IDServlet");
-	alert(bean[0].aArticleTitle);
-	alert("1");
-	alert("2");
+	for(Object in bean){
+		
+	}
 });
