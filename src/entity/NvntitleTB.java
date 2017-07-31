@@ -7,29 +7,36 @@ package entity;
 public class NvntitleTB {
 	private String nId;//导航标题ID
 	private String nContent;//导航标题内容
+	
 	public NvntitleTB() {
 		super();
 	}
-	public NvntitleTB(String nNontent) {
+
+	public NvntitleTB(String nContent) {
 		super();
-		this.nContent = nNontent;
+		this.nContent = nContent;
 	}
-	public NvntitleTB(String nId, String nNontent) {
+
+	public NvntitleTB(String nId, String nContent) {
 		super();
 		this.nId = nId;
-		this.nContent = nNontent;
+		this.nContent = nContent;
 	}
+
 	public String getnId() {
 		return nId;
 	}
+
 	public void setnId(String nId) {
 		this.nId = nId;
 	}
-	public String getnNontent() {
+
+	public String getnContent() {
 		return nContent;
 	}
-	public void setnNontent(String nNontent) {
-		this.nContent = nNontent;
+
+	public void setnContent(String nContent) {
+		this.nContent = nContent;
 	}
 	
 }

@@ -8,6 +8,21 @@ $(function(){
 	var numli=$(".numlist li");//数字下面的li
 	imgli.eq(0).show();//显示第一张图片
 	change();
+	/*加载导航*/
+	var daoHangList=new Array();
+	$.ajax({
+		url:"NvntitleTBServlet",
+		type:"POST",
+		cache:false,
+		dataType:"json",
+		data:{"method":""},
+		success:function(data){
+			alert(data[0]['nContent']);
+		}
+	});
+	/*加载导航隐藏内容*/
+	/*加载轮播*/
+	/*加载页脚*/
 	/***************************方法*************************************/
 	//下一张轮播图
 	function step(){
