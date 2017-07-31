@@ -69,7 +69,12 @@ public class ArticleTBDaoImpl extends BaseDao implements ArticleTBDao {
 		ArticleTB at=null;
 		try {
 			while(rs.next()){
-				at=new ArticleTB(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5));
+				at=new ArticleTB();
+				at.setaId(rs.getString(1));
+				at.setaArticleTitle(rs.getString(2));
+				at.setaNewDate(rs.getString(3));
+				at.setaArticleTypetbID(rs.getString(4));
+				at.setaArticleTypetbName(rs.getString(5));
 				list.add(at);
 			}
 		} catch (SQLException e) {
@@ -84,11 +89,16 @@ public class ArticleTBDaoImpl extends BaseDao implements ArticleTBDao {
 	 */
 	public ArticleTB searchArticleTBByID(String aId,String path) {
 		ArticleTB at=null;
-		String sql="select at.id,at.articletitle,at.newDate,ty.name,ty.id from  ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id articleTB where id=?";
+		String sql="select at.id,at.articletitle,at.newDate,ty.id,ty.name from  ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id articleTB where id=?";
 		rs=executeQuery(sql,aId);
 		try {
 			while(rs.next()){
-				at=new ArticleTB(rs.getString("at.id"),rs.getString("at.articletitlee"),rs.getString("at.newDate"),rs.getString("ty.id"),rs.getString("ty.name"));
+				at=new ArticleTB();
+				at.setaId(rs.getString(1));
+				at.setaArticleTitle(rs.getString(2));
+				at.setaNewDate(rs.getString(3));
+				at.setaArticleTypetbID(rs.getString(4));
+				at.setaArticleTypetbName(rs.getString(5));
 				at.setaContent(WebUtils.readFile(path,at.getaArticleTitle()));
 			}
 		} catch (SQLException e) {
