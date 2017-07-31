@@ -58,7 +58,7 @@ public class ArticleTBDaoImpl extends BaseDao implements ArticleTBDao {
 	 */
 	public List<ArticleTB> searchArticleTB(String aArticleTypetbID, String start,String end) {
 		String sql=null;
-		if(aArticleTypetbID.equals("")||aArticleTypetbID==null){
+		if(aArticleTypetbID==null){
 			sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on  at.articletypetbID=ty.id order by newDate desc limit ?,?";
 			rs=executeQuery(sql,Integer.parseInt(start),Integer.parseInt(end));
 		}else{

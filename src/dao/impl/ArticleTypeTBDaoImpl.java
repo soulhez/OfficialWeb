@@ -35,7 +35,7 @@ public class ArticleTypeTBDaoImpl extends BaseDao implements ArticleTypeTBDao {
 		List<ArticleTypeTB> list=new ArrayList<ArticleTypeTB>();
 		ArticleTypeTB at=null;
 		String sql=null;
-		if(aNvntitleTBid.equals("")||aNvntitleTBid==null){
+		if(aNvntitleTBid==null){
 			sql="select * from articletypeTB";
 		}else{
 			sql="select * from articletypeTB where nvntitleTBid=?";
