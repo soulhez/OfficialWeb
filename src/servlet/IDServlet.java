@@ -52,7 +52,6 @@ public class IDServlet extends HttpServlet {
 			 if(method.equalsIgnoreCase("searchArticleTB")){
 				 List<ArticleTB> list=new ArticleTBDaoImpl().searchArticleTB(id, start, end);
 				 JSONArray ja=JSONArray.fromObject(list);
-				 System.out.print(ja.toString());
 				 out.write(ja.toString());
 				 return;
 			}//根据文章ID查询文章
