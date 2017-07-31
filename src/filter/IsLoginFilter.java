@@ -22,7 +22,7 @@ public class IsLoginFilter implements Filter {
 		HttpServletResponse response=(HttpServletResponse)servletResponse;
 		String loginFilterPath=filterConfig.getInitParameter("loginFilterPath");
 		String[] paths=loginFilterPath.split(";");
-		String pathString=request.getContextPath();
+		String pathString=request.getRequestURI();
 		for (String path : paths) {
 			if (pathString.contains(path)
 					||pathString.equalsIgnoreCase(path)) {

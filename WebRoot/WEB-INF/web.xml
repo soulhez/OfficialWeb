@@ -78,7 +78,7 @@
   </filter>
   <filter-mapping>
   <filter-name>IsLoginFilter</filter-name>
-  <url-pattern>/back/*</url-pattern>
+  <url-pattern>/backs/*</url-pattern>
   </filter-mapping>
   <error-page>
   	<error-code>404</error-code>
