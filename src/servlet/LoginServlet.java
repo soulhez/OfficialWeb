@@ -33,10 +33,10 @@ public class LoginServlet extends HttpServlet {
 			}
 			AdminTB admin=new AdminTBDaoImpl().login(bean);
 			if (admin==null) {
-				response.sendRedirect("login.html");
+				response.sendRedirect("/back/HelloHBuilder/login.html");
 			}else{
 				request.getSession().setAttribute("admin", admin);
-				response.sendRedirect("backindex.html");
+				response.sendRedirect("/back/HelloHBuilder/newsPages.html");
 			}
 	}
 	

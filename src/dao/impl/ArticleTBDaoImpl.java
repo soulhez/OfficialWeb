@@ -31,6 +31,11 @@ public class ArticleTBDaoImpl extends BaseDao implements ArticleTBDao {
 	public int updateArticleTB(ArticleTB articleTB,String path) {
 		String titleString=getTitleById(articleTB.getaId());
 		int num=0;
+		ArticleTypeTB type=new ArticleTypeTBDaoImpl().searchArticleTypeTBByArticleTypeTBName(articleTB.getaArticleTypetbID());
+		if(!type.getaName().equalsIgnoreCase(articleTB.getaArticleTypetbName())){
+			type.setaName(articleTB.getaArticleTypetbName());
+			num=new ArticleTypeTBDaoImpl().updateArticleTypeTB(type);
+		}
 		String sql="update articleTB set articletitle=?,newDate=?,articletypetbID=? where id=?";
 		if (!articleTB.getaArticleTitle().equalsIgnoreCase(titleString)) {
 			if(!WebUtils.deleteFile(path, titleString)){

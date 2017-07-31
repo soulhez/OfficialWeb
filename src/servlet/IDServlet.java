@@ -40,9 +40,15 @@ public class IDServlet extends HttpServlet {
 			start=request.getParameter("start");
 			String end=null;
 			end=request.getParameter("end");
-			
-			//根据文章类型ID查询文章后，以文章创建时间降序排列
+			 //获取管理员信息
 			PrintWriter out=response.getWriter();
+			if(method==null){
+				AdminTB admin=(AdminTB)request.getSession().getAttribute("admin");
+				JSONObject json=JSONObject.fromObject(admin);
+				out.write(json.toString());
+				return;
+			}else
+			//根据文章类型ID查询文章后，以文章创建时间降序排列
 			 if(method.equalsIgnoreCase("searchArticleTB")){
 				 List<ArticleTB> list=new ArticleTBDaoImpl().searchArticleTB(id, start, end);
 				 JSONArray ja=JSONArray.fromObject(list);
@@ -61,13 +67,6 @@ public class IDServlet extends HttpServlet {
 				 JSONArray ja=JSONArray.fromObject(list);
 				 out.write(ja.toString());
 				 return;
-			}
-			 //获取管理员信息
-			else{
-				AdminTB admin=(AdminTB)request.getSession().getAttribute("admin");
-				JSONObject json=JSONObject.fromObject(admin);
-				out.write(json.toString());
-				return;
 			}
 	}
 }

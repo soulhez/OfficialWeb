@@ -29,6 +29,18 @@ public class ArticleTypeTBServlet extends HttpServlet {
 			String aId=null;//文章类型ID
 			int number=0;
 			PrintWriter out=response.getWriter();
+			//删除文章类型
+			if(method==null){
+				 aId=request.getParameter("id");
+					number=new ArticleTypeTBDaoImpl().deleteArticleTypeTB(aId);
+					if (number>0) {
+						out.write("删除成功");
+						return;
+					}else{
+						out.write("删除失败");
+						return;
+					}
+			}else
 			//添加文章类型
 			if(method.equalsIgnoreCase("add")){
 				articleTypeTB=WebUtils.beanFrom(request, ArticleTypeTB.class);
@@ -50,17 +62,6 @@ public class ArticleTypeTBServlet extends HttpServlet {
 					return;
 				}else{
 					out.write("修改失败");
-					return;
-				}
-			}//删除文章类型
-			else{
-				 aId=request.getParameter("id");
-				number=new ArticleTypeTBDaoImpl().deleteArticleTypeTB(aId);
-				if (number>0) {
-					out.write("删除成功");
-					return;
-				}else{
-					out.write("删除失败");
 					return;
 				}
 			}

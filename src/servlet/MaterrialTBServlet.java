@@ -27,17 +27,17 @@ public class MaterrialTBServlet extends HttpServlet {
 			String method=request.getParameter("method");
 			PrintWriter out=response.getWriter();
 			String mType=request.getParameter("mType");
-			//根据素材类型查询一个素材的名称
-			if(method.equalsIgnoreCase("name")){
-				String name=new MaterialTBDaoImpl().searchMaterialTBmName(mType);
-				out.write(name);
-				return;
-			}
 			//根据素材类型查询此类型的素材集合
-			else{
+			if(method==null){
 				List<String> list=new MaterialTBDaoImpl().searchMaterialTB(mType);
 				JSONArray ja=JSONArray.fromObject(list);
 				out.write(ja.toString());
+				return;				
+			}else
+				//根据素材类型查询一个素材的名称
+			if(method.equalsIgnoreCase("name")){
+				String name=new MaterialTBDaoImpl().searchMaterialTBmName(mType);
+				out.write(name);
 				return;
 			}
 	}

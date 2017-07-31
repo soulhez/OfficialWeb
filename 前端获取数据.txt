@@ -1,0 +1,38 @@
+文章
+	根据文章id获取文章
+		IDServlet method=searchArticleTBByID和传一个文章id,返回一个文章对象
+	根基文章id修改文章
+		ArticleTBServlet method=update和传一个文章对象，如果成功返回修改成功，反正提示修改失败
+	根据文章对象添加文章
+		ArticleTBServlet method=add和传一个文章对象，如果成功返回添加成功，反正提示添加失败
+	根据文章ID删除文章
+		ArticleTBServlet method=delete和传一个文章对象，如果成功返回修改成功，反正提示修改失败
+	查询文章类型所有文章
+		根据文章类型ID查询文章后，以文章创建时间降序排列
+		IDServlet method=searchArticleTB 如果不传文章没有文章类型则全查文章，反之传文章类型id,返回文章集合
+文章类型
+	根据导航ID查询文章类型集合,如果不传导航id,则全查文章类型
+		IDServlet method=searchArticleTypeTB和导航id,如果全查则导航id不用给， 返回类型对象集合
+	添加文章类型
+		ArticleTypeTBServlet method=add和传一个文章类型的对象，如果成功返回添加成功，反正提示添加失败
+	修改文章类型
+		ArticleTypeTBServlet method=update和传一个文章类型的对象，如果成功返回修改成功，反正提示修改失败
+	删除文章类型
+		ArticleTypeTBServlet method不传 传一个文章类型的id,如果成功返回删除成功，反正提示删除失败
+登陆
+	登陆
+		LoginServlet，如果登陆成功跳转刀后台首页，如果失败跳转刀后台登陆页面
+	查看管理员信息
+		IDServlet	method不传
+素材
+	根据素材类型查询此类型的素材集合
+		MaterrialTBServlet method不传和素材类型 返回素材名称集合
+	根据素材类型查询一个素材的名称
+		MaterrialTBServlet method=name和素材类型 返回素材名称
+导航
+	显示所有导航
+	NvntitleTBServlet	method不传	返回导航list
+	修改导航内容
+	NvntitleTBServlet	method=update和导航内容 如果修改成功返回新的导航名称，反正返回旧的导航名称
+	
+	

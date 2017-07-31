@@ -61,4 +61,19 @@ public class ArticleTypeTBDaoImpl extends BaseDao implements ArticleTypeTBDao {
 		String sql="update articletypeTB set name=?,nvntitleTBid=? where id=?";
 		return executeUpdate(sql,articleTypeTB.getaName(),articleTypeTB.getaNvntitleTBid(),articleTypeTB.getaId());
 	}
+	public ArticleTypeTB searchArticleTypeTBByArticleTypeTBName(String id) {
+		ArticleTypeTB at=null;
+		String sql="select * from articletypeTB where id=?";
+		rs=executeQuery(sql,id);
+		try {
+			while(rs.next()){
+				at=new ArticleTypeTB(rs.getString("id"),rs.getString("name"),rs.getString("nvntitleTBid"));
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException();
+		}finally{
+			closeAll();
+		}
+		return at;
+	}
 }

@@ -27,10 +27,6 @@ public class ArticleTBServlet extends HttpServlet {
 			ArticleTB articleTB=null;//文章对象
 			String aId=null;//文章id
 			String method =request.getParameter("method");
-			if (method==null) {
-				System.out.println("null");
-				return;
-			}
 			PrintWriter out=response.getWriter();
 			int number=0;
 			//添加文章
