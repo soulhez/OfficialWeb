@@ -32,6 +32,7 @@ public class NvntitleTBServlet extends HttpServlet {
 				//显示所有导航
 				List<NvntitleTB> list=new NvntitleTBDaoImpl().searchNvntitleTB();
 				JSONArray nvnTitleTBlist=JSONArray.fromObject(list);
+				System.out.print(nvnTitleTBlist.toString());
 				out.write(nvnTitleTBlist.toString());
 			}else if(method.equalsIgnoreCase("update")) {
 				String content= request.getParameter("content");

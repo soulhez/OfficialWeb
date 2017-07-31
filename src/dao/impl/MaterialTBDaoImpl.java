@@ -18,7 +18,12 @@ public class MaterialTBDaoImpl extends BaseDao implements MaterialTBDao {
 	 * 根据素材类型查询此类型的素材集合
 	 */
 	public List<String> searchMaterialTB(String mType) {
-		String sql="select * from materialTB where type=?";
+		String sql=null;
+		if(mType==null){
+			 sql="select * from materialTB";	
+		}else{
+			sql="select * from materialTB where type=?";
+		}
 		rs=executeQuery(sql,mType);
 		List<String> list=new ArrayList<String>();
 		try {
