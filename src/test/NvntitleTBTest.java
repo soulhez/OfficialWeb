@@ -16,7 +16,7 @@ public class NvntitleTBTest {
 		//查看所有导航
 		List<NvntitleTB> list=new NvntitleTBDaoImpl().searchNvntitleTB();
 		for(NvntitleTB l:list){
-			System.out.println(l.getnNontent());
+			//System.out.println(l.getnNontent());
 		}
 		//修改导航
 		int num=new NvntitleTBDaoImpl().updateNvntitleTB("1", "徐军");

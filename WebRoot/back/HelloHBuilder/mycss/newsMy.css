@@ -1,0 +1,49 @@
+		    .row{
+				margin-bottom: 20px;
+			}
+			.row .row{
+				margin-top: 10px;
+				margin-bottom: 0;
+			}
+			[class*="col-"]{
+				padding-top: 1px;
+				padding-bottom: 0px;
+			}
+			.row .col-md-8{
+				border:1px solid #262626 ;
+			}
+		.panel-heading label {
+			cursor: pointer;
+			background: -webkit-linear-gradient(#666, #555);
+			color: #eee;
+			border-radius: 2px 2px 1px 1px;
+			padding: 0.9% 3.5%;
+			position: relative;
+			top: 16px;
+			left: 390px;
+			font: italic 1em cambria;
+		}
+		.panel-heading input {
+			opacity: 0;
+		}
+		label.fuck{
+				background: #FFFFFF;
+				color: #204D74;
+		}
+		.backs{
+			background-image:url(纯白1.jpg);
+			background-repeat: no-repeat;
+		}
+		#father #anniu {
+			cursor: pointer;
+			background: -webkit-linear-gradient(#666, #555);
+			color: #000000;
+			border-radius: 4px 4px 4px 4px;
+			margin-top: 8px;
+			margin-bottom: 8px;
+			padding: 6% 6%;
+			font: italic 16px cambria;
+			width: 260px;
+			background: #FFFFFF;
+		}
+		
