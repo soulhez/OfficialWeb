@@ -9,21 +9,211 @@ $(function(){
 	imgli.eq(0).show();//显示第一张图片
 	change();
 	/*加载导航*/
-	var daoHangList=new Array();
+	var Nvntitle='<div class="container-fluid" id="Nvntitle">';
+	Nvntitle+='<div class="navbar-header">';
+	Nvntitle+='<a href="#"><img src="img/logo.png"/></a>';
+	Nvntitle+='</div>';
+	Nvntitle+='<div class="collapse navbar-collapse">';
+	Nvntitle+='<ul class="nav navbar-nav" style="font-size: 20px; padding-top: 10px;">';
 	$.ajax({
 		url:"NvntitleTBServlet",
 		type:"POST",
-		cache:false,
 		dataType:"json",
-		data:{"method":""},
+		cache:false,
 		success:function(data){
-			alert(data[0]['nContent']);
+			var nvntitleIdList=new Array();
+			var nvntitleNameList=new Array();
+			for(var i=0;i<data.length;i++){
+				Nvntitle+='<li class="navli'+i+'">';
+				Nvntitle+='<input type="hidden" value="'+data[i]["nId"]+'"/>';
+				Nvntitle+='<a href="#" name="navbar'+i+'">'+data[i]["nContent"]+'</a>';
+				Nvntitle+='</li>';
+			}
+			Nvntitle+='</ul>';
+			Nvntitle+='</div></div>';
+			$("#Nvntitle").html(Nvntitle);
+			/*加载导航隐藏内容*/
+			loadarticleTypeAndarticle();
 		}
 	});
-	/*加载导航隐藏内容*/
 	/*加载轮播*/
 	/*加载页脚*/
 	/***************************方法*************************************/
+	/*加载导航隐藏内容*/
+	function loadarticleTypeAndarticle(){
+		var articleTypeAndarticle='';
+		/*******************为第一个时的风格*********************/
+		articleTypeAndarticle+='<div name="hiddennav">';
+		articleTypeAndarticle+='<hr/>';
+		articleTypeAndarticle+='<div class="col-md-4">';
+		articleTypeAndarticle+='<ul class="list-unstyled">';
+		articleTypeAndarticle+='<li><span><img src="img/navleft1.jpg"/></span></li><br/>';
+		articleTypeAndarticle+='<li><span>刘天文：打造智慧城市需要以人为本贯穿始终</span></li>';
+		articleTypeAndarticle+='</ul>';
+		articleTypeAndarticle+='</div>';
+		$.ajax({
+			url:"IDServlet",
+			type:"POST",
+			dataType:"json",
+			async:false,
+			data:{
+				"method":"searchArticleTB",
+				"id":1,
+				"start":"0",
+				"end":"10"
+			},
+			cache:false,
+			success:function(data){
+				for(var i=0;i<data.length;i++){
+					if(i%5==0){
+						articleTypeAndarticle+='<div class="col-md-4">';
+						articleTypeAndarticle+='<ul class="list-unstyled">';
+					}
+					articleTypeAndarticle+='<li>';
+					var aArticleTitle=data[i]['aArticleTitle'];
+					if(aArticleTitle.length>19){
+						aArticleTitle=aArticleTitle.substring(0,19);
+						aArticleTitle+="...";
+					}
+					articleTypeAndarticle+='<span>'+aArticleTitle+'</span>';
+					articleTypeAndarticle+='<input type="hidden" value="'+data[i]['aId']+'"/>';
+					articleTypeAndarticle+='</li>';
+					articleTypeAndarticle+='<li><hr/></li>';
+					if(i!=0&&i%4==0||i==data.length-1){
+						articleTypeAndarticle+='</ul>';
+						articleTypeAndarticle+='</div>';
+					}
+				}
+			}
+		});
+		articleTypeAndarticle+='</div>';
+		/***********************************为第二个风格***************************/
+		articleTypeAndarticle+='<div name="hiddennav">';
+		articleTypeAndarticle+='<hr/>';
+		/*加载左半边*/
+		$.ajax({
+			url:"IDServlet",
+			type:"POST",
+			dataType:"json",
+			async:false,
+			data:{
+				"method":"searchArticleTypeTB",
+				"id":2
+			},
+			cache:false,
+			success:function(data){
+				for(var i=0;i<data.length;i++){
+					articleTypeAndarticle+='<div class="col-md-6">';
+					articleTypeAndarticle+='<ul class="list-unstyled">';
+					articleTypeAndarticle+='<li class="title">';
+					articleTypeAndarticle+='<span>'+data[i]['aName']+'</span>';
+					articleTypeAndarticle+='<input type="hidden" value="'+data[i]["aId"]+'"/>';
+					articleTypeAndarticle+='</li>';
+					articleTypeAndarticle+='<li><hr/></li>';
+					articleTypeAndarticle+='<li>';
+					$.ajax({
+						url:"IDServlet",
+						type:"POST",
+						dataType:"json",
+						async:false,
+						data:{
+							"method":"searchArticleTB",
+							"id":data[i]['aId'],
+							"start":"0",
+							"end":"27"
+						},
+						cache:false,
+						success:function(data){
+							for(var j=0;j<data.length;j++){
+								if(j%9==0){
+									articleTypeAndarticle+=count==0?'<div class="col-md-4">':'<div class="col-md-6">';
+									articleTypeAndarticle+='<ul class="list-unstyled">';
+								}
+								var aArticleTitle=data[i]['aArticleTitle'];
+								if(aArticleTitle.length>9){
+									aArticleTitle=aArticleTitle.substr(0,8);
+									aArticleTitle+="...";
+								}
+								articleTypeAndarticle+='<li>';
+								articleTypeAndarticle+='<span>'+aArticleTitle+'</span>';
+								articleTypeAndarticle+='<input type="hidden" value="'+data[i]["aId"]+'"/>';;
+								articleTypeAndarticle+='</li>';
+								articleTypeAndarticle+='<li><hr/></li>';
+								if(j!=0&&j%8==0||j==data.length+1){
+									articleTypeAndarticle+='</ul>';
+									articleTypeAndarticle+='</div>';
+								}
+							}
+							articleTypeAndarticle+='</li>';
+							articleTypeAndarticle+='</ul>';
+							articleTypeAndarticle+='</div>';
+						}
+					});
+				}
+			}
+		});
+		/*加载右半边*/
+		
+		/************************************为第三个风格*************************/
+		articleTypeAndarticle+='<div class="col-md-3">';
+		articleTypeAndarticle+='<ul class="list-unstyled">';
+		articleTypeAndarticle+='<li><span><img src="img/navleft2.jpg"/></span></li><br/>';
+		articleTypeAndarticle+='<li><span>软通动力服务能源行业</span></li>';
+		articleTypeAndarticle+='</ul>';
+		articleTypeAndarticle+='</div>';
+		$.ajax({
+			url:"IDServlet",
+			type:"POST",
+			async:false,
+			dataType:"json",
+			data:{
+				"method":"searchArticleTypeTB",
+				"id":3
+			},
+			cache:false,
+			success:function(data){
+				for(var i=0;i<data.length;i++){
+					articleTypeAndarticle+='<div class="col-md-2">';
+					articleTypeAndarticle+='<ul class="list-unstyled">';
+					articleTypeAndarticle+='<li class="title">';
+					articleTypeAndarticle+='<span>'+data[i]['aName']+'</span>';
+					articleTypeAndarticle+='<input type="hidden" value="'+data[i]["aId"]+'"/>';;
+					articleTypeAndarticle+='</li>';
+					articleTypeAndarticle+='<li><hr/></li>';
+					$.ajax({
+						url:"IDServlet",
+						type:"POST",
+						dataType:"json",
+						data:{
+							"method":"searchArticleTB",
+							"id":data[i]["aId"],
+							"start":"0",
+							"end":"5"
+						},
+						cache:false,
+						success:function(data){
+							if(aArticleTitle.length>8){
+								var aArticleTitle=data[i]['aArticleTitle'];
+								if(aArticleTitle.length>7){
+									aArticleTitle=aArticleTitle.substr(0,7);
+									aArticleTitle+="...";
+								}
+								articleTypeAndarticle+='<li>';
+								articleTypeAndarticle+='<span>'+aArticleTitle+'</span>';
+								articleTypeAndarticle+='<input type="hidden" value="'+data[i]["aId"]+'"/>';
+								articleTypeAndarticle+='</li>';
+								articleTypeAndarticle+='<li><hr/></li>';
+							}
+						}
+					});
+					articleTypeAndarticle+='</ul>';
+					articleTypeAndarticle+='</div>';
+				}
+			}
+		});
+		//alert(articleTypeAndarticle);
+		$("#articleTypeAndarticle").html(articleTypeAndarticle);
+	}
 	//下一张轮播图
 	function step(){
 		lbindex=++lbindex%numli.length;
