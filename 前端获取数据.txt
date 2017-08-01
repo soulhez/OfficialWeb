@@ -36,5 +36,6 @@
 	NvntitleTBServlet	method=update和导航内容 如果修改成功返回新的导航名称，反正返回旧的导航名称
 	根据导航内容模糊查询
 	searchNvntitleTBByContent method随便传和导航内容,进行模糊查询返回导航list集合
+支持模糊查询了
 	
 	
