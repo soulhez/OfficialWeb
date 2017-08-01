@@ -54,7 +54,7 @@ public class ArticleTBDaoImpl extends BaseDao implements ArticleTBDao {
 	 */
 	public List<ArticleTB> searchArticleTB(String aArticleTypetbID, String start,String end) {
 		String sql=null;
-		if(aArticleTypetbID==null){
+		if(aArticleTypetbID==null||"".equals(aArticleTypetbID)){
 			sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on  at.articletypetbID=ty.id order by newDate desc limit ?,?";
 			rs=executeQuery(sql,Integer.parseInt(start),Integer.parseInt(end));
 		}else{
@@ -137,5 +137,36 @@ public class ArticleTBDaoImpl extends BaseDao implements ArticleTBDao {
 			closeAll();
 		}
 		return titleString;
+	}
+/**
+ * //根据文章标题模糊查询文章
+ */
+	public List<ArticleTB> searchArticleTBByTitle(String aArticleTitle) {
+		String sql=null;
+		if(aArticleTitle==null){
+			sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on  at.articletypetbID=ty.id order by newDate desc";
+			rs=executeQuery(sql);
+		}else{
+			sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id where articletitle like ?";
+			rs=executeQuery(sql,"%"+aArticleTitle+"%");
+		}
+		List<ArticleTB> list=new ArrayList<ArticleTB>();
+		ArticleTB at=null;
+		try {
+			while(rs.next()){
+				at=new ArticleTB();
+				at.setaId(rs.getString(1));
+				at.setaArticleTitle(rs.getString(2));
+				at.setaNewDate(rs.getString(3));
+				at.setaArticleTypetbID(rs.getString(4));
+				at.setaArticleTypetbName(rs.getString(5));
+				list.add(at);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException();
+		}finally{
+			closeAll();
+		}
+		return list;
 	}
 }

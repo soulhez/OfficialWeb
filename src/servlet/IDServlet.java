@@ -42,7 +42,7 @@ public class IDServlet extends HttpServlet {
 			end=request.getParameter("end");
 			 //获取管理员信息
 			PrintWriter out=response.getWriter();
-			if(method==null){
+			if(method==null||"".equals(method)){
 				AdminTB admin=(AdminTB)request.getSession().getAttribute("admin");
 				JSONObject json=JSONObject.fromObject(admin);
 				out.write(json.toString());
@@ -67,7 +67,6 @@ public class IDServlet extends HttpServlet {
 				 List<ArticleTypeTB> list=new ArticleTypeTBDaoImpl().searchArticleTypeTB(id);
 				 JSONArray ja=JSONArray.fromObject(list);
 				 out.write(ja.toString());
-				 System.out.print(ja.toString());
 				 return;
 			}
 	}

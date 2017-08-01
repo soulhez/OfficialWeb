@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import dao.impl.MaterialTBDaoImpl;
+import entity.MaterialTB;
 
 public class MaterrialTBServlet extends HttpServlet {
 
@@ -27,18 +29,30 @@ public class MaterrialTBServlet extends HttpServlet {
 			String method=request.getParameter("method");
 			PrintWriter out=response.getWriter();
 			String mType=request.getParameter("mType");
+			String start =request.getParameter("start");
+			String end =request.getParameter("end");
 			//根据素材类型查询此类型的素材集合
-			if(method==null){
-				List<String> list=new MaterialTBDaoImpl().searchMaterialTB(mType);
+			if(method==null||"".equals(method)){
+				List<MaterialTB> list=new MaterialTBDaoImpl().searchMaterialTB(mType,start,end);
 				JSONArray ja=JSONArray.fromObject(list);
 				out.write(ja.toString());
 				return;				
 			}else
 				//根据素材类型查询一个素材的名称
 			if(method.equalsIgnoreCase("name")){
-				String name=new MaterialTBDaoImpl().searchMaterialTBmName(mType);
-				out.write(name);
+				MaterialTB name=new MaterialTBDaoImpl().searchMaterialTBmName(mType);
+				JSONObject json=JSONObject.fromObject(name);
+				out.write(json.toString());
 				return;
+			}else{
+				//searchMaterialTBByName根据素材名称模糊查询
+				String mName=request.getParameter("mName");
+				if(mName!=null||"".equals(mName)){
+					List<MaterialTB> list=new MaterialTBDaoImpl().searchMaterialTBByName(mName,start,end);
+					JSONArray ja=JSONArray.fromObject(list);
+					out.write(ja.toString());
+					return;
+				}
 			}
 	}
 }

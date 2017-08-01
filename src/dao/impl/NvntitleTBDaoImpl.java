@@ -41,4 +41,24 @@ public class NvntitleTBDaoImpl extends BaseDao implements NvntitleTBDao {
 		String sql="update nvntitleTB set content=? where id=?";
 		return executeUpdate(sql,nNontent,nId);
 	}
+	/**
+	 * 根据导航内容模糊查询
+	 */
+	public List<NvntitleTB> searchNvntitleTBByContent(String content) {
+		String sql="select * from nvntitleTB content like ?";
+		rs=executeQuery(sql,"%"+content+"%");
+		List<NvntitleTB> list=new ArrayList<NvntitleTB>();
+		NvntitleTB nvntitleTB=null;
+		try {
+			while(rs.next()){
+				nvntitleTB=new NvntitleTB(rs.getString("id"),rs.getString("content"));
+				list.add(nvntitleTB);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			closeAll();
+		}
+		return list;
+	}
 }

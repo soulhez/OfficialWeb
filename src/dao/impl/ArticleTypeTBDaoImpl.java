@@ -35,7 +35,7 @@ public class ArticleTypeTBDaoImpl extends BaseDao implements ArticleTypeTBDao {
 		List<ArticleTypeTB> list=new ArrayList<ArticleTypeTB>();
 		ArticleTypeTB at=null;
 		String sql=null;
-		if(aNvntitleTBid==null){
+		if(aNvntitleTBid==null||"".equals(aNvntitleTBid)){
 			sql="select ty.id,ty.name,ty.nvntitleTBid,n.content from articletypeTB ty inner join nvntitleTB n on n.id=ty.nvntitleTBid";
 			rs=executeQuery(sql);
 		}else{
@@ -75,5 +75,31 @@ public class ArticleTypeTBDaoImpl extends BaseDao implements ArticleTypeTBDao {
 			closeAll();
 		}
 		return at;
+	}
+	/**
+	 * 根据文章类型名称模糊查询
+	 */
+	public List<ArticleTypeTB> searchArticleTypeTBByName(String aNvntitleTBName) {
+		List<ArticleTypeTB> list=new ArrayList<ArticleTypeTB>();
+		ArticleTypeTB at=null;
+		String sql=null;
+		if(aNvntitleTBName==null||"".equals(aNvntitleTBName)){
+			sql="select ty.id,ty.name,ty.nvntitleTBid,n.content from articletypeTB ty inner join nvntitleTB n on n.id=ty.nvntitleTBid";
+			rs=executeQuery(sql);
+		}else{
+			sql="select ty.id,ty.name,ty.nvntitleTBid,n.content from articletypeTB ty inner join nvntitleTB n on n.id=ty.nvntitleTBid where ty.name like ?";
+			rs=executeQuery(sql,"%"+aNvntitleTBName+"%");
+		}
+		try {
+			while(rs.next()){
+				at=new ArticleTypeTB(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4));
+				list.add(at);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException();
+		}finally{
+			closeAll();
+		}
+		return list;
 	}
 }

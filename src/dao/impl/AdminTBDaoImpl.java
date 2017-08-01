@@ -35,9 +35,9 @@ public class AdminTBDaoImpl extends BaseDao implements AdminTBDao {
 	/**
 	 * 修改管理员账号信息
 	 */
-	public int updateAdminTB(String aId, AdminTB adminTB) {
+	public int updateAdminTB(AdminTB adminTB) {
 		String sql="update admintb set userName=?,Email=?,pwd=? where id=?";
-		return executeUpdate(sql,adminTB.getaUserName(),adminTB.getaEmail(),adminTB.getaPwd(),aId);
+		return executeUpdate(sql,adminTB.getaUserName(),adminTB.getaEmail(),adminTB.getaPwd(),adminTB.getaID());
 	}
 	
 

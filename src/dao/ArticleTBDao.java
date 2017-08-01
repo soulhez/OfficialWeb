@@ -19,4 +19,5 @@ public interface ArticleTBDao {
 	 ArticleTB searchArticleTBByID(String aId,String path);//根据文章ID查询文章
 	 ArticleTypeTB searchArticleTypeTBByArticleTBId(String aID);//根据文章id查询文章类型
 	 String getTitleById(String id);//根据文章id返回文章标题
+	 List<ArticleTB> searchArticleTBByTitle(String aArticleTitle);//根据文章标题模糊查询文章
 }

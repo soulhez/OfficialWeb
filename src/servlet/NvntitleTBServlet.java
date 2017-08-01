@@ -28,12 +28,12 @@ public class NvntitleTBServlet extends HttpServlet {
 			response.setContentType("text/html; charset=utf-8");
 			String method=request.getParameter("method");
 			PrintWriter out=response.getWriter();
-			if(method==null){
+			if(method==null||"".equals(method)){
 				//显示所有导航
 				List<NvntitleTB> list=new NvntitleTBDaoImpl().searchNvntitleTB();
 				JSONArray nvnTitleTBlist=JSONArray.fromObject(list);
 				out.write(nvnTitleTBlist.toString());
-				System.out.print(nvnTitleTBlist.toString());
+				return;
 			}else if(method.equalsIgnoreCase("update")) {
 				String id= request.getParameter("id");
 				String newContent=request.getParameter("newContent");
@@ -41,6 +41,14 @@ public class NvntitleTBServlet extends HttpServlet {
 				if (new NvntitleTBDaoImpl().updateNvntitleTB(id, newContent)>0) {
 					out.write(newContent);
 				}
+				return;
+			}else{
+				//根据导航内容模糊查询
+				String content=request.getParameter("content");
+				List<NvntitleTB> list=new NvntitleTBDaoImpl().searchNvntitleTBByContent(content);
+				JSONArray nvnTitleTBlist=JSONArray.fromObject(list);
+				out.write(nvnTitleTBlist.toString());
+				return;
 			}
 	}
 }

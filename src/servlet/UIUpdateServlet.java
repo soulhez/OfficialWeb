@@ -23,10 +23,13 @@ public class UIUpdateServlet extends HttpServlet {
 			String aId=request.getParameter("id");
 			request.setAttribute("id",aId);
 			//文章
-			if(method.equalsIgnoreCase("articleTB")){
+			if(method==null||"".equals(method)){
+				request.getRequestDispatcher("").forward(request, response);	
+			}else if(method.equalsIgnoreCase("ArticleTypeTB")){
+				//文章类型
 				request.getRequestDispatcher("").forward(request, response);
-			}//文章类型
-			else{
+			}else{
+				//管理员修改页面
 				request.getRequestDispatcher("").forward(request, response);
 			}
 	}

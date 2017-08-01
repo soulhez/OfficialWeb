@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,35 +10,25 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.impl.AdminTBDaoImpl;
 
-import entity.AdminTB;
-
 import util.WebUtils;
 
-import bean.LoginBean;
+import entity.AdminTB;
 
-/**
- * 登陆servlet
- * @author 22386
- *
- */
-public class LoginServlet extends HttpServlet {
+public class AdminServlet extends HttpServlet {
+
+	/**
+	 * 管理员servlet
+	 */
 	private static final long serialVersionUID = 1L;
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
-			LoginBean bean=WebUtils.beanFrom(request, LoginBean.class);
-			if (!bean.isLogin()) {
-				response.sendRedirect("login.html");
-			}
-			AdminTB admin=new AdminTBDaoImpl().login(bean);
-			if (admin==null||"".equals(admin)) {
-				response.sendRedirect("login.html");
-			}else{
-				request.getSession().setAttribute("admin", admin);
-				response.sendRedirect("newsPages.html");
-			}
+			AdminTB atAdminTB=WebUtils.beanFrom(request, AdminTB.class);
+			int number=new AdminTBDaoImpl().updateAdminTB(atAdminTB);
+			PrintWriter out=response.getWriter();
+			out.write(number>0?"修改成功":"修改失败");
+			return;
 	}
-	
 }

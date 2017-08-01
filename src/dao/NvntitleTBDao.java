@@ -12,4 +12,5 @@ import entity.NvntitleTB;
 public interface NvntitleTBDao {
 	int updateNvntitleTB(String nId,String nNontent);//修改导航(通过获取的id和新的导航内容)
 	List<NvntitleTB> searchNvntitleTB();//查看所有导航
+	List<NvntitleTB> searchNvntitleTBByContent(String content);//根据导航内容模糊查询
 }
