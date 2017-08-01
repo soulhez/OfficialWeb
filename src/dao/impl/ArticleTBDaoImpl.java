@@ -1,16 +1,12 @@
 package dao.impl;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import util.WebUtils;
-
 import dao.ArticleTBDao;
 import dao.BaseDao;
 import entity.ArticleTB;
 import entity.ArticleTypeTB;
-
 /**
  * 文章实现类
  * @author Administrator

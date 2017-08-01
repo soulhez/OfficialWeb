@@ -18,7 +18,7 @@ function ArticleTB(address,method,start,end){
 	return datas;
 }
 //关于导航的ajax
-function Nvntitle(address){
+function Nvntitle(address,method,id){
 	var datas=null;
 	$.ajax({
 		url:address,
@@ -26,19 +26,18 @@ function Nvntitle(address){
 		cache:false,
 		async:false,
 		dataType:"json",
-		data:[{"method":null}],
+		data:[{"method":method,"id":id}],
 		error:function(e){
 		alert(e.status);
 		},
 		success:function(data){
-			alert(data);
 			datas=data;
 		}
 	})
 		return datas;
 }
 //关于类型
-function ArticleTyp(address,method){
+function ArticleTyp(address,method,id){
 	var datas=null;
 	 $.ajax({
 		 url:address,
@@ -46,11 +45,12 @@ function ArticleTyp(address,method){
 		 cache:false,
 		 async:false,
 		 dataType:"json",
-		 data:{"method":method},
+		 data:{"method":method,"id":id},
 		 error:function(e){
 			 alert(e.status);
 		 },
 		 success:function(data){
+			 alert(data);
 			datas=data;
 		 }
 	 });
@@ -77,25 +77,26 @@ function Materrial(address,method,mType){
 }
 $(function(){
 	//查询所有文章信息
-	/*var bean=ArticleTB("IDServlet","searchArticleTB",0,8);
-	 for(var i in bean){
-		$("#bt").append('<tr><td>'+bean[i].aId+'</td>'+'<td>'+'<input type="text" class="form-control" value='+bean[i].aArticleTitle+' disabled="disabled" />'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+bean[i].aArticleTypetbName+' disabled="disabled" />'+'</td>'+'<td style="display: none;">'+'<input type="text" class="form-control" value='+bean[i].aArticleTypetbID+' disabled="disabled" />'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+bean[i].aNewDate+' disabled="disabled" />'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">添加</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">修改</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">删除</button></td></tr>');
-	}*/
-	/*$("li").click(function(){
-		 alert($(this).val());
-	 })*/
-	 //查询所有导航信息
-	var dhbean=Nvntitle("NvntitleTBServlet");
+	//var bean=ArticleTB("IDServlet","searchArticleTB",0,8);
+	// for(var i in bean){
+	//	$("#bt").append('<tr><td>'+bean[i].aId+'</td>'+'<td>'+'<input type="text" class="form-control" value='+bean[i].aArticleTitle+' disabled="disabled" />'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+bean[i].aArticleTypetbName+' disabled="disabled" />'+'</td>'+'<td style="display: none;">'+'<input type="text" class="form-control" value='+bean[i].aArticleTypetbID+' disabled="disabled" />'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+bean[i].aNewDate+' disabled="disabled" />'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">添加</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">修改</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">删除</button></td></tr>');
+	//}
+	//$("li").click(function(){
+	//	 alert($(this).val());
+	//})
+	//查询所有导航信息
+	//var dhbean=Nvntitle("NvntitleTBServlet",null);
+	// alert(dhbean);
 	//for(var i in dhbean){
-	//	 $("#dh").append('<tr><td>'+'<input type="text" class="form-control" value='+dhbean[i].nId+' disabled="disabled" />'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+dhbean[i].nContent+' disabled="disabled" />'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">添加</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">修改</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">删除</button></td></tr>');
+	//	 $("#dhs").append('<tr><td>'+dhbean[i].nId+'</td>'+'<td>'+'<input type="text" class="form-control" value='+dhbean[i].nContent+' disabled="disabled" />'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">添加</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">修改</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">删除</button></td></tr>');
 	//}
 	//显示所有类型信息
-	// var lxbean=ArticleTyp("IDServlet",null);
+	// var lxbean=ArticleTyp("IDServlet","searchArticleTypeTB");
 	// for(var i in lxbean){
-		// $("#lx").append('<tr><td>'+'<input type="text" class="form-control" value='+lxbean[i].aId+' disabled="disabled" />'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+lxbean[i].aName+' disabled="disabled" />'+'</td>'+'<td>'++'</td>'+'</tr>');
+	//	 $("#lxs").append('<tr><td>'+lxbean[i].aId+'</td>'+'<td>'+'<input type="text" class="form-control" value='+lxbean[i].aNvntitleTBName+' disabled="disabled" />'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+lxbean[i].aName+' disabled="disabled" />'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">添加</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">修改</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">删除</button></td></tr>');
 	//}
 	//显示所有素材信息
-    // var scbean=Materrial("MaterrialTBServlet","searchArticleTypeTB",null);
+    // var scbean=Materrial("MaterrialTBServlet",null,null);
      //for(var i in scbean){
     	// $("#sc").append('<tr><td>'+'<input type="text" class="form-control" value='+scbean[i].mId+' disabled="disabled" />'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+scbean[i].mName+' disabled="disabled" />'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+scbean[i].mType+' disabled="disabled" />'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">添加</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">修改</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">删除</button></td></tr>');
      //}

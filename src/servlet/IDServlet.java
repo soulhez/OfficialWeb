@@ -59,6 +59,7 @@ public class IDServlet extends HttpServlet {
 				ArticleTB at=new  ArticleTBDaoImpl().searchArticleTBByID(id,WebUtils.getPath(request));
 				JSONObject json=JSONObject.fromObject(at);
 				out.write(json.toString());
+				
 				return;
 			}
 			 //根据导航ID查询文章类型集合
@@ -66,6 +67,7 @@ public class IDServlet extends HttpServlet {
 				 List<ArticleTypeTB> list=new ArticleTypeTBDaoImpl().searchArticleTypeTB(id);
 				 JSONArray ja=JSONArray.fromObject(list);
 				 out.write(ja.toString());
+				 System.out.print(ja.toString());
 				 return;
 			}
 	}

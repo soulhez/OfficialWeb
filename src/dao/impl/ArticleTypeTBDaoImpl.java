@@ -36,14 +36,15 @@ public class ArticleTypeTBDaoImpl extends BaseDao implements ArticleTypeTBDao {
 		ArticleTypeTB at=null;
 		String sql=null;
 		if(aNvntitleTBid==null){
-			sql="select * from articletypeTB";
+			sql="select ty.id,ty.name,ty.nvntitleTBid,n.content from articletypeTB ty inner join nvntitleTB n on n.id=ty.nvntitleTBid";
+			rs=executeQuery(sql);
 		}else{
-			sql="select * from articletypeTB where nvntitleTBid=?";
+			sql="select ty.id,ty.name,ty.nvntitleTBid,n.content from articletypeTB ty inner join nvntitleTB n on n.id=ty.nvntitleTBid where nvntitleTBid=?";
+			rs=executeQuery(sql,aNvntitleTBid);
 		}
-		rs=executeQuery(sql,aNvntitleTBid);
 		try {
 			while(rs.next()){
-				at=new ArticleTypeTB(rs.getString("id"),rs.getString("name"),rs.getString("nvntitleTBid"));
+				at=new ArticleTypeTB(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4));
 				list.add(at);
 			}
 		} catch (SQLException e) {
@@ -53,7 +54,6 @@ public class ArticleTypeTBDaoImpl extends BaseDao implements ArticleTypeTBDao {
 		}
 		return list;
 	}
-	
 	/**
 	 * 修改文章类型
 	 */
