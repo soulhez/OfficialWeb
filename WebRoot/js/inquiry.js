@@ -25,7 +25,8 @@ function Nvntitle(address){
 		type:"post",
 		cache:false,
 		async:false,
-		data:{"method":null},
+		dataType:"json",
+		data:[{"method":null}],
 		error:function(e){
 		alert(e.status);
 		},
@@ -76,15 +77,15 @@ function Materrial(address,method,mType){
 }
 $(function(){
 	//查询所有文章信息
-	var bean=ArticleTB("IDServlet","searchArticleTB",0,8);
+	/*var bean=ArticleTB("IDServlet","searchArticleTB",0,8);
 	 for(var i in bean){
 		$("#bt").append('<tr><td>'+bean[i].aId+'</td>'+'<td>'+'<input type="text" class="form-control" value='+bean[i].aArticleTitle+' disabled="disabled" />'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+bean[i].aArticleTypetbName+' disabled="disabled" />'+'</td>'+'<td style="display: none;">'+'<input type="text" class="form-control" value='+bean[i].aArticleTypetbID+' disabled="disabled" />'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+bean[i].aNewDate+' disabled="disabled" />'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">添加</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">修改</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">删除</button></td></tr>');
-	}
-	/* $("li").click(function(){
+	}*/
+	/*$("li").click(function(){
 		 alert($(this).val());
 	 })*/
 	 //查询所有导航信息
-	 var dhbean=Nvntitle("NvntitleTBServlet");
+	var dhbean=Nvntitle("NvntitleTBServlet");
 	//for(var i in dhbean){
 	//	 $("#dh").append('<tr><td>'+'<input type="text" class="form-control" value='+dhbean[i].nId+' disabled="disabled" />'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+dhbean[i].nContent+' disabled="disabled" />'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">添加</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">修改</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">删除</button></td></tr>');
 	//}
