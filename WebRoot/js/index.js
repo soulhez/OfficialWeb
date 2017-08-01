@@ -8,49 +8,42 @@ $(function(){
 	var numli=$(".numlist li");//数字下面的li
 	imgli.eq(0).show();//显示第一张图片
 	change();
-	/*加载导航*/
-	var Nvntitle='<div class="container-fluid" id="Nvntitle">';
-	Nvntitle+='<div class="navbar-header">';
-	Nvntitle+='<a href="#"><img src="img/logo.png"/></a>';
-	Nvntitle+='</div>';
-	Nvntitle+='<div class="collapse navbar-collapse">';
-	Nvntitle+='<ul class="nav navbar-nav" style="font-size: 20px; padding-top: 10px;">';
-	$.ajax({
-		url:"NvntitleTBServlet",
-		type:"POST",
-		dataType:"json",
-		cache:false,
-		success:function(data){
-			var nvntitleIdList=new Array();
-			var nvntitleNameList=new Array();
-			for(var i=0;i<data.length;i++){
-				Nvntitle+='<li class="navli'+i+'">';
-				Nvntitle+='<input type="hidden" value="'+data[i]["nId"]+'"/>';
-				Nvntitle+='<a href="#" name="navbar'+i+'">'+data[i]["nContent"]+'</a>';
-				Nvntitle+='</li>';
-			}
-			Nvntitle+='</ul>';
-			Nvntitle+='</div></div>';
-			$("#Nvntitle").html(Nvntitle);
-			/*加载导航隐藏内容*/
-			loadarticleTypeAndarticle();
-		}
-	});
-	/*加载轮播*/
-	/*加载页脚*/
+	/*阿根智能一键加载*/
+	loadAll();
 	/***************************方法*************************************/
-	/*加载导航隐藏内容*/
+	/*加载导航隐藏内容方法*/
+	function loadAll(){
+		var Nvntitle='<div class="navbar-header">';
+		Nvntitle+='<a href="#"><img src="img/logo.png"/></a>';
+		Nvntitle+='</div>';
+		Nvntitle+='<div class="collapse navbar-collapse">';
+		Nvntitle+='<ul class="nav navbar-nav" style="font-size: 20px; padding-top: 10px;">';
+		$.ajax({
+			url:"NvntitleTBServlet",
+			type:"POST",
+			dataType:"json",
+			cache:false,
+			success:function(data){
+				var nvntitleIdList=new Array();
+				var nvntitleNameList=new Array();
+				for(var i=0;i<data.length;i++){
+					Nvntitle+='<li class="navli">';
+					Nvntitle+='<input type="hidden" value="'+data[i]["nId"]+'"/>';
+					Nvntitle+='<a href="#" name="navbar'+i+'">'+data[i]["nContent"]+'</a>';
+					Nvntitle+='</li>';
+				}
+				Nvntitle+='</ul>';
+				Nvntitle+='</div>';
+				$("#Nvntitle").html(Nvntitle);
+				/*加载导航隐藏内容*/
+				loadarticleTypeAndarticle();
+			}
+		});
+	}
+	/*加载导航隐藏内容方法*/
 	function loadarticleTypeAndarticle(){
 		var articleTypeAndarticle='';
 		/*******************为第一个时的风格*********************/
-		articleTypeAndarticle+='<div name="hiddennav">';
-		articleTypeAndarticle+='<hr/>';
-		articleTypeAndarticle+='<div class="col-md-4">';
-		articleTypeAndarticle+='<ul class="list-unstyled">';
-		articleTypeAndarticle+='<li><span><img src="img/navleft1.jpg"/></span></li><br/>';
-		articleTypeAndarticle+='<li><span>刘天文：打造智慧城市需要以人为本贯穿始终</span></li>';
-		articleTypeAndarticle+='</ul>';
-		articleTypeAndarticle+='</div>';
 		$.ajax({
 			url:"IDServlet",
 			type:"POST",
@@ -64,6 +57,14 @@ $(function(){
 			},
 			cache:false,
 			success:function(data){
+				articleTypeAndarticle+='<div name="hiddennav">';
+				articleTypeAndarticle+='<hr/>';
+				articleTypeAndarticle+='<div class="col-md-4">';
+				articleTypeAndarticle+='<ul class="list-unstyled">';
+				articleTypeAndarticle+='<li><span><img src="img/navleft1.jpg"/></span></li><br/>';
+				articleTypeAndarticle+='<li><span>刘天文：打造智慧城市需要以人为本贯穿始终</span></li>';
+				articleTypeAndarticle+='</ul>';
+				articleTypeAndarticle+='</div>';
 				for(var i=0;i<data.length;i++){
 					if(i%5==0){
 						articleTypeAndarticle+='<div class="col-md-4">';
@@ -84,13 +85,13 @@ $(function(){
 						articleTypeAndarticle+='</div>';
 					}
 				}
+				articleTypeAndarticle+='</div>';
 			}
 		});
-		articleTypeAndarticle+='</div>';
 		/***********************************为第二个风格***************************/
-		articleTypeAndarticle+='<div name="hiddennav">';
-		articleTypeAndarticle+='<hr/>';
-		/*加载左半边*/
+		/*获取类型*/
+		var typeNameList2=new Array();
+		var typeIdList2=new Array();
 		$.ajax({
 			url:"IDServlet",
 			type:"POST",
@@ -98,69 +99,117 @@ $(function(){
 			async:false,
 			data:{
 				"method":"searchArticleTypeTB",
-				"id":2
+				"id":"2"
 			},
 			cache:false,
 			success:function(data){
+				articleTypeAndarticle+='<div name="hiddennav">';
+				articleTypeAndarticle+='<hr/>';
 				for(var i=0;i<data.length;i++){
-					articleTypeAndarticle+='<div class="col-md-6">';
-					articleTypeAndarticle+='<ul class="list-unstyled">';
-					articleTypeAndarticle+='<li class="title">';
-					articleTypeAndarticle+='<span>'+data[i]['aName']+'</span>';
-					articleTypeAndarticle+='<input type="hidden" value="'+data[i]["aId"]+'"/>';
-					articleTypeAndarticle+='</li>';
-					articleTypeAndarticle+='<li><hr/></li>';
-					articleTypeAndarticle+='<li>';
-					$.ajax({
-						url:"IDServlet",
-						type:"POST",
-						dataType:"json",
-						async:false,
-						data:{
-							"method":"searchArticleTB",
-							"id":data[i]['aId'],
-							"start":"0",
-							"end":"27"
-						},
-						cache:false,
-						success:function(data){
-							for(var j=0;j<data.length;j++){
-								if(j%9==0){
-									articleTypeAndarticle+=count==0?'<div class="col-md-4">':'<div class="col-md-6">';
-									articleTypeAndarticle+='<ul class="list-unstyled">';
-								}
-								var aArticleTitle=data[i]['aArticleTitle'];
-								if(aArticleTitle.length>9){
-									aArticleTitle=aArticleTitle.substr(0,8);
-									aArticleTitle+="...";
-								}
-								articleTypeAndarticle+='<li>';
-								articleTypeAndarticle+='<span>'+aArticleTitle+'</span>';
-								articleTypeAndarticle+='<input type="hidden" value="'+data[i]["aId"]+'"/>';;
-								articleTypeAndarticle+='</li>';
-								articleTypeAndarticle+='<li><hr/></li>';
-								if(j!=0&&j%8==0||j==data.length+1){
-									articleTypeAndarticle+='</ul>';
-									articleTypeAndarticle+='</div>';
-								}
-							}
-							articleTypeAndarticle+='</li>';
-							articleTypeAndarticle+='</ul>';
-							articleTypeAndarticle+='</div>';
-						}
-					});
+					typeIdList2[i]=data[i]['aId'];
+					typeNameList2[i]=data[i]['aName'];
 				}
 			}
 		});
-		/*加载右半边*/
-		
+		/*左边*/
+		$.ajax({
+			url:"IDServlet",
+			type:"POST",
+			dataType:"json",
+			async:false,
+			data:{
+				"method":"searchArticleTB",
+				"id":typeIdList2[0]['aId'],
+				"start":"0",
+				"end":"27"
+			},
+			cache:false,
+			success:function(data){
+				articleTypeAndarticle+='<div class="col-md-6">';
+				articleTypeAndarticle+='<ul class="list-unstyled">';
+				articleTypeAndarticle+='<li class="title">';
+				articleTypeAndarticle+='<span>'+typeNameList2[0]+'</span>';
+				articleTypeAndarticle+='<input type="hidden" value="'+typeIdList2[0]["aId"]+'"/>';
+				articleTypeAndarticle+='</li>';
+				articleTypeAndarticle+='<li><hr/></li>';
+				articleTypeAndarticle+='<li>';
+				for(var j=0;j<data.length;j++){
+					if(j%9==0){
+						articleTypeAndarticle+='<div class="col-md-4">';
+						articleTypeAndarticle+='<ul class="list-unstyled">';
+					}
+					var aArticleTitle=data[j]['aArticleTitle'];
+					if(aArticleTitle.length>9){
+						aArticleTitle=aArticleTitle.substr(0,8);
+						aArticleTitle+="...";
+					}
+					articleTypeAndarticle+='<li>';
+					articleTypeAndarticle+='<span>'+aArticleTitle+'</span>';
+					articleTypeAndarticle+='<input type="hidden" value="'+data[j]["aId"]+'"/>';;
+					articleTypeAndarticle+='</li>';
+					articleTypeAndarticle+='<li><hr/></li>';
+					if(j!=0&&j%8==0||j==data.length+1){
+						articleTypeAndarticle+='</ul>';
+						articleTypeAndarticle+='</div>';
+					}
+				}
+				articleTypeAndarticle+='</li>';
+				articleTypeAndarticle+='</ul>';
+				articleTypeAndarticle+='</div>';
+			}
+		});
+		/*右边*/
+		$.ajax({
+			url:"IDServlet",
+			type:"POST",
+			dataType:"json",
+			async:false,
+			data:{
+				"method":"searchArticleTB",
+				"id":typeIdList2[1]['aId'],
+				"start":"0",
+				"end":"18"
+			},
+			cache:false,
+			success:function(data){
+				articleTypeAndarticle+='<div class="col-md-6">';
+				articleTypeAndarticle+='<ul class="list-unstyled">';
+				articleTypeAndarticle+='<li class="title">';
+				articleTypeAndarticle+='<span>'+typeNameList2[1]+'</span>';
+				articleTypeAndarticle+='<input type="hidden" value="'+typeIdList2[1]+'"/>';
+				articleTypeAndarticle+='</li>';
+				articleTypeAndarticle+='<li><hr/></li>';
+				articleTypeAndarticle+='<li>';
+				for(var j=0;j<data.length;j++){
+					if(j%9==0){
+						articleTypeAndarticle+='<div class="col-md-4">';
+						articleTypeAndarticle+='<ul class="list-unstyled">';
+					}
+					var aArticleTitle=data[j]['aArticleTitle'];
+					if(aArticleTitle.length>9){
+						aArticleTitle=aArticleTitle.substr(0,8);
+						aArticleTitle+="...";
+					}
+					articleTypeAndarticle+='<li>';
+					articleTypeAndarticle+='<span>'+aArticleTitle+'</span>';
+					articleTypeAndarticle+='<input type="hidden" value="'+data[j]["aId"]+'"/>';;
+					articleTypeAndarticle+='</li>';
+					articleTypeAndarticle+='<li><hr/></li>';
+					if(j!=0&&j%8==0||j==data.length+1){
+						articleTypeAndarticle+='</ul>';
+						articleTypeAndarticle+='</div>';
+					}
+				}
+				articleTypeAndarticle+='</li>';
+				articleTypeAndarticle+='</ul>';
+				articleTypeAndarticle+='</div>';
+				articleTypeAndarticle+='</div>';
+			}
+		});
 		/************************************为第三个风格*************************/
-		articleTypeAndarticle+='<div class="col-md-3">';
-		articleTypeAndarticle+='<ul class="list-unstyled">';
-		articleTypeAndarticle+='<li><span><img src="img/navleft2.jpg"/></span></li><br/>';
-		articleTypeAndarticle+='<li><span>软通动力服务能源行业</span></li>';
-		articleTypeAndarticle+='</ul>';
-		articleTypeAndarticle+='</div>';
+		var typeIdList3=new Array();
+		var typeNameList3=new Array();
+		/*获取类型*/
 		$.ajax({
 			url:"IDServlet",
 			type:"POST",
@@ -172,47 +221,277 @@ $(function(){
 			},
 			cache:false,
 			success:function(data){
+				articleTypeAndarticle+='<div name="hiddennav">';
+				articleTypeAndarticle+='<hr/>';
 				for(var i=0;i<data.length;i++){
-					articleTypeAndarticle+='<div class="col-md-2">';
-					articleTypeAndarticle+='<ul class="list-unstyled">';
-					articleTypeAndarticle+='<li class="title">';
-					articleTypeAndarticle+='<span>'+data[i]['aName']+'</span>';
-					articleTypeAndarticle+='<input type="hidden" value="'+data[i]["aId"]+'"/>';;
-					articleTypeAndarticle+='</li>';
-					articleTypeAndarticle+='<li><hr/></li>';
-					$.ajax({
-						url:"IDServlet",
-						type:"POST",
-						dataType:"json",
-						data:{
-							"method":"searchArticleTB",
-							"id":data[i]["aId"],
-							"start":"0",
-							"end":"5"
-						},
-						cache:false,
-						success:function(data){
-							if(aArticleTitle.length>8){
-								var aArticleTitle=data[i]['aArticleTitle'];
-								if(aArticleTitle.length>7){
-									aArticleTitle=aArticleTitle.substr(0,7);
-									aArticleTitle+="...";
-								}
-								articleTypeAndarticle+='<li>';
-								articleTypeAndarticle+='<span>'+aArticleTitle+'</span>';
-								articleTypeAndarticle+='<input type="hidden" value="'+data[i]["aId"]+'"/>';
-								articleTypeAndarticle+='</li>';
-								articleTypeAndarticle+='<li><hr/></li>';
-							}
-						}
-					});
-					articleTypeAndarticle+='</ul>';
-					articleTypeAndarticle+='</div>';
+					typeIdList3[i]=data[i]['aId'];
+					typeNameList3[i]=data[i]['aName'];
 				}
+				articleTypeAndarticle+='<div class="col-md-3">';
+				articleTypeAndarticle+='<ul class="list-unstyled">';
+				articleTypeAndarticle+='<li><span><img src="img/navleft2.jpg"/></span></li><br/>';
+				articleTypeAndarticle+='<li><span>软通动力服务能源行业</span></li>';
+				articleTypeAndarticle+='</ul>';
+				articleTypeAndarticle+='</div>';
 			}
 		});
-		//alert(articleTypeAndarticle);
-		$("#articleTypeAndarticle").html(articleTypeAndarticle);
+		/*第一个*/
+		$.ajax({
+			url:"IDServlet",
+			type:"POST",
+			async:false,
+			dataType:"json",
+			data:{
+				"method":"searchArticleTB",
+				"id":typeIdList3[0],
+				"start":"0",
+				"end":"5"
+			},
+			cache:false,
+			success:function(data){
+				articleTypeAndarticle+='<div class="col-md-2">';
+				articleTypeAndarticle+='<ul class="list-unstyled">';
+				articleTypeAndarticle+='<li class="title">';
+				articleTypeAndarticle+='<span>'+typeNameList3[0]+'</span>';
+				articleTypeAndarticle+='<input type="hidden" value="'+typeIdList3[0]+'"/>';;
+				articleTypeAndarticle+='</li>';
+				articleTypeAndarticle+='<li><hr/></li>';
+				for(var i=0;i<data.length;i++){
+					var aArticleTitle=data[i]['aArticleTitle'];
+					if(aArticleTitle.length>7){
+						aArticleTitle=aArticleTitle.substr(0,7);
+						aArticleTitle+="...";
+					}
+					articleTypeAndarticle+='<li>';
+					articleTypeAndarticle+='<span>'+aArticleTitle+'</span>';
+					articleTypeAndarticle+='<input type="hidden" value="'+data[i]["aId"]+'"/>';
+					articleTypeAndarticle+='</li>';
+					articleTypeAndarticle+='<li><hr/></li>';
+				}
+				articleTypeAndarticle+='</ul>';
+				articleTypeAndarticle+='</div>';
+			}
+		});
+		/*第二个*/
+		$.ajax({
+			url:"IDServlet",
+			type:"POST",
+			async:false,
+			dataType:"json",
+			data:{
+				"method":"searchArticleTB",
+				"id":typeIdList3[1],
+				"start":"0",
+				"end":"5"
+			},
+			cache:false,
+			success:function(data){
+				articleTypeAndarticle+='<div class="col-md-2">';
+				articleTypeAndarticle+='<ul class="list-unstyled">';
+				articleTypeAndarticle+='<li class="title">';
+				articleTypeAndarticle+='<span>'+typeNameList3[1]+'</span>';
+				articleTypeAndarticle+='<input type="hidden" value="'+typeIdList3[1]+'"/>';;
+				articleTypeAndarticle+='</li>';
+				articleTypeAndarticle+='<li><hr/></li>';
+				for(var i=0;i<data.length;i++){
+					var aArticleTitle=data[i]['aArticleTitle'];
+					if(aArticleTitle.length>7){
+						aArticleTitle=aArticleTitle.substr(0,7);
+						aArticleTitle+="...";
+					}
+					articleTypeAndarticle+='<li>';
+					articleTypeAndarticle+='<span>'+aArticleTitle+'</span>';
+					articleTypeAndarticle+='<input type="hidden" value="'+data[i]["aId"]+'"/>';
+					articleTypeAndarticle+='</li>';
+					articleTypeAndarticle+='<li><hr/></li>';
+				}
+				articleTypeAndarticle+='</ul>';
+				articleTypeAndarticle+='</div>';
+			}
+		});
+		/*第三个*/
+		$.ajax({
+			url:"IDServlet",
+			type:"POST",
+			async:false,
+			dataType:"json",
+			data:{
+				"method":"searchArticleTB",
+				"id":typeIdList3[2],
+				"start":"0",
+				"end":"5"
+			},
+			cache:false,
+			success:function(data){
+				articleTypeAndarticle+='<div class="col-md-2">';
+				articleTypeAndarticle+='<ul class="list-unstyled">';
+				articleTypeAndarticle+='<li class="title">';
+				articleTypeAndarticle+='<span>'+typeNameList3[2]+'</span>';
+				articleTypeAndarticle+='<input type="hidden" value="'+typeIdList3[2]+'"/>';;
+				articleTypeAndarticle+='</li>';
+				articleTypeAndarticle+='<li><hr/></li>';
+				for(var i=0;i<data.length;i++){
+					var aArticleTitle=data[i]['aArticleTitle'];
+					if(aArticleTitle.length>7){
+						aArticleTitle=aArticleTitle.substr(0,7);
+						aArticleTitle+="...";
+					}
+					articleTypeAndarticle+='<li>';
+					articleTypeAndarticle+='<span>'+aArticleTitle+'</span>';
+					articleTypeAndarticle+='<input type="hidden" value="'+data[i]["aId"]+'"/>';
+					articleTypeAndarticle+='</li>';
+					articleTypeAndarticle+='<li><hr/></li>';
+				}
+				articleTypeAndarticle+='</ul>';
+				articleTypeAndarticle+='</div>';
+			}
+		});
+		/*第四个*/
+		$.ajax({
+			url:"IDServlet",
+			type:"POST",
+			async:false,
+			dataType:"json",
+			data:{
+				"method":"searchArticleTB",
+				"id":typeIdList3[3],
+				"start":"0",
+				"end":"5"
+			},
+			cache:false,
+			success:function(data){
+				articleTypeAndarticle+='<div class="col-md-2">';
+				articleTypeAndarticle+='<ul class="list-unstyled">';
+				articleTypeAndarticle+='<li class="title">';
+				articleTypeAndarticle+='<span>'+typeNameList3[3]+'</span>';
+				articleTypeAndarticle+='<input type="hidden" value="'+typeIdList3[3]+'"/>';;
+				articleTypeAndarticle+='</li>';
+				articleTypeAndarticle+='<li><hr/></li>';
+				for(var i=0;i<data.length;i++){
+					var aArticleTitle=data[i]['aArticleTitle'];
+					if(aArticleTitle.length>7){
+						aArticleTitle=aArticleTitle.substr(0,7);
+						aArticleTitle+="...";
+					}
+					articleTypeAndarticle+='<li>';
+					articleTypeAndarticle+='<span>'+aArticleTitle+'</span>';
+					articleTypeAndarticle+='<input type="hidden" value="'+data[i]["aId"]+'"/>';
+					articleTypeAndarticle+='</li>';
+					articleTypeAndarticle+='<li><hr/></li>';
+				}
+				articleTypeAndarticle+='</ul>';
+				articleTypeAndarticle+='</div>';
+				articleTypeAndarticle+='</div>';
+			}
+		});
+		/*******************为第四个时的风格*********************/
+		$.ajax({
+			url:"IDServlet",
+			type:"POST",
+			dataType:"json",
+			async:false,
+			data:{
+				"method":"searchArticleTB",
+				"id":1,
+				"start":"0",
+				"end":"10"
+			},
+			cache:false,
+			success:function(data){
+				articleTypeAndarticle+='<div name="hiddennav">';
+				articleTypeAndarticle+='<hr/>';
+				articleTypeAndarticle+='<div class="col-md-4">';
+				articleTypeAndarticle+='<ul class="list-unstyled">';
+				articleTypeAndarticle+='<li><span><img src="img/navleft1.jpg"/></span></li><br/>';
+				articleTypeAndarticle+='<li><span>刘天文：打造智慧城市需要以人为本贯穿始终</span></li>';
+				articleTypeAndarticle+='</ul>';
+				articleTypeAndarticle+='</div>';
+				for(var i=0;i<data.length;i++){
+					if(i%5==0){
+						articleTypeAndarticle+='<div class="col-md-4">';
+						articleTypeAndarticle+='<ul class="list-unstyled">';
+					}
+					articleTypeAndarticle+='<li>';
+					var aArticleTitle=data[i]['aArticleTitle'];
+					if(aArticleTitle.length>19){
+						aArticleTitle=aArticleTitle.substring(0,19);
+						aArticleTitle+="...";
+					}
+					articleTypeAndarticle+='<span>'+aArticleTitle+'</span>';
+					articleTypeAndarticle+='<input type="hidden" value="'+data[i]['aId']+'"/>';
+					articleTypeAndarticle+='</li>';
+					articleTypeAndarticle+='<li><hr/></li>';
+					if(i!=0&&i%4==0||i==data.length-1){
+						articleTypeAndarticle+='</ul>';
+						articleTypeAndarticle+='</div>';
+					}
+				}
+				articleTypeAndarticle+='</div>';
+				$("#articleTypeAndarticle").html(articleTypeAndarticle);
+				/*加载轮播方法*/
+				loadlb();
+			}
+		});
+	}
+	/*加载轮播方法*/
+	function loadlb(){
+		var imageList=new Array();
+		var textList=new Array();
+		var numsList=0;
+		/*图片*/
+		$.ajax({
+			url:"IDServlet",
+			type:"POST",
+			dataType:"json",
+			async:false,
+			data:{
+				"mType":"轮播图"
+			},
+			cache:false,
+			success:function(data){
+				/*图片数量*/
+				numsList=data.length;
+				for(var i=0;i<data.length;i++){
+					imageList[i]=data[i]['mName'];
+				}
+				/*文字*/
+				$.ajax({
+					url:"IDServlet",
+					type:"POST",
+					dataType:"json",
+					async:false,
+					data:{
+						"mType":"轮播图文字"
+					},
+					cache:false,
+					success:function(data){
+						for(var i=0;i<data.length;i++){
+							textList[i]=data[i]['mName'];
+						}
+						/*替换节点*/
+						var box='<ul class="imglist">';
+						for(var i=0;i<imageList.length;i++){
+							box+='<li style="background-image: url(img/'+imageList[i]+');">';
+							box+='<img src="img/'+imageList[i]+'"/ class="con">';
+							box+='<img src="img/'+textList[i]+'"/ class="txt">';
+							box+='</li>';
+						}
+						box+='</ul>';
+						box+='<ul class="numlist">';
+						for(var i=0;i<numsList;i++){
+							box+='<li></li>';
+						}
+						box+='</ul>';
+						$("#box").html(box);
+					}
+				});
+			}
+		});
+		loadFoot();
+	}
+	/*加载页脚方法*/
+	function loadFoot(){
+		
 	}
 	//下一张轮播图
 	function step(){
@@ -250,6 +529,7 @@ $(function(){
 		$(this).css("text-decoration","none");
 	});
 	$("[name='hiddennav'] span").live("click",function(){
+		$("[[name='hiddennav']").hide();
 		var id=$(this).next("input").val();
 		$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
 		setTimeout(function(){
@@ -278,7 +558,7 @@ $(function(){
 					$("#body").html(div);
 				}
 			});
-		},2000);
+		},1000);
 	});
 	$("footer a").live("mouseover",function(){
 		$(this).css({"color":"white","text-decoration":"none"});

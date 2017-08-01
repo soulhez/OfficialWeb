@@ -173,6 +173,7 @@ footer{
 }
 footer span{
 	color: #ADADAD;
+	cursor: pointer;
 }
 footer dt{
 	font-size: 15px;
