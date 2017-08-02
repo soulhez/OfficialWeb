@@ -28,12 +28,13 @@ public class MaterrialTBServlet extends HttpServlet {
 			response.setContentType("text/html; charset=utf-8");
 			String method=request.getParameter("method");
 			PrintWriter out=response.getWriter();
-			String mType=request.getParameter("mType");
+			String mType=request.getParameter("mType");//素材类型
 			String start =request.getParameter("start");
 			String end =request.getParameter("end");
+			String mName=request.getParameter("name");//素材名称
 			//根据素材类型查询此类型的素材集合
 			if(method==null||"".equals(method)){
-				List<MaterialTB> list=new MaterialTBDaoImpl().searchMaterialTB(mType,start,end);
+				List<MaterialTB> list=new MaterialTBDaoImpl().searchMaterialTB(mType,mName,start,end);
 				JSONArray ja=JSONArray.fromObject(list);
 				out.write(ja.toString());
 				return;				
@@ -44,15 +45,6 @@ public class MaterrialTBServlet extends HttpServlet {
 				JSONObject json=JSONObject.fromObject(name);
 				out.write(json.toString());
 				return;
-			}else{
-				//searchMaterialTBByName根据素材名称模糊查询
-				String mName=request.getParameter("mName");
-				if(mName!=null||"".equals(mName)){
-					List<MaterialTB> list=new MaterialTBDaoImpl().searchMaterialTBByName(mName,start,end);
-					JSONArray ja=JSONArray.fromObject(list);
-					out.write(ja.toString());
-					return;
-				}
 			}
 	}
 }

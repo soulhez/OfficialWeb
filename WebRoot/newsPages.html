@@ -227,30 +227,24 @@
                                 -->
 								<div id="btgroup" style="display: none;">
 									<div class="row">
-									<form>
 									<div class="col-md-3 col-lg-3">
 										<div class="form-group">
-											<input type="text" class="form-control" placeholder="请输入文章标题" />
+											<input id="btText" type="text" class="form-control" placeholder="请输入文章标题" />
 										</div>
 									</div>
 									<div class="col-md-3 col-lg-3">
 										<div class="form-group">
-											<select class="form-control">
-												<option>请选择标题类型</option>
-												<option>英文</option>
-												<option>法文</option>
-												<option>日文</option>
-												<option>新疆语</option>
+											<select class="form-control" name="updateLx">
+											<option value="">请选择</option>
 											</select>
 										</div>
 									</div>
 									<div class="col-md-2 col-lg-2">
 										<div class="form-group">
-											<button type="submit" class="btn btn-primary form-control btn-block">查询</button>
+											<button name="repeatedly" type="button" class="btn btn-primary form-control btn-block">查询</button>
 										</div>
 									</div>
 									<div class="col-md-4 col-lg-4">1</div>
-									</form>
 								</div>
 								<div class="row">
 									<div class="col-md-12 col-lg-12">
@@ -292,30 +286,19 @@
                                 -->
                                 <div id="dhgroup" style="display: none;">
 									<div class="row">
-									<form>
 									<div class="col-md-3 col-lg-3">
 										<div class="form-group">
-											<input type="text" class="form-control" placeholder="请输入导航标题" />
-										</div>
-									</div>
-									<div class="col-md-3 col-lg-3">
-										<div class="form-group">
-											<select class="form-control">
-												<option>请选择导航类型</option>
-												<option>英文</option>
-												<option>法文</option>
-												<option>日文</option>
-												<option>新疆语</option>
-											</select>
+											<input id="dhText" type="text" class="form-control" placeholder="请输入导航标题" />
 										</div>
 									</div>
 									<div class="col-md-2 col-lg-2">
 										<div class="form-group">
-											<button type="submit" class="btn btn-primary form-control btn-block">查询</button>
+											<button type="button" name="repeatedly" class="btn btn-primary form-control btn-block">查询</button>
 										</div>
 									</div>
+									<div class="col-md-3 col-lg-3">
+									</div>
 									<div class="col-md-4 col-lg-4">1</div>
-									</form>
 								</div>
 								<div class="row">
 									<div class="col-md-12 col-lg-12">
@@ -354,31 +337,25 @@
                                 	描述：文章类型表格
                                 	-->
 									<div style="display: none;" id="lxgroup">
-										<div class="row">
-									<form>
+									<div class="row">
 									<div class="col-md-3 col-lg-3">
 										<div class="form-group">
-											<input type="text" class="form-control" placeholder="请输入类型" />
+											<input name="lxText" type="text" class="form-control" placeholder="请输入类型" />
 										</div>
 									</div>
 									<div class="col-md-3 col-lg-3">
 										<div class="form-group">
-											<select class="form-control">
-												<option>请选择文章类型</option>
-												<option>英文</option>
-												<option>法文</option>
-												<option>日文</option>
-												<option>新疆语</option>
+											<select class="form-control" name="updateLx">
+												<option value="">请选择导航类型</option>
 											</select>
 										</div>
 									</div>
 									<div class="col-md-2 col-lg-2">
 										<div class="form-group">
-											<button type="submit" class="btn btn-primary form-control btn-block">查询</button>
+											<button type="button" name="repeatedly" class="btn btn-primary form-control btn-block">查询</button>
 										</div>
 									</div>
 									<div class="col-md-4 col-lg-4">1</div>
-									</form>
 								</div>
 								<div class="row">
 									<div class="col-md-12 col-lg-12">
@@ -422,23 +399,19 @@
 									<form>
 									<div class="col-md-3 col-lg-3">
 										<div class="form-group">
-											<input type="text" class="form-control" placeholder="请输入素材名称" />
+											<input name="scText" type="text" class="form-control" placeholder="请输入素材名称" />
 										</div>
 									</div>
 									<div class="col-md-3  col-lg-3">
 										<div class="form-group">
-											<select class="form-control">
-												<option>请选择素材类型</option>
-												<option>英文</option>
-												<option>法文</option>
-												<option>日文</option>
-												<option>新疆语</option>
+											<select class="form-control" name="updateLx">
+												<option value="">请选择素材类型</option>
 											</select>
 										</div>
 									</div>
 									<div class="col-md-2 col-lg-2">
 										<div class="form-group">
-											<button type="submit" class="btn btn-primary form-control btn-block">查询</button>
+											<button type="submit" name="repeatedly" class="btn btn-primary form-control btn-block">查询</button>
 										</div>
 									</div>
 									<div class="col-md-4 col-lg-4">1</div>
@@ -492,7 +465,7 @@
 			                  
                                 <div class="row" style="display: none;" id="xggroup">
 									<div class="col-md-12 col-lg-12">
-									<form class="form-horizontal" action="" method="post">
+									<form class="form-horizontal" action="" method="post" id="xgform">
 										<table class="table table-hover table-bordered">
 											<thead style="background-color:#31B0D5;">
 												<tr>
@@ -517,7 +490,8 @@
 														<label class="control-label"  style="font-size: 17px;">文章类型:</label>
 													</td>
 													<td>
-														<select class="form-control" id="updatelLx">
+														<select class="form-control" name="updateLx">
+														<option value="">请选择</option>
 														</select>
 													</td>
 												</tr>
@@ -534,7 +508,7 @@
 														<label class="control-label" style="font-size: 17px;">文章内容:</label>
 													</td>
 													<td>
-													<textarea class="form-control"></textarea>
+													<textarea class="form-control" name="updateText" value="123"></textarea>
 													</td>
 												</tr>
 											</tbody>

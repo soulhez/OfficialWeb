@@ -42,7 +42,7 @@ public class NvntitleTBServlet extends HttpServlet {
 					out.write(newContent);
 				}
 				return;
-			}else{
+			}else if(method.equalsIgnoreCase("selectNvntitle")){
 				//根据导航内容模糊查询
 				String content=request.getParameter("content");
 				List<NvntitleTB> list=new NvntitleTBDaoImpl().searchNvntitleTBByContent(content);

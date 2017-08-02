@@ -8,7 +8,6 @@ $(function(){
 		$("#dhgroup").hide();
 		$("#scgroup").hide();
 		$("#lxgroup").hide();
-		$("#xggroup").hide();
 		$("#zy").show();
 		$("label[for=two]").addClass("fuck");
 	}
@@ -19,11 +18,8 @@ $(function(){
 	$("button[name=wenz]").click(function(){
 		$(this).hide();
 		$(this).next().show();
-		//$(this).parent("div").siblings("div").children("label").hide();
-		//$(this).parent("div").siblings("div").children("button").show();
-		//alert($(this).parent().parent().siblings().children().children("label").hide());
-		$(this).parent().parent().siblings().children().children("label").hide()
-		$(this).parent().parent().siblings().children().children("button").show();
+		$(this).parent("div").siblings("div").children("label").hide();
+		$(this).parent("div").siblings("div").children("button").show();
 		$("#zy").hide();
 		$("label[for=two]").removeClass("fuck");
 		$("label[for=one]").addClass("fuck");
@@ -31,17 +27,14 @@ $(function(){
 	$("label[class=bal]").click(function(){
 		$(this).hide();
 		$(this).prev().show();
-		$(this).parent().parent().siblings().children().children("label").hide()
-		$(this).parent().parent().siblings().children().children("button").show();
-		//$(this).parent("div").siblings("div").children("label").hide();
-		//$(this).parent("div").siblings("div").children("button").show();
+		$(this).parent("div").siblings("div").children("label").hide();
+		$(this).parent("div").siblings("div").children("button").show();
 		$("label[for=one]").removeClass("fuck");
 		$("label[for=two]").addClass("fuck");
 		$("#btgroup").hide();
 		$("#dhgroup").hide();
 		$("#scgroup").hide();
 		$("#lxgroup").hide();
-		$("#xggroup").hide();
 		$("#zy").show();
 	});
 	$("#wz").click(function(){
@@ -49,35 +42,30 @@ $(function(){
 		$("#dhgroup").hide();
 		$("#scgroup").hide();
 		$("#lxgroup").hide();
-		$("#xggroup").hide();
 	});
 	$("#sc").click(function(){
 		$("#scgroup").show();
 		$("#lxgroup").hide();
 		$("#btgroup").hide();
 		$("#dhgroup").hide();
-		$("#xggroup").hide();
 	});
 	$("#lx").click(function(){
 		$("#lxgroup").show();
 		$("#scgroup").hide();
 		$("#btgroup").hide();
 		$("#dhgroup").hide();
-		$("#xggroup").hide();
 	});
 	$("#dh").click(function(){
 		$("#dhgroup").show();
 		$("#lxgroup").hide();
 		$("#scgroup").hide();
 		$("#btgroup").hide();
-		$("#xggroup").hide();
 	});
 	$("#two").click(function(){
 		$("#btgroup").hide();
 		$("#dhgroup").hide();
 		$("#scgroup").hide();
 		$("#lxgroup").hide();
-		$("#xggroup").hide();
 		$("#zy").show();
 		$("button[name=wenz]").show();
 		$("label[class=bal]").hide();

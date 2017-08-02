@@ -33,13 +33,12 @@ public class IDServlet extends HttpServlet {
 			throws ServletException, IOException {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
-			String method=request.getParameter("method");
-			String id=null;
-			id=request.getParameter("id");
-			String start=null;
-			start=request.getParameter("start");
-			String end=null;
-			end=request.getParameter("end");
+			String method=request.getParameter("method");//提交方式
+			String id=request.getParameter("id");//文章类型id或者导航标题id
+			String start=request.getParameter("start");//开始
+			String end=request.getParameter("end");//结束
+			String aNvntitleTBName=request.getParameter("name");//文章类型名称
+			String title=request.getParameter("title");//文章标题
 			 //获取管理员信息
 			PrintWriter out=response.getWriter();
 			if(method==null||"".equals(method)){
@@ -50,15 +49,12 @@ public class IDServlet extends HttpServlet {
 			}else
 			//根据文章类型ID查询文章后，以文章创建时间降序排列
 			 if(method.equalsIgnoreCase("searchArticleTB")){
-				 System.out.print(start);
-				 System.out.print(end);
-				 List<ArticleTB> list=new ArticleTBDaoImpl().searchArticleTB(id, start, end);
+				 List<ArticleTB> list=new ArticleTBDaoImpl().searchArticleTB(id,title,start, end);
 				 JSONArray ja=JSONArray.fromObject(list);
 				 out.write(ja.toString());
 				 return;
 			}//根据文章ID查询文章
 			else if(method.equalsIgnoreCase("searchArticleTBByID")){
-				System.out.print(id);
 				ArticleTB at=new  ArticleTBDaoImpl().searchArticleTBByID(id,WebUtils.getPath(request));
 				JSONObject json=JSONObject.fromObject(at);
 				out.write(json.toString());
@@ -67,9 +63,10 @@ public class IDServlet extends HttpServlet {
 			}
 			 //根据导航ID查询文章类型集合
 			else if(method.equalsIgnoreCase("searchArticleTypeTB")){
-				 List<ArticleTypeTB> list=new ArticleTypeTBDaoImpl().searchArticleTypeTB(id);
+				 List<ArticleTypeTB> list=new ArticleTypeTBDaoImpl().searchArticleTypeTB(id,aNvntitleTBName);
 				 JSONArray ja=JSONArray.fromObject(list);
 				 out.write(ja.toString());
+				 System.out.print(ja.toString());
 				 return;
 			}
 	}

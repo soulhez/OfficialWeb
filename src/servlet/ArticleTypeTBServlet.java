@@ -2,19 +2,12 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONArray;
-
 import dao.impl.ArticleTypeTBDaoImpl;
-
 import util.WebUtils;
-
 import entity.ArticleTypeTB;
 public class ArticleTypeTBServlet extends HttpServlet {
 
@@ -51,14 +44,6 @@ public class ArticleTypeTBServlet extends HttpServlet {
 				number=new ArticleTypeTBDaoImpl().updateArticleTypeTB(articleTypeTB);
 				out.write(number>0?"修改成功":"修改失败");
 				return;
-			}else{
-				String name=request.getParameter("name");
-				if(name!=null||!"".equals(name)){
-					 List<ArticleTypeTB> list=new ArticleTypeTBDaoImpl().searchArticleTypeTBByName(name);
-					 JSONArray ja=JSONArray.fromObject(list);
-					 out.write(ja.toString());
-					 return;
-				}
 			}
 	}
 }

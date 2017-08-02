@@ -45,7 +45,7 @@ public class NvntitleTBDaoImpl extends BaseDao implements NvntitleTBDao {
 	 * 根据导航内容模糊查询
 	 */
 	public List<NvntitleTB> searchNvntitleTBByContent(String content) {
-		String sql="select * from nvntitleTB content like ?";
+		String sql="select * from nvntitleTB where content like ?";
 		rs=executeQuery(sql,"%"+content+"%");
 		List<NvntitleTB> list=new ArrayList<NvntitleTB>();
 		NvntitleTB nvntitleTB=null;

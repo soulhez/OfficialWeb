@@ -50,16 +50,29 @@ public class ArticleTBDaoImpl extends BaseDao implements ArticleTBDao {
 		return WebUtils.deleteFile(path,titleString)?executeUpdate(sql,aId):0;
 	}
 	/**
-	 * 根据文章类型ID查询文章后，以文章创建时间降序排列
+	 * 根据文章类型ID和文章标题模糊查询文章后，以文章创建时间降序排列
+	 * aArticleTypetbID文章类型id
+	 * aArticleTitle文章标题
 	 */
-	public List<ArticleTB> searchArticleTB(String aArticleTypetbID, String start,String end) {
+	public List<ArticleTB> searchArticleTB(String aArticleTypetbID,String aArticleTitle,String start,String end) {
 		String sql=null;
 		if(aArticleTypetbID==null||"".equals(aArticleTypetbID)){
-			sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on  at.articletypetbID=ty.id order by newDate desc limit ?,?";
-			rs=executeQuery(sql,Integer.parseInt(start),Integer.parseInt(end));
+			if(aArticleTitle==null||"".equals(aArticleTitle)){
+				sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on  at.articletypetbID=ty.id order by newDate desc limit ?,?";
+				rs=executeQuery(sql,Integer.parseInt(start),Integer.parseInt(end));
+			}else{
+				sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id where at.articletitle like ?";
+				rs=executeQuery(sql,"%"+aArticleTitle+"%");
+			}
 		}else{
-			sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id where articletypetbID=?  order by newDate desc limit ?,?";
-			rs=executeQuery(sql,aArticleTypetbID,Integer.parseInt(start),Integer.parseInt(end));
+			if(aArticleTitle==null||"".equals(aArticleTitle)){
+				sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id where at.articletypetbID=?  order by newDate desc limit ?,?";
+				rs=executeQuery(sql,aArticleTypetbID,Integer.parseInt(start),Integer.parseInt(end));
+			}else{
+				sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id where at.articletypetbID=? and articletitle like ? order by newDate desc limit ?,?";
+				rs=executeQuery(sql,aArticleTypetbID,"%"+aArticleTitle+"%",Integer.parseInt(start),Integer.parseInt(end));
+			}
+			
 		}
 		List<ArticleTB> list=new ArrayList<ArticleTB>();
 		ArticleTB at=null;
@@ -137,36 +150,5 @@ public class ArticleTBDaoImpl extends BaseDao implements ArticleTBDao {
 			closeAll();
 		}
 		return titleString;
-	}
-/**
- * //根据文章标题模糊查询文章
- */
-	public List<ArticleTB> searchArticleTBByTitle(String aArticleTitle) {
-		String sql=null;
-		if(aArticleTitle==null){
-			sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on  at.articletypetbID=ty.id order by newDate desc";
-			rs=executeQuery(sql);
-		}else{
-			sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id where articletitle like ?";
-			rs=executeQuery(sql,"%"+aArticleTitle+"%");
-		}
-		List<ArticleTB> list=new ArrayList<ArticleTB>();
-		ArticleTB at=null;
-		try {
-			while(rs.next()){
-				at=new ArticleTB();
-				at.setaId(rs.getString(1));
-				at.setaArticleTitle(rs.getString(2));
-				at.setaNewDate(rs.getString(3));
-				at.setaArticleTypetbID(rs.getString(4));
-				at.setaArticleTypetbName(rs.getString(5));
-				list.add(at);
-			}
-		} catch (SQLException e) {
-			throw new RuntimeException();
-		}finally{
-			closeAll();
-		}
-		return list;
 	}
 }
