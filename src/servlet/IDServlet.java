@@ -50,16 +50,19 @@ public class IDServlet extends HttpServlet {
 			}else
 			//根据文章类型ID查询文章后，以文章创建时间降序排列
 			 if(method.equalsIgnoreCase("searchArticleTB")){
+				 System.out.print(start);
+				 System.out.print(end);
 				 List<ArticleTB> list=new ArticleTBDaoImpl().searchArticleTB(id, start, end);
 				 JSONArray ja=JSONArray.fromObject(list);
 				 out.write(ja.toString());
 				 return;
 			}//根据文章ID查询文章
 			else if(method.equalsIgnoreCase("searchArticleTBByID")){
+				System.out.print(id);
 				ArticleTB at=new  ArticleTBDaoImpl().searchArticleTBByID(id,WebUtils.getPath(request));
 				JSONObject json=JSONObject.fromObject(at);
 				out.write(json.toString());
-				
+				System.out.print(json.toString());
 				return;
 			}
 			 //根据导航ID查询文章类型集合

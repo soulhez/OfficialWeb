@@ -85,6 +85,9 @@ public class WebUtils {
 	public static String readFile(String path,String name){
 		String str=null;
 		File file=new File(path+name+".txt");
+		if (!file.exists()) {
+			return null;
+		}
 		InputStreamReader isr = null;
 		BufferedReader breader=null;
 		try {

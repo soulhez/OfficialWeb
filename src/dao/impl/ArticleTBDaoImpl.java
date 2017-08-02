@@ -85,7 +85,7 @@ public class ArticleTBDaoImpl extends BaseDao implements ArticleTBDao {
 	 */
 	public ArticleTB searchArticleTBByID(String aId,String path) {
 		ArticleTB at=null;
-		String sql="select at.id,at.articletitle,at.newDate,ty.id,ty.name from  ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id articleTB where id=?";
+		String sql="select at.id,at.articletitle,at.newDate,ty.id,ty.name from  ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id where at.id=?";
 		rs=executeQuery(sql,aId);
 		try {
 			while(rs.next()){
