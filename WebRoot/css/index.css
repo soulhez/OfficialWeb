@@ -3,10 +3,6 @@
 	display: none;
 	padding-left: 30px;
 }
-.navli{
-	padding-left: 10px;
-	padding-right: 10px;
-}
 hr{
 	padding: 0px;
 	margin-left: 0px;
@@ -34,6 +30,9 @@ hr{
 #imagesLength{
 	position: relative;
 	bottom: 30px;
+}
+#searchImg{
+	cursor: pointer;
 }
 
 /*轮播样式*/

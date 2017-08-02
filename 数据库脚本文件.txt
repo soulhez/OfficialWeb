@@ -65,7 +65,7 @@ insert into articletypeTB(name,nvntitleTBid) value('互联网服务',3);
 insert into articletypeTB(name,nvntitleTBid) value('其他',3);
 insert into articletypeTB(name,nvntitleTBid) value('关于我们',4);
 
-insert into articleTB(articletitle,articletypetbID) value('苏皖晋董事长刘天文：互联网+与智慧城市相呼应 拉动产业转型升级','1');
+insert into articleTB(articletitle,articletypetbID) value('苏皖晋董事长徐军：互联网+与智慧城市相呼应 拉动产业转型升级','1');
 insert into articleTB(articletitle,articletypetbID) value('苏皖晋城市云解决方案','1');
 insert into articleTB(articletitle,articletypetbID) value('苏皖晋云服务平台','1');
 insert into articleTB(articletitle,articletypetbID) value('苏皖晋智慧业务 中小企业云','1');

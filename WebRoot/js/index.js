@@ -11,7 +11,7 @@ $(function(){
 	/*阿根智能一键加载*/
 	loadAll();
 	/***************************方法*************************************/
-	/*加载导航隐藏内容方法*/
+	/*加载导航方法*/
 	function loadAll(){
 		var Nvntitle='<div class="navbar-header">';
 		Nvntitle+='<a href="#"><img src="img/logo.png"/></a>';
@@ -29,9 +29,18 @@ $(function(){
 				for(var i=0;i<data.length;i++){
 					Nvntitle+='<li class="navli">';
 					Nvntitle+='<input type="hidden" value="'+data[i]["nId"]+'"/>';
-					Nvntitle+='<a href="#" name="navbar'+i+'">'+data[i]["nContent"]+'</a>';
+					Nvntitle+='<a href="#" name="navbar'+i+'">'+'&nbsp&nbsp'+data[i]["nContent"]+'&nbsp&nbsp'+'</a>';
 					Nvntitle+='</li>';
 				}
+				Nvntitle+='<li class="navli" style="position:relative;top:8px;left:40px;">';
+				Nvntitle+='<div class="input-group">';
+				Nvntitle+='<input type="text" class="form-control" placeholder="搜索" id="search">';
+				Nvntitle+='<span class="input-group-addon" id="searchImg">';
+				Nvntitle+='<span class="glyphicon glyphicon-search">';
+				Nvntitle+='</span>';
+				Nvntitle+='</span>';
+				Nvntitle+='</div>';
+				Nvntitle+='</li>';
 				Nvntitle+='</ul>';
 				Nvntitle+='</div>';
 				$("#Nvntitle").html(Nvntitle);
@@ -554,11 +563,57 @@ $(function(){
 			});
 		},1000);
 	});
-	$("footer a").live("mouseover",function(){
-		$(this).css({"color":"white","text-decoration":"none"});
-	});
-	$("footer a").live("mouseout",function(){
-		$(this).css({"color":"#ADADAD","text-decoration":"none"});
+	//搜索
+	$("#searchImg").live("click",function(){
+		var title=$.trim($("#search").val());
+		$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
+		setTimeout(function(){
+			var div='<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">';
+			div+="<img src='img/newsTop.jpg' width='100%'>";
+			div+="<div class='container'><hr/><div>";
+			div+="</div>";
+			$.ajax({
+				url:"ArticleTBServlet",
+				type:"POST",
+				async:false,
+				dataType:"json",
+				cache:false,
+				data:{
+					"title":title
+				},
+				beforeSend:function(){
+					$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
+				},
+				success:function(data){
+					var pageCount=10;
+					var pages=data.length%10==0?data.length/10:data.length/10+1;
+					var newsId=new Array();
+					var newsName=new Array();
+					div+="<div class='container'>";
+					for(var i=0;i<data.length;i++){
+						newsId[i]=data[i]['aId'];
+						newsName[i]=data[i]['aArticleTitle'];
+					}
+					
+					div+='<nav aria-label="Page navigation">';
+					div+='<ul class="pagination">';
+					div+='<li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+					for(var i=1;i<=pages;i++){
+						div+=i<=10?'<li><a href="#">'+i+'</a></li>':'<li class="hidden"><a href="#">'+i+'</a></li>';
+					}
+					div+='<li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
+					div+='</ul>';
+					div+='</nav>';
+					
+					div+="<span class='text-center'>"+data[i]['aArticleTitle']+"</span><br/><br/>";
+					div+="<span><hr/></span>";
+					
+					
+					div+="</div>";
+					$("#body").html(div);
+				}
+			});
+		},1000);
 	});
 	//轮播图鼠标悬浮离开事件
 	$("#box").live("mouseover",function(){
