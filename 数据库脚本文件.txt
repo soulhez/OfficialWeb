@@ -28,7 +28,7 @@ create table materialTB(
  create table articleTB(
   id int not null auto_increment primary key comment"文章ID",
   articletitle nvarchar(60) not null comment"文章标题",
-  newDate TIMESTAMP(14) comment"文章创建时间",
+  newDate TIMESTAMP(6) comment"文章创建时间",
   articletypetbID int comment"关联的文章类型ID",
   foreign key(articletypetbID) references articletypeTB(id));
 
@@ -65,13 +65,13 @@ insert into articletypeTB(name,nvntitleTBid) value('互联网服务',3);
 insert into articletypeTB(name,nvntitleTBid) value('其他',3);
 insert into articletypeTB(name,nvntitleTBid) value('关于我们',4);
 
-insert into articleTB(articletitle,articletypetbID) value('软通动力董事长刘天文：互联网+与智慧城市相呼应 拉动产业转型升级','1');
-insert into articleTB(articletitle,articletypetbID) value('软通动力城市云解决方案','1');
-insert into articleTB(articletitle,articletypetbID) value('软通动力云服务平台','1');
-insert into articleTB(articletitle,articletypetbID) value('软通动力智慧业务 中小企业云','1');
-insert into articleTB(articletitle,articletypetbID) value('软通动力智慧业务 跨境电商','1');
-insert into articleTB(articletitle,articletypetbID) value('软通动力企业金融解决方案','1');
-insert into articleTB(articletitle,articletypetbID) value('开启城市发展新篇章 软通动力牵头成立城市运营专委会','1');
+insert into articleTB(articletitle,articletypetbID) value('苏皖晋董事长刘天文：互联网+与智慧城市相呼应 拉动产业转型升级','1');
+insert into articleTB(articletitle,articletypetbID) value('苏皖晋城市云解决方案','1');
+insert into articleTB(articletitle,articletypetbID) value('苏皖晋云服务平台','1');
+insert into articleTB(articletitle,articletypetbID) value('苏皖晋智慧业务 中小企业云','1');
+insert into articleTB(articletitle,articletypetbID) value('苏皖晋智慧业务 跨境电商','1');
+insert into articleTB(articletitle,articletypetbID) value('苏皖晋企业金融解决方案','1');
+insert into articleTB(articletitle,articletypetbID) value('开启城市发展新篇章 苏皖晋牵头成立城市运营专委会','1');
 insert into articleTB(articletitle,articletypetbID) value('城市云解决方案','2');
 insert into articleTB(articletitle,articletypetbID) value('云数据中心解决方案','2');
 insert into articleTB(articletitle,articletypetbID) value('智慧农业解决方案','2');

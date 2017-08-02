@@ -119,7 +119,7 @@ $(function(){
 			async:false,
 			data:{
 				"method":"searchArticleTB",
-				"id":typeIdList2[0]['aId'],
+				"id":typeIdList2[0],
 				"start":"0",
 				"end":"27"
 			},
@@ -148,7 +148,7 @@ $(function(){
 					articleTypeAndarticle+='<input type="hidden" value="'+data[j]["aId"]+'"/>';;
 					articleTypeAndarticle+='</li>';
 					articleTypeAndarticle+='<li><hr/></li>';
-					if(j!=0&&j%8==0||j==data.length+1){
+					if(j!=0&&j%8==0||j==data.length-1){
 						articleTypeAndarticle+='</ul>';
 						articleTypeAndarticle+='</div>';
 					}
@@ -166,7 +166,7 @@ $(function(){
 			async:false,
 			data:{
 				"method":"searchArticleTB",
-				"id":typeIdList2[1]['aId'],
+				"id":typeIdList2[1],
 				"start":"0",
 				"end":"18"
 			},
@@ -195,7 +195,7 @@ $(function(){
 					articleTypeAndarticle+='<input type="hidden" value="'+data[j]["aId"]+'"/>';;
 					articleTypeAndarticle+='</li>';
 					articleTypeAndarticle+='<li><hr/></li>';
-					if(j!=0&&j%8==0||j==data.length+1){
+					if(j!=0&&j%8==0||j==data.length-1){
 						articleTypeAndarticle+='</ul>';
 						articleTypeAndarticle+='</div>';
 					}
@@ -522,14 +522,8 @@ $(function(){
 	$("[name='hiddennav']").live("mouseout",function(){
 		$("[name='hiddennav']").eq(navindex).slideUp();
 	});
-	$("[name='hiddennav'] a").live("mouseover",function(){
-		$(this).css("text-decoration","none");
-	});
-	$("[name='hiddennav'] a").live("mouseout",function(){
-		$(this).css("text-decoration","none");
-	});
 	$("[name='hiddennav'] span").live("click",function(){
-		$("[[name='hiddennav']").hide();
+		$("[name='hiddennav']").hide();
 		var id=$(this).next("input").val();
 		$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
 		setTimeout(function(){
