@@ -16,7 +16,8 @@ create database officialwebDB;
 create table materialTB(
      id int not null auto_increment primary key comment"素材ID",
      name nvarchar(20) not null comment"素材名称",
-     type nvarchar(20) comment "素材类型");
+     type nvarchar(20) comment "素材类型",
+     );
      
  create table articletypeTB(
  	  id int not null auto_increment primary key comment"文章类型ID",
@@ -31,7 +32,6 @@ create table materialTB(
   newDate TIMESTAMP(6) comment"文章创建时间",
   articletypetbID int comment"关联的文章类型ID",
   foreign key(articletypetbID) references articletypeTB(id));
-
   
  use officialwebDB;
 insert into nvntitleTB(content) value('新闻');
