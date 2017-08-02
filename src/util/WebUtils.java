@@ -116,6 +116,9 @@ public class WebUtils {
 	}
 	public static boolean deleteFile(String path,String name){
 		File file=new File(path+name+".txt");
+		if(!file.exists()){
+			return true;
+		}
 		return file.delete();
 	}
 }

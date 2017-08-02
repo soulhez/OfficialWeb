@@ -18,6 +18,23 @@ function ArticleTB(address,method,start,end,id,title){
 			}
 		})
 }
+//删除的ajax
+function ArticleTBDelete(address,method,id){
+	$.ajax({
+		url:address,
+		type:"post",
+		cache:false,
+		async:false,
+		dataType:"html",
+		data:{"method":method,"id":id},
+		error:function(e){
+		alert(e.status);
+		},
+		success:function(data){
+			alert(data);
+		}
+	})
+}
 //关于导航的ajax
 function Nvntitle(address,method,content,id){
 	$.ajax({
@@ -32,7 +49,7 @@ function Nvntitle(address,method,content,id){
 		},
 		success:function(data){
 			for(var i in data){
-				 $("#dhs").append('<tr><td>'+data[i].nId+'</td>'+'<td>'+'<input type="text" class="form-control" value='+data[i].nContent+'>'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">添加</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">修改</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">删除</button></td></tr>');
+				 $("#dhs").append('<tr><td>'+data[i].nId+'</td>'+'<td>'+'<input type="text" class="form-control" value='+data[i].nContent+'>'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">添加</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="dhupdate">修改</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;display: none;" name="dhsave">保存</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="delete">删除</button></td></tr>');
 			}
 			for(var j in data){
 				$("#lxgroup select[name=updateLx]").append('<option value="'+data[j].nId+'">'+data[j].nContent+'</option>');
@@ -131,25 +148,57 @@ function selectId(address,method,id){
 		}
 	})
 }
-/*function danji(){
-	$("button[name=update]").toggle(function(){
+//删除点击事件
+function demoDelete(){
+	$("#btgroup button[name=delete]").click(function(){
+		alert("1");
+		if(confirm("确认删除吗?")){
+			var id=$(this).parent().siblings().html();
+			alert(id);
+			ArticleTBDelete("ArticleTBServlet","delete",id);
+			$("#bt").empty();
+			ArticleTB("IDServlet","searchArticleTB","0","8");
+			disables();
+		}
+	});
+}
+function danji(){
+	/*$
+	 * ("#dhgroup button[name=dhupdate]").toggle(function(){
+		alert(1);
 		 $(this).parent().siblings().children("input").removeAttr("disabled");
     	 $(this).text("保存");
     	 $("#test").removeAttr("disabled");
 	},function(){
+		alert(1);
 		$(this).text("修改");
+	})
+	 * */
+	$("#dhgroup button[name=dhupdate]").click(function(){
+			$(this).hide();
+			$(this).next().show();
+			$(this).parent().siblings().children("input").removeAttr("disabled");
 	});
-};*/
+	$("#dhgroup button[name=dhsave]").click(function(){
+			$(this).hide();
+			$(this).prev().show();
+			disables();
+	});
+};
+//导航点击查询事件
 function sbClick(){
 	 $("#btgroup button[name=repeatedly]").click(function(){
 	    	var btText=$("#btText").val();
 	    	var btType=$("#btgroup select[name=updateLx]").val();
 	    	$("#bt").empty();
 	    	 ArticleTB("IDServlet","searchArticleTB",0,8,btType,btText);
+	    	 xgClick();
+	    	 demoDelete()
 	    	 disables();
 	     });
 }
-function cgClick(){
+//标题修改点击事件
+function xgClick(){
 	 $("#btgroup button[name=update]").click(function(){
 	     	$("#btgroup").hide();
 	     	var id=$(this).parent().siblings().html();
@@ -157,6 +206,12 @@ function cgClick(){
 	     	$("#xggroup").show();
 	      });
 };
+//导航修改
+function NvnUpdate(){
+	$("#dhgroup button[name=update]").click(function(){
+		
+	});
+}
 //导航标题模糊查询
 function dhClick(){
 	$("#dhgroup button[name=repeatedly]").click(function(){
@@ -206,9 +261,11 @@ $(function(){
     //修改按钮点击事件
      //文章标题查询表单提交点击事件
     sbClick();
-    cgClick();
+    xgClick();
     dhClick();
     lxClick();
+    danji();
+    demoDelete();
      /*$("button[name=update]").live("click",function(){
     	 alert(1);
     	$("#btgroup").hide();
