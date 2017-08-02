@@ -8,6 +8,11 @@ $(function(){
 	var numli=$(".numlist li");//数字下面的li
 	imgli.eq(0).show();//显示第一张图片
 	change();
+	//新闻分页控制变量
+	var searchNewsPageCount=10;
+	var searchNewsPages=0;
+	var searchNewsId=new Array();
+	var searchNewsName=new Array();
 	/*阿根智能一键加载*/
 	loadAll();
 	/***************************方法*************************************/
@@ -517,6 +522,17 @@ $(function(){
 	    imgli.eq(lbindex).siblings().find(".txt").css("left","-760px");
 	    imgli.eq(lbindex).siblings().find(".con").css({left:"-20px",display:"none"});
 	}
+	//分页显示方法
+	function showPage(dqy){
+		var table='<table class="text-center">';
+		var beginIndex=(dqy-1)*searchNewsPageCount;
+		var length=searchNewsId.length-beginIndex>searchNewsPageCount?searchNewsPageCount:searchNewsId.length-beginIndex;
+		for(var i=beginIndex;i<beginIndex+length;i++){
+			table+='<tr><span>'+searchNewsName[i]+'</span><input type="hidden" value="'+searchNewsId[i]+'"/><br/><hr/></tr>';
+		}
+		table+='</table>';
+		return table;
+	}
 	/***************************事件*************************************/
 	$("[name*='navbar']").live("mouseover",function(){
 		navindex=$(this).attr("name").substring(6,7);
@@ -575,7 +591,6 @@ $(function(){
 			$.ajax({
 				url:"ArticleTBServlet",
 				type:"POST",
-				async:false,
 				dataType:"json",
 				cache:false,
 				data:{
@@ -585,35 +600,40 @@ $(function(){
 					$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
 				},
 				success:function(data){
-					var pageCount=10;
-					var pages=data.length%10==0?data.length/10:data.length/10+1;
-					var newsId=new Array();
-					var newsName=new Array();
+					searchNewsPages=data.length%10==0?data.length/10:data.length/10+1;
 					div+="<div class='container'>";
 					for(var i=0;i<data.length;i++){
-						newsId[i]=data[i]['aId'];
-						newsName[i]=data[i]['aArticleTitle'];
+						searchNewsId[i]=data[i]['aId'];
+						searchNewsName[i]=data[i]['aArticleTitle'];
 					}
-					
-					div+='<nav aria-label="Page navigation">';
+					div+='<div id="searchNewsTable">';
+					div+=showPage(1);
+					div+='</div>';
+					div+='<center>';
+					div+='<nav aria-label="Page navigation" id="pageNav">';
 					div+='<ul class="pagination">';
-					div+='<li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
-					for(var i=1;i<=pages;i++){
-						div+=i<=10?'<li><a href="#">'+i+'</a></li>':'<li class="hidden"><a href="#">'+i+'</a></li>';
+					div+='<li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+					for(var i=1;i<=searchNewsPages;i++){
+						if(i==1){
+							div+='<li name="searchNewsPage" class="active"><a href="#">'+i+'</a></li>';
+							continue;
+						}
+						div+=i<=10?'<li name="searchNewsPage"><a href="#">'+i+'</a></li>':'<li class="hidden" name="searchNewsPage"><a href="#">'+i+'</a></li>';
 					}
-					div+='<li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
+					div+=searchNewsPages>10?'<li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>':'<li class="disabled"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
 					div+='</ul>';
 					div+='</nav>';
-					
-					div+="<span class='text-center'>"+data[i]['aArticleTitle']+"</span><br/><br/>";
-					div+="<span><hr/></span>";
-					
-					
+					div+='</center>';
 					div+="</div>";
 					$("#body").html(div);
 				}
 			});
 		},1000);
+	});
+	$("[name=searchNewsPage]").live("click",function(){
+		$("[name=searchNewsPage]:visible").attr("class","");
+		$(this).attr("class","active");
+		$("#searchNewsTable").html(showPage($(this).children("a").text()));
 	});
 	//轮播图鼠标悬浮离开事件
 	$("#box").live("mouseover",function(){
