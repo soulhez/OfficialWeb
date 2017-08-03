@@ -534,25 +534,8 @@ $(function(){
 		table+='</table>';
 		return table;
 	}
-	//根据
-	/***************************事件*************************************/
-	$("[name*='navbar']").live("mouseover",function(){
-		navindex=$(this).attr("name").substring(6,7);
-		$("[name='hiddennav']").eq(navindex).slideDown();
-	});
-	$("[name*='navbar']").live("mouseout",function(){
-		$("[name='hiddennav']").slideUp();
-	});
-	$("[name='hiddennav']").live("mouseover",function(){
-		$("[name='hiddennav']").eq(navindex).stop();
-	});
-	$("[name='hiddennav']").live("mouseout",function(){
-		$("[name='hiddennav']").eq(navindex).slideUp();
-	});
-	$("[name='hiddennav'] span").live("click",function(){
-		$("[name='hiddennav']").hide();
-		var id=$(this).next("input").val();
-		$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
+	//根据文章ID显示文章内容页面
+	function showNewsById(id){
 		setTimeout(function(){
 			var div='<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">';
 			div+="<img src='img/newsTop.jpg' width='100%'>";
@@ -580,6 +563,26 @@ $(function(){
 				}
 			});
 		},1000);
+	}
+	/***************************事件*************************************/
+	$("[name*='navbar']").live("mouseover",function(){
+		navindex=$(this).attr("name").substring(6,7);
+		$("[name='hiddennav']").eq(navindex).slideDown();
+	});
+	$("[name*='navbar']").live("mouseout",function(){
+		$("[name='hiddennav']").slideUp();
+	});
+	$("[name='hiddennav']").live("mouseover",function(){
+		$("[name='hiddennav']").eq(navindex).stop();
+	});
+	$("[name='hiddennav']").live("mouseout",function(){
+		$("[name='hiddennav']").eq(navindex).slideUp();
+	});
+	$("[name='hiddennav'] span").live("click",function(){
+		$("[name='hiddennav']").hide();
+		var id=$(this).next("input").val();
+		$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
+		showNewsById(id);
 	});
 	//搜索
 	$("#searchImg").live("click",function(){
@@ -666,32 +669,6 @@ $(function(){
 	$("#searchNewsTable .tdeven").live("click",function(){
 		var id=$(this).children("input").val();
 		$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
-		setTimeout(function(){
-			var div='<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">';
-			div+="<img src='img/newsTop.jpg' width='100%'>";
-			div+="<div class='container'><hr/><div>";
-			div+="</div>";
-			$.ajax({
-				url:"IDServlet",
-				type:"POST",
-				async:false,
-				dataType:"json",
-				cache:false,
-				data:{
-					"method":"searchArticleTBByID",
-					"id":id
-				},
-				beforeSend:function(){
-					$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
-				},
-				success:function(data){
-					div+="<div class='container'>";
-					div+="<h1 class='text-center'>"+data['aArticleTitle']+"</h1><br/><br/>";
-					div+=data['aContent'];
-					div+="</div>";
-					$("#body").html(div);
-				}
-			});
-		},1000);
+		showNewsById(id);
 	});
 });
