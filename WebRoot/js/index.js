@@ -37,7 +37,7 @@ $(function(){
 					Nvntitle+='<a href="#" name="navbar'+i+'">'+'&nbsp&nbsp'+data[i]["nContent"]+'&nbsp&nbsp'+'</a>';
 					Nvntitle+='</li>';
 				}
-				Nvntitle+='<li class="navli" style="position:relative;top:8px;left:40px;width:210px;">';
+				Nvntitle+='<li class="navli" style="position:relative;top:8px;left:40px;width:200px;">';
 				Nvntitle+='<div class="input-group">';
 				Nvntitle+='<input type="text" class="form-control" placeholder="搜索" id="search">';
 				Nvntitle+='<span class="input-group-addon" id="searchImg">';
@@ -564,29 +564,8 @@ $(function(){
 			});
 		},1000);
 	}
-	/***************************事件*************************************/
-	$("[name*='navbar']").live("mouseover",function(){
-		navindex=$(this).attr("name").substring(6,7);
-		$("[name='hiddennav']").eq(navindex).slideDown();
-	});
-	$("[name*='navbar']").live("mouseout",function(){
-		$("[name='hiddennav']").slideUp();
-	});
-	$("[name='hiddennav']").live("mouseover",function(){
-		$("[name='hiddennav']").eq(navindex).stop();
-	});
-	$("[name='hiddennav']").live("mouseout",function(){
-		$("[name='hiddennav']").eq(navindex).slideUp();
-	});
-	$("[name='hiddennav'] span").live("click",function(){
-		$("[name='hiddennav']").hide();
-		var id=$(this).next("input").val();
-		$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
-		showNewsById(id);
-	});
-	//搜索
-	$("#searchImg").live("click",function(){
-		var title=$.trim($("#search").val());
+	//根据文章名称查询方法
+	function searchByTitle(title){
 		$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
 		setTimeout(function(){
 			var div='<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">';
@@ -635,16 +614,67 @@ $(function(){
 				}
 			});
 		},1000);
+	}
+	/***************************事件*************************************/
+	//搜索文本框获取焦点事件
+	$(".navli:last").live("focus",function(){
+		$(".navli:last").animate({
+			"width":"280px"
+		},500);
 	});
+	//搜索文本框失去焦点事件
+	$(".navli:last").live("blur",function(){
+		$(".navli:last").animate({
+			"width":"200px"
+		},500);
+	});
+	//搜索文本框按键事件
+	$("#search").live("keydown",function(e){
+		var ev = document.all ? window.event : e;
+		if(ev.keyCode==13){
+			searchByTitle($.trim($(this).text()));
+		}
+	});
+	//导航鼠标悬浮事件
+	$("[name*='navbar']").live("mouseover",function(){
+		navindex=$(this).attr("name").substring(6,7);
+		$("[name='hiddennav']").eq(navindex).slideDown();
+	});
+	//导航鼠标离开事件
+	$("[name*='navbar']").live("mouseout",function(){
+		$("[name='hiddennav']").slideUp();
+	});
+	//隐藏导航鼠标悬浮事件
+	$("[name='hiddennav']").live("mouseover",function(){
+		$("[name='hiddennav']").eq(navindex).stop();
+	});
+	//隐藏导航鼠标离开事件
+	$("[name='hiddennav']").live("mouseout",function(){
+		$("[name='hiddennav']").eq(navindex).slideUp();
+	});
+	//隐藏导航中新闻单击事件
+	$("[name='hiddennav'] span").live("click",function(){
+		$("[name='hiddennav']").hide();
+		var id=$(this).next("input").val();
+		$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
+		showNewsById(id);
+	});
+	//搜索图标单击事件
+	$("#searchImg").live("click",function(){
+		var title=$.trim($("#search").val());
+		searchByTitle(title);
+	});
+	//搜索分页单击事件
 	$("[name=searchNewsPage]").live("click",function(){
 		$("[name=searchNewsPage").attr("class","");
 		$(this).attr("class","active");
 		$("#searchNewsTable").html(showPage($(this).children("a").text()));
 	});
-	//轮播图鼠标悬浮离开事件
+	//轮播图鼠标悬浮事件
 	$("#box").live("mouseover",function(){
 		window.clearInterval(timer);
 	});
+	//轮播图鼠标离开事件
 	$("#box").live("mouseout",function(){
 		timer=window.setInterval(step,4000);
 	});
