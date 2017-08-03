@@ -56,23 +56,44 @@ public class ArticleTBDaoImpl extends BaseDao implements ArticleTBDao {
 	 */
 	public List<ArticleTB> searchArticleTB(String aArticleTypetbID,String aArticleTitle,String start,String end) {
 		String sql=null;
-		if(aArticleTypetbID==null||"".equals(aArticleTypetbID)){
-			if(aArticleTitle==null||"".equals(aArticleTitle)){
-				sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on  at.articletypetbID=ty.id order by newDate desc limit ?,?";
-				rs=executeQuery(sql,Integer.parseInt(start),Integer.parseInt(end));
+		if(start==null||"".equals(start)||end==null||"".equals(end)){
+			if(aArticleTypetbID==null||"".equals(aArticleTypetbID)){
+				if(aArticleTitle==null||"".equals(aArticleTitle)){
+					sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on  at.articletypetbID=ty.id order by newDate desc";
+					rs=executeQuery(sql);
+				}else{
+					sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id where at.articletitle like ?";
+					rs=executeQuery(sql,"%"+aArticleTitle+"%");
+				}
 			}else{
-				sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id where at.articletitle like ?";
-				rs=executeQuery(sql,"%"+aArticleTitle+"%");
+				if(aArticleTitle==null||"".equals(aArticleTitle)){
+					sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id where at.articletypetbID=?  order by newDate desc";
+					rs=executeQuery(sql,aArticleTypetbID);
+				}else{
+					sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id where at.articletypetbID=? and articletitle like ? order by newDate desc";
+					rs=executeQuery(sql,aArticleTypetbID,"%"+aArticleTitle+"%");
+				}
+				
 			}
 		}else{
-			if(aArticleTitle==null||"".equals(aArticleTitle)){
-				sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id where at.articletypetbID=?  order by newDate desc limit ?,?";
-				rs=executeQuery(sql,aArticleTypetbID,Integer.parseInt(start),Integer.parseInt(end));
+			if(aArticleTypetbID==null||"".equals(aArticleTypetbID)){
+				if(aArticleTitle==null||"".equals(aArticleTitle)){
+					sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on  at.articletypetbID=ty.id order by newDate desc limit ?,?";
+					rs=executeQuery(sql,Integer.parseInt(start),Integer.parseInt(end),Integer.parseInt(start),Integer.parseInt(end));
+				}else{
+					sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id where at.articletitle like ? limit ?,?";
+					rs=executeQuery(sql,"%"+aArticleTitle+"%",Integer.parseInt(start),Integer.parseInt(end));
+				}
 			}else{
-				sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id where at.articletypetbID=? and articletitle like ? order by newDate desc limit ?,?";
-				rs=executeQuery(sql,aArticleTypetbID,"%"+aArticleTitle+"%",Integer.parseInt(start),Integer.parseInt(end));
+				if(aArticleTitle==null||"".equals(aArticleTitle)){
+					sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id where at.articletypetbID=?  order by newDate desc limit ?,?";
+					rs=executeQuery(sql,aArticleTypetbID,Integer.parseInt(start),Integer.parseInt(end));
+				}else{
+					sql="select at.id,at.articletitle,newDate,ty.id,ty.name from ArticleTB at inner join articletypetb ty on at.articletypetbID=ty.id where at.articletypetbID=? and articletitle like ? order by newDate desc limit ?,?";
+					rs=executeQuery(sql,aArticleTypetbID,"%"+aArticleTitle+"%",Integer.parseInt(start),Integer.parseInt(end));
+				}
+				
 			}
-			
 		}
 		List<ArticleTB> list=new ArrayList<ArticleTB>();
 		ArticleTB at=null;

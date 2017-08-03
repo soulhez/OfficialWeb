@@ -520,7 +520,7 @@ $(function(){
 	        imgli.eq(lbindex).find(".con").show().stop().animate({left:0},700)
 	    });
 	    imgli.eq(lbindex).siblings().find(".txt").css("left","-760px");
-	    imgli.eq(lbindex).siblings().find(".con").css({left:"-20px",display:"none"});
+	    imgli.eq(lbindex).siblings().find(".con").css({"left":"-20px","display":"none"});
 	}
 	//分页显示方法
 	function showPage(dqy){
@@ -528,7 +528,7 @@ $(function(){
 		var beginIndex=(dqy-1)*searchNewsPageCount;
 		var length=searchNewsId.length-beginIndex>searchNewsPageCount?searchNewsPageCount:searchNewsId.length-beginIndex;
 		for(var i=beginIndex;i<beginIndex+length;i++){
-			table+='<tr><span>'+searchNewsName[i]+'</span><input type="hidden" value="'+searchNewsId[i]+'"/><br/><hr/></tr>';
+			table+='<tr><td><span>'+searchNewsName[i]+'</span><input type="hidden" value="'+searchNewsId[i]+'"/><br/><hr/><td></tr>';
 		}
 		table+='</table>';
 		return table;
@@ -589,11 +589,12 @@ $(function(){
 			div+="<div class='container'><hr/><div>";
 			div+="</div>";
 			$.ajax({
-				url:"ArticleTBServlet",
+				url:"IDServlet",
 				type:"POST",
 				dataType:"json",
 				cache:false,
 				data:{
+					"method":"searchArticleTB",
 					"title":title
 				},
 				beforeSend:function(){

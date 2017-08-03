@@ -162,6 +162,10 @@ hr{
 	bottom: 500px;
 	left: 625px;
 }
+/*搜索新闻样式*/
+#searchNewsTable tr{
+	cursor: pointer;
+}
 /*页脚样式*/
 footer{
 	background-color: #333;
