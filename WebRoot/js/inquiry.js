@@ -80,11 +80,15 @@ function ArticleTyp(address,method,name,id){
 				 $("#lxs").append('<tr><td>'+data[i].aId+'</td>'+'<td>'+'<input type="text" class="form-control" value='+data[i].aName+'>'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+data[i].aNvntitleTBName+'>'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="add">添加</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="update">修改</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="delete">删除</button></td></tr>');
 			 }
 			 for(var j in data){
-				 $("#btgroup select[name=updateLx").append('<option value="'+data[j].aId+'">'+data[j].aName+'</option>');
+				 $("#btgroup select[name=updateLx]").append('<option value="'+data[j].aId+'">'+data[j].aName+'</option>');
 			 }
-			 for(var m in data){
-				 $("#xggroup select[name=updateLx").append('<option value="'+data[m].aId+'">'+data[m].aName+'</option>');
-			 }
+			 var size=$("#xggroup select[name=updateLx]").children().length;
+			 alert(size);
+			if(size==1){
+				 for(var m in data){
+					 $("#xggroup select[name=updateLx]").append('<option value="'+data[m].aId+'">'+data[m].aName+'</option>');
+				 }
+			}
 		 }
 	 });
 }
@@ -215,9 +219,10 @@ function xgClick(){
 //导航修改
 function NvnUpdate(){
 }
-//通过标题id获取标题信息进行修改
+/**************************************通过标题id获取标题信息进行修改****************************************/
 function checklx(address,method,id){
 	$.ajax({
+		type:"post",
 		url:address,
 		dataType:"html",
 		async:false,
@@ -238,7 +243,7 @@ function checklx(address,method,id){
 		}
 	});
 }
-//导航标题模糊查询
+/*********************************************导航标题模糊查询**********************************************/
 function dhClick(){
 	$("#dhgroup button[name=repeatedly]").click(function(){
 		var dhName=$("#dhText").val();
@@ -268,14 +273,15 @@ function scClick(){
 		var scType=$("#scgroup ")
 	});
 }
-//标题类型修改
+/**********************************类型的修改*****************************************/
 function lxUpdate(){
 	$("#lxs  button[name=update]").click(function(){
+	    var lxId=$(this).parent().prev().prev().prev().text();
+	    alert(lxId);
+	    checklx("IDServlet","searchArticleTypeTBByTypeid",lxId);
 		$("#lxxggroup").show();
 		$("#lxgroup").hide();
 	});
-	
-	
 }
 $(function(){
 	//查询所有文章信息
@@ -300,7 +306,7 @@ $(function(){
     lxUpdate();
     dhUpdadte();
     demoDelete();
-    checklx();
+    //获取文章Id
      /*$("button[name=update]").live("click",function(){
     	 alert(1);
     	$("#btgroup").hide();
