@@ -524,15 +524,17 @@ $(function(){
 	}
 	//分页显示方法
 	function showPage(dqy){
-		var table='<table class="text-center">';
+		var table='<table>';
 		var beginIndex=(dqy-1)*searchNewsPageCount;
 		var length=searchNewsId.length-beginIndex>searchNewsPageCount?searchNewsPageCount:searchNewsId.length-beginIndex;
 		for(var i=beginIndex;i<beginIndex+length;i++){
-			table+='<tr><td><span>'+searchNewsName[i]+'</span><input type="hidden" value="'+searchNewsId[i]+'"/><br/><hr/><td></tr>';
+			table+='<tr><td class="tdeven"><span>'+searchNewsName[i]+'</span><input type="hidden" value="'+searchNewsId[i]+'"/></td></tr>';
+			table+='<tr><td width="1000px"><hr/></td></tr>';
 		}
 		table+='</table>';
 		return table;
 	}
+	//根据
 	/***************************事件*************************************/
 	$("[name*='navbar']").live("mouseover",function(){
 		navindex=$(this).attr("name").substring(6,7);
@@ -659,5 +661,37 @@ $(function(){
 		$("#dwimg"+dwindex).fadeIn();
 	},function(){
 		$("#dwimg"+dwindex).fadeOut();
+	});
+	//搜索新闻单击事件
+	$("#searchNewsTable .tdeven").live("click",function(){
+		var id=$(this).children("input").val();
+		$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
+		setTimeout(function(){
+			var div='<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">';
+			div+="<img src='img/newsTop.jpg' width='100%'>";
+			div+="<div class='container'><hr/><div>";
+			div+="</div>";
+			$.ajax({
+				url:"IDServlet",
+				type:"POST",
+				async:false,
+				dataType:"json",
+				cache:false,
+				data:{
+					"method":"searchArticleTBByID",
+					"id":id
+				},
+				beforeSend:function(){
+					$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
+				},
+				success:function(data){
+					div+="<div class='container'>";
+					div+="<h1 class='text-center'>"+data['aArticleTitle']+"</h1><br/><br/>";
+					div+=data['aContent'];
+					div+="</div>";
+					$("#body").html(div);
+				}
+			});
+		},1000);
 	});
 });
