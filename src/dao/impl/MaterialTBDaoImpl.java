@@ -76,4 +76,22 @@ public class MaterialTBDaoImpl extends BaseDao implements MaterialTBDao {
 		}
 		return mt;
 	}
+	/**
+	 * 查询所有素材类型返回素材类型集合
+	 */
+	public List<String> searchMaterialTBType() {
+		List<String> list=new ArrayList<String>();
+		String sql="select destinct type from materialTB ";
+		rs=executeQuery(sql);
+		try {
+			while(rs.next()){
+				list.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			closeAll();
+		}
+		return list;
+	}
 }

@@ -16,8 +16,7 @@ create database officialwebDB;
 create table materialTB(
      id int not null auto_increment primary key comment"素材ID",
      name nvarchar(20) not null comment"素材名称",
-     type nvarchar(20) comment "素材类型",
-     );
+     type nvarchar(20) comment "素材类型");
      
  create table articletypeTB(
  	  id int not null auto_increment primary key comment"文章类型ID",

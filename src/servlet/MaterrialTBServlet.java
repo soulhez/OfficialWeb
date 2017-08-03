@@ -37,7 +37,6 @@ public class MaterrialTBServlet extends HttpServlet {
 				List<MaterialTB> list=new MaterialTBDaoImpl().searchMaterialTB(mType,mName,start,end);
 				JSONArray ja=JSONArray.fromObject(list);
 				out.write(ja.toString());
-				System.out.print(ja.toString());
 				return;				
 			}else
 				//根据素材类型查询一个素材的名称
@@ -46,6 +45,12 @@ public class MaterrialTBServlet extends HttpServlet {
 				JSONObject json=JSONObject.fromObject(name);
 				out.write(json.toString());
 				return;
+			}else if(method.equalsIgnoreCase("type")){
+				//查询去重所有的素材类型
+				List<String> list=new MaterialTBDaoImpl().searchMaterialTBType();
+				JSONArray ja=JSONArray.fromObject(list);
+				out.write(ja.toString());
+				return;		
 			}
 	}
 }
