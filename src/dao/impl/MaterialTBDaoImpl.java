@@ -82,6 +82,7 @@ public class MaterialTBDaoImpl extends BaseDao implements MaterialTBDao {
 	public List<String> searchMaterialTBType() {
 		List<String> list=new ArrayList<String>();
 		String sql="select destinct type from materialTB ";
+		rs=executeQuery(sql);
 		try {
 			while(rs.next()){
 				list.add(rs.getString(1));
