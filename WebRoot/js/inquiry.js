@@ -139,7 +139,7 @@ function selectId(address,method,id){
 		success:function(data){
 			$("input[name=updateName]").val(data.aArticleTitle);
 			$("input[name=updateTime]").val(data.aNewDate);
-			var TypeName= data.aArticleTypetbName
+			var TypeName= data.aArticleTypetbName;
 			var size=$("select[name=updateLx]").children().length;
 			for(var i=0;i<size;i++){
 				if(TypeName===$("#xggroup select[name=updateLx").children().eq(i).text()){
@@ -182,7 +182,7 @@ function dhUpdadte(){
 			$(this).hide();
 			$(this).prev().show();
 			disables();
-			danji();
+			dhUpdadte();
 	});
 };
 //导航点击查询事件
@@ -275,8 +275,6 @@ function lxUpdate(){
 $(function(){
 	 //查询所有文章信息
 	 ArticleTB("IDServlet","searchArticleTB","0","8");
-	 $("li").click(function(){
-	 })
 	//查询所有导航信息
 	Nvntitle("json","NvntitleTBServlet",null);
 	//显示所有类型信息
@@ -294,7 +292,7 @@ $(function(){
     xgClick();
     dhClick();
     lxClick();
-    danji();
+    dhUpdadte();
     demoDelete();
      /*$("button[name=update]").live("click",function(){
     	 alert(1);
