@@ -15,5 +15,5 @@ public interface ArticleTypeTBDao{
 	int updateArticleTypeTB(ArticleTypeTB articleTypeTB);//修改文章类型
 	//根据所属导航标题id,和文章类型名称模糊查询所有文章类型
 	List<ArticleTypeTB> searchArticleTypeTB(String aNvntitleTBid,String aNvntitleTBName);
-	ArticleTypeTB searchArticleTypeTBByArticleTypeTBName(String id);//根据文章类型id返回文章类型对象
+	ArticleTypeTB searchArticleTypeTBByArticleTypeTBId(String id);//根据文章类型id返回文章类型对象
 }

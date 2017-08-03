@@ -19,7 +19,7 @@ $(function(){
 	/*加载导航方法*/
 	function loadAll(){
 		var Nvntitle='<div class="navbar-header">';
-		Nvntitle+='<a href="#"><img src="img/logo.png"/></a>';
+		Nvntitle+='<a href="index.html"><img src="img/logo.png"/></a>';
 		Nvntitle+='</div>';
 		Nvntitle+='<div class="collapse navbar-collapse">';
 		Nvntitle+='<ul class="nav navbar-nav" style="font-size: 20px; padding-top: 10px;">';
@@ -37,7 +37,7 @@ $(function(){
 					Nvntitle+='<a href="#" name="navbar'+i+'">'+'&nbsp&nbsp'+data[i]["nContent"]+'&nbsp&nbsp'+'</a>';
 					Nvntitle+='</li>';
 				}
-				Nvntitle+='<li class="navli" style="position:relative;top:8px;left:40px;">';
+				Nvntitle+='<li class="navli" style="position:relative;top:8px;left:40px;width:210px;">';
 				Nvntitle+='<div class="input-group">';
 				Nvntitle+='<input type="text" class="form-control" placeholder="搜索" id="search">';
 				Nvntitle+='<span class="input-group-addon" id="searchImg">';
@@ -524,33 +524,18 @@ $(function(){
 	}
 	//分页显示方法
 	function showPage(dqy){
-		var table='<table class="text-center">';
+		var table='<table>';
 		var beginIndex=(dqy-1)*searchNewsPageCount;
 		var length=searchNewsId.length-beginIndex>searchNewsPageCount?searchNewsPageCount:searchNewsId.length-beginIndex;
 		for(var i=beginIndex;i<beginIndex+length;i++){
-			table+='<tr><td><span>'+searchNewsName[i]+'</span><input type="hidden" value="'+searchNewsId[i]+'"/><br/><hr/><td></tr>';
+			table+='<tr><td class="tdeven"><span>'+searchNewsName[i]+'</span><input type="hidden" value="'+searchNewsId[i]+'"/></td></tr>';
+			table+='<tr><td width="1000px"><hr/></td></tr>';
 		}
 		table+='</table>';
 		return table;
 	}
-	/***************************事件*************************************/
-	$("[name*='navbar']").live("mouseover",function(){
-		navindex=$(this).attr("name").substring(6,7);
-		$("[name='hiddennav']").eq(navindex).slideDown();
-	});
-	$("[name*='navbar']").live("mouseout",function(){
-		$("[name='hiddennav']").slideUp();
-	});
-	$("[name='hiddennav']").live("mouseover",function(){
-		$("[name='hiddennav']").eq(navindex).stop();
-	});
-	$("[name='hiddennav']").live("mouseout",function(){
-		$("[name='hiddennav']").eq(navindex).slideUp();
-	});
-	$("[name='hiddennav'] span").live("click",function(){
-		$("[name='hiddennav']").hide();
-		var id=$(this).next("input").val();
-		$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
+	//根据文章ID显示文章内容页面
+	function showNewsById(id){
 		setTimeout(function(){
 			var div='<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">';
 			div+="<img src='img/newsTop.jpg' width='100%'>";
@@ -578,6 +563,26 @@ $(function(){
 				}
 			});
 		},1000);
+	}
+	/***************************事件*************************************/
+	$("[name*='navbar']").live("mouseover",function(){
+		navindex=$(this).attr("name").substring(6,7);
+		$("[name='hiddennav']").eq(navindex).slideDown();
+	});
+	$("[name*='navbar']").live("mouseout",function(){
+		$("[name='hiddennav']").slideUp();
+	});
+	$("[name='hiddennav']").live("mouseover",function(){
+		$("[name='hiddennav']").eq(navindex).stop();
+	});
+	$("[name='hiddennav']").live("mouseout",function(){
+		$("[name='hiddennav']").eq(navindex).slideUp();
+	});
+	$("[name='hiddennav'] span").live("click",function(){
+		$("[name='hiddennav']").hide();
+		var id=$(this).next("input").val();
+		$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
+		showNewsById(id);
 	});
 	//搜索
 	$("#searchImg").live("click",function(){
@@ -632,7 +637,7 @@ $(function(){
 		},1000);
 	});
 	$("[name=searchNewsPage]").live("click",function(){
-		$("[name=searchNewsPage]:visible").attr("class","");
+		$("[name=searchNewsPage").attr("class","");
 		$(this).attr("class","active");
 		$("#searchNewsTable").html(showPage($(this).children("a").text()));
 	});
@@ -659,5 +664,11 @@ $(function(){
 		$("#dwimg"+dwindex).fadeIn();
 	},function(){
 		$("#dwimg"+dwindex).fadeOut();
+	});
+	//搜索新闻单击事件
+	$("#searchNewsTable .tdeven").live("click",function(){
+		var id=$(this).children("input").val();
+		$("#body").html("<div class='container'><img src='img/loading.gif' width='60%' height='600px' style='position: relative; left:200px;'></div>");
+		showNewsById(id);
 	});
 });

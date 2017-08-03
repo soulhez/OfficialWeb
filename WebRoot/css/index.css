@@ -163,7 +163,7 @@ hr{
 	left: 625px;
 }
 /*搜索新闻样式*/
-#searchNewsTable tr{
+.tdeven{
 	cursor: pointer;
 }
 /*页脚样式*/
