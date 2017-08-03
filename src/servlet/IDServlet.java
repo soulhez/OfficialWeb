@@ -1,28 +1,20 @@
 package servlet;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import util.WebUtils;
-
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
 import dao.impl.ArticleTBDaoImpl;
 import dao.impl.ArticleTypeTBDaoImpl;
-
 import entity.AdminTB;
 import entity.ArticleTB;
 import entity.ArticleTypeTB;
-
 public class IDServlet extends HttpServlet {
-	
 	/**
 	 * 获取ID的servlet
 	 */
@@ -64,13 +56,13 @@ public class IDServlet extends HttpServlet {
 				 List<ArticleTypeTB> list=new ArticleTypeTBDaoImpl().searchArticleTypeTB(id,aNvntitleTBName);
 				 JSONArray ja=JSONArray.fromObject(list);
 				 out.write(ja.toString());
-				 System.out.print(ja.toString());
 				 return;
 				 //根据文章类型id显示文章类型
 			}else if(method.equalsIgnoreCase("searchArticleTypeTBByTypeid")){
 				ArticleTypeTB at=new ArticleTypeTBDaoImpl().searchArticleTypeTBByArticleTypeTBId(id);
 				JSONObject json=JSONObject.fromObject(at);
 				out.write(json.toString());
+				System.out.println(json.toString());
 				return;
 			}
 	}
