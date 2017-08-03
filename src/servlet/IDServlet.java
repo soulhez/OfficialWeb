@@ -57,7 +57,6 @@ public class IDServlet extends HttpServlet {
 				ArticleTB at=new  ArticleTBDaoImpl().searchArticleTBByID(id,WebUtils.getPath(request));
 				JSONObject json=JSONObject.fromObject(at);
 				out.write(json.toString());
-				System.out.print(json.toString());
 				return;
 			}
 			 //根据导航ID查询文章类型集合
@@ -67,6 +66,12 @@ public class IDServlet extends HttpServlet {
 				 out.write(ja.toString());
 				 System.out.print(ja.toString());
 				 return;
+				 //根据文章类型id显示文章类型
+			}else if(method.equalsIgnoreCase("searchArticleTypeTBByTypeid")){
+				ArticleTypeTB at=new ArticleTypeTBDaoImpl().searchArticleTypeTBByArticleTypeTBId(id);
+				JSONObject json=JSONObject.fromObject(at);
+				out.write(json.toString());
+				return;
 			}
 	}
 }
