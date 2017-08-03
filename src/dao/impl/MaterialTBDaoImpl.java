@@ -30,16 +30,16 @@ public class MaterialTBDaoImpl extends BaseDao implements MaterialTBDao {
 				 rs=executeQuery(sql,Integer.parseInt(start),Integer.parseInt(end));	
 			}else{
 				sql="select * from materialTB where name like ? limit ?,?";
-				rs=executeQuery(sql,mName,Integer.getInteger(start),Integer.getInteger(end));
+				rs=executeQuery(sql,mName,Integer.parseInt(start),Integer.parseInt(end));
 			}
 			 
 		}else{
 			if(mName==null||"".equals(mName)){
 				sql="select * from materialTB where type=? limit ?,?";
-				rs=executeQuery(sql,mType,Integer.getInteger(start),Integer.getInteger(end));	
+				rs=executeQuery(sql,mType,Integer.parseInt(start),Integer.parseInt(end));	
 			}else{
 				sql="select * from materialTB where type=? and name like ? limit ?,?";
-				rs=executeQuery(sql,mType,mName,Integer.getInteger(start),Integer.getInteger(end));
+				rs=executeQuery(sql,mType,mName,Integer.parseInt(start),Integer.parseInt(end));
 			}
 			
 		}
@@ -81,7 +81,7 @@ public class MaterialTBDaoImpl extends BaseDao implements MaterialTBDao {
 	 */
 	public List<String> searchMaterialTBType() {
 		List<String> list=new ArrayList<String>();
-		String sql="select destinct type from materialTB ";
+		String sql="select distinct type from materialTB ";
 		rs=executeQuery(sql);
 		try {
 			while(rs.next()){

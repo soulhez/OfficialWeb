@@ -42,10 +42,11 @@ public class NvntitleTBServlet extends HttpServlet {
 				return;
 			}else if(method.equalsIgnoreCase("selectNvntitle")){
 				//根据导航内容模糊查询
-				String content=request.getParameter("content");
-				List<NvntitleTB> list=new NvntitleTBDaoImpl().searchNvntitleTBByContent(content);
+				String newContent=request.getParameter("newContent");
+				List<NvntitleTB> list=new NvntitleTBDaoImpl().searchNvntitleTBByContent(newContent);
 				JSONArray nvnTitleTBlist=JSONArray.fromObject(list);
 				out.write(nvnTitleTBlist.toString());
+				System.out.print(nvnTitleTBlist.toString());
 				return;
 			}
 	}

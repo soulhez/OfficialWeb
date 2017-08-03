@@ -46,6 +46,9 @@ public class NvntitleTBDaoImpl extends BaseDao implements NvntitleTBDao {
 	 */
 	public List<NvntitleTB> searchNvntitleTBByContent(String content) {
 		String sql="select * from nvntitleTB where content like ?";
+		if(content==null){
+			content="";
+		}
 		rs=executeQuery(sql,"%"+content+"%");
 		List<NvntitleTB> list=new ArrayList<NvntitleTB>();
 		NvntitleTB nvntitleTB=null;

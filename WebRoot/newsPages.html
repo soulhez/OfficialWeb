@@ -6,11 +6,14 @@
 		 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<link type="text/css" href="mycss/newsMy.css" rel="stylesheet"/>
 		<link href="mycss/bootstrap.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
+		<link href="summernote/summernote.css" rel="stylesheet">
 		<script type="text/javascript" src="scripts/jquery.js"></script>
 		<script type="text/javascript" src="scripts/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/inquiry.js"></script>
 		<script type="text/javascript" src="scripts/newsMyScripts.js"></script>
+		<script type="text/javascript" src="summernote/summernote.js"></script>
+		<script type="text/javascript" src="summernote/jQuery.min.js"></script>
+		<script type="text/javascript" src="js/faterText.js"></script>
 		<style>
 			.row{
 				margin-top: 0px;
@@ -411,7 +414,7 @@
 									</div>
 									<div class="col-md-2 col-lg-2">
 										<div class="form-group">
-											<button type="submit" name="repeatedly" class="btn btn-primary form-control btn-block">查询</button>
+											<button type="button" name="repeatedly" class="btn btn-primary form-control btn-block">查询</button>
 										</div>
 									</div>
 									<div class="col-md-4 col-lg-4">1</div>
@@ -483,6 +486,9 @@
 													<td>
 														<input type="text" class="form-control input-lg" name="updateName" placeholder="文章标题" />
 													</td>
+													<td>
+														<input style="display: none;" type="text" class="form-control input-lg" name="updateId" placeholder="文章Id" />
+													</td>
 												</tr>
 												<tr>
 													<td style="text-align: right;">
@@ -507,7 +513,9 @@
 														<label class="control-label" style="font-size: 17px;">文章内容:</label>
 													</td>
 													<td>
-													<textarea class="form-control" name="updateText" value="123" rows="14"></textarea>
+													<div id="summernote"></div>
+													<button type="button">获取</button>
+													<button type="button">设置</button>
 													</td>
 												</tr>
 											</tbody>
@@ -520,7 +528,7 @@
                                 	时间：2017-07-30
                                 	描述：类型修改页面
                                 	-->
-                                	<div class="row" style="display: none;" id="lxxggroup">
+                                	<div class="row" style="display: none;" id="lxUpdates">
 									<div class="col-md-12 col-lg-12">
 									<form class="form-horizontal" action="" method="post" id="xgform">
 										<table class="table table-hover table-bordered">
@@ -540,6 +548,9 @@
 													</td>
 													<td>
 														<input type="text" class="form-control input-lg" name="updateName" placeholder="类型名称" />
+													</td>
+													<td style="display: none;">
+														<input type="text" class="form-control input-lg" name="updateId" placeholder="类型Id" />
 													</td>
 												</tr>
 												<tr>

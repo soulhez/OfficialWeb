@@ -18,7 +18,7 @@ function ArticleTB(address,method,start,end,id,title){
 		})
 }
 //删除的ajax
-function ArticleTBDelete(address,method,id){
+function ArticleTBDelete(address,method,aId,aArticleTitle,aContent,aNewDate,aArticleTypetbID,id){
 	$.ajax({
 		url:address,
 		type:"post",
@@ -56,8 +56,11 @@ function Nvntitle(Type,address,method,content,id){
 				for(var j in data){
 					$("#lxgroup select[name=updateLx]").append('<option value="'+data[j].nId+'">'+data[j].nContent+'</option>');
 				}
-				for(var m in data){
-					$("#lxxggroup select[name=updateLx]").append('<option value="'+data[m].nId+'">'+data[m].nContent+'</option>');
+				var size=$("#lxUpdates select[name=updateLx]").children().length;
+				if(size==1){
+					for(var m in data){
+						$("#lxUpdates select[name=updateLx]").append('<option value="'+data[m].nId+'">'+data[m].nContent+'</option>');
+					}
 				}
 			}
 		}
@@ -83,7 +86,6 @@ function ArticleTyp(address,method,name,id){
 				 $("#btgroup select[name=updateLx]").append('<option value="'+data[j].aId+'">'+data[j].aName+'</option>');
 			 }
 			 var size=$("#xggroup select[name=updateLx]").children().length;
-			 alert(size);
 			if(size==1){
 				 for(var m in data){
 					 $("#xggroup select[name=updateLx]").append('<option value="'+data[m].aId+'">'+data[m].aName+'</option>');
@@ -92,30 +94,48 @@ function ArticleTyp(address,method,name,id){
 		 }
 	 });
 }
-//关于素材参数说明:地址，提交方式，素材类型
-function Materrial(address,method,start,end,mType){
+/*****************************************************关于素材参数说明:地址，提交方式，素材类型*******************************************************************************************************/
+function Materrial(address,method,start,end,mType,name){
 	$.ajax({
 		url:address,
 		type:"post",
 		cache:false,
 		async:false,
 		dataType:"json",
-		data:{"method":method,"mType":mType,"start":start,"end":end},
+		data:{"method":method,"mType":mType,"start":start,"end":end,"name":name},
 		error:function(e){
 			alert(e.status);
 		},
 		success:function(data){
 			for(var i in data){
-		    	 $("#scs").append('<tr><td>'+'<input type="text" class="form-control" value='+data[i].mId+'>'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+data[i].mType+'>'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+data[i].mName+'>'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="add">添加</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="update">修改</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="delete">删除</button></td></tr>');
+		    	 $("#scs").append('<tr><td>'+'<input type="text" class="form-control" value='+data[i].mId+'>'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+data[i].mType+'>'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+data[i].mName+'>'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="add">添加</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="update">修改</button></td></tr>');
 		     }
 		}
 	})
 }
-//将表格禁用方法
+/************************************************************文章修改按钮提交修改************************************************************/
+function articleUpdate(){
+	$("#xggroup button[type=button]").click(function(){
+		var articleId=$("#xggroup input[name=updateId]").val();
+		var articleTitle=$("#xggroup input[name=updateName]").val();
+		var articleType=$("#xggroup input[name=updateLx]").val();
+		var articleData=$("#xggroup input[name=updateTime]").val();
+		var articleContent=$("#xggroup #summernote").html();
+		if(confirm("确认修改吗?")){
+			ArticleTBDelete("ArticleTypeTBServlet","update",articleId,articleTitle,articleType,articleData,articleContent);
+		}
+		$("#xggroup").hide();
+		$("#bt").empty();
+		ArticleTB("IDServlet","searchArticleTB","0","8");
+		$("#btgroup").show();
+		disables();
+	});
+}
+/***********************************************************将表格禁用方法*********************************************************************************/
 function disables(){
 	 $("#bt,#dhs,#lxs,#scs").children("tr").children("td").children("input").attr("disabled","disabled");
 }
-//读取文本内容
+/*********************************************************读取文章内文章内容***********************************************************************/
 function readText(address){
 	var datas=null;
 	$.ajax({
@@ -134,7 +154,7 @@ function readText(address){
 	});
 	return datas;
 }
-//根据文章Id查询文章
+/**************************************************************根据文章Id查询文章********************************************************************************************/
 function selectId(address,method,id){
 	$.ajax({
 		url:address,
@@ -149,6 +169,7 @@ function selectId(address,method,id){
 		success:function(data){
 			$("input[name=updateName]").val(data.aArticleTitle);
 			$("input[name=updateTime]").val(data.aNewDate);
+			$("input[name=updateId]").val(data.aId);
 			var TypeName= data.aArticleTypetbName;
 			var size=$("select[name=updateLx]").children().length;
 			for(var i=0;i<size;i++){
@@ -157,11 +178,11 @@ function selectId(address,method,id){
 				}
 			}
 			var textbean=readText("news/"+data.aArticleTitle+".txt")
-			$("textarea[name=updateText]").val(textbean);
+			$("#xggroup #summernote").val(textbean);
 		}
 	})
 }
-//删除点击事件
+/********************************************************文章删除点击事件*************************************************************************************/
 function demoDelete(){
 	$("#btgroup button[name=delete]").click(function(){
 		if(confirm("确认删除吗?")){
@@ -173,7 +194,7 @@ function demoDelete(){
 		}
 	});
 }
-//导航修改
+/**********************************************************导航修改点击事件的效果********************************************************************/
 function dhUpdadte(){
 	$("#dhgroup button[name=dhupdate]").click(function(){
 			$(this).hide();
@@ -186,6 +207,7 @@ function dhUpdadte(){
 			var dhName=$(this).parent().prev().children().val();
 			if(confirm("确定修改吗?")){
 				Nvntitle("html","NvntitleTBServlet","update",dhName,dhId);
+				return;
 			}
 			$("#dhs").empty();
 			Nvntitle("json","NvntitleTBServlet",null);
@@ -195,6 +217,23 @@ function dhUpdadte(){
 			dhUpdadte();
 	});
 };
+/*********************************************修改标题类型后的ajax******************************************************/
+function updateType(address,method,aId,aName,aNvntitleTBid){
+	$.ajax({
+		url:address,
+		type:"post",
+		cache:false,
+		async:false,
+		dataType:"html",
+		data:{"method":method,"aId":aId,"aName":aName,"aNvntitleTBid":aNvntitleTBid},
+		error:function(e){
+			alert(e.status);
+		},
+		success:function(data){
+			alert(data);
+		}
+	})
+}
 //导航点击查询事件
 function sbClick(){
 	 $("#btgroup button[name=repeatedly]").click(function(){
@@ -202,13 +241,13 @@ function sbClick(){
 	    	var btType=$("#btgroup select[name=updateLx]").val();
 	    	$("#bt").empty();
 	    	 ArticleTB("IDServlet","searchArticleTB",0,8,btType,btText);
-	    	 xgClick();
+	    	 TiTleUpdateClick();
 	    	 demoDelete()
 	    	 disables();
 	     });
 }
-//标题修改点击事件
-function xgClick(){
+/*****************************************标题修改点击************************************************************/
+function TiTleUpdateClick(){
 	 $("#btgroup button[name=update]").click(function(){
 	     	$("#btgroup").hide();
 	     	var id=$(this).parent().siblings().html();
@@ -224,7 +263,7 @@ function checklx(address,method,id){
 	$.ajax({
 		type:"post",
 		url:address,
-		dataType:"html",
+		dataType:"json",
 		async:false,
 		cache:false,
 		data:{"method":method,"id":id},
@@ -232,12 +271,14 @@ function checklx(address,method,id){
 			alert(e.status);
 		},
 		success:function(data){
-			$("#lxxggroup input[name=updateName]").val(data.aName);
-			var size=$("#lxxggroup select[name=updateLx]").children().length;
-			var TypeName=data.aArticleTypetbName;
+			$("#lxUpdates input[name=updateName]").val(data.aName);
+			$("#lxUpdates input[name=updateId]").val(data.aId);
+			var size=$("#lxUpdates select[name=updateLx]").children().length;
+			var TypeName=data.aNvntitleTBName;
 			for(var i=0;i<size;i++){
-				if(TypeName===$("#lxxggroup select[name=updateLx]").children().eq(i).text()){
-					$("#lxxggroup select[name=updateLx").children().eq(i).attr("selected",true);
+				if(TypeName===$("#lxUpdates select[name=updateLx]").children().eq(i).text()){
+					$("#lxUpdates select[name=updateLx").children().eq(i).attr("selected",true);
+					return;
 				}
 			}
 		}
@@ -250,6 +291,26 @@ function dhClick(){
 		$("#dhs").empty();
 		Nvntitle("json","NvntitleTBServlet","selectNvntitle",dhName);
 		disables();
+		dhUpdadte();
+	});
+}
+/***********************************************为素材添加下拉列表********************************************************/
+function addMaterial(address,method){
+	$.ajax({
+		type:"post",
+		url:address,
+		dataType:"json",
+		async:false,
+		cache:false,
+		data:{"method":method},
+		error:function(e){
+			alert(e.status);
+		},
+		success:function(data){
+			for(var i in data){
+		    	 $("#scgroup select[name=updateLx]").append('<option value="'+data[i]+'">'+data[i]+'</option>');
+		     }
+		}
 	});
 }
 //修改方法
@@ -264,6 +325,7 @@ function lxClick(){
 		$("#lxs").empty();
 		ArticleTyp("IDServlet","searchArticleTypeTB",lxName,lxType);
 		disables();
+		lxUpdate();
 	});
 }
 //素材模糊查询方法
@@ -271,16 +333,43 @@ function scClick(){
 	$("#scgroup button[name=repeatedly]").click(function(){
 		var scName=$("input[name=scText]").val();
 		var scType=$("#scgroup ")
+		
 	});
 }
 /**********************************类型的修改*****************************************/
 function lxUpdate(){
 	$("#lxs  button[name=update]").click(function(){
 	    var lxId=$(this).parent().prev().prev().prev().text();
-	    alert(lxId);
 	    checklx("IDServlet","searchArticleTypeTBByTypeid",lxId);
-		$("#lxxggroup").show();
+		$("#lxUpdates").show();
 		$("#lxgroup").hide();
+	});
+}
+/************************************类型修改表单提交事件**********************************************/
+function lxUpdateLoad(){
+	$("#lxUpdates button[type=button]").click(function(){
+		var lxId=$("#lxUpdates input[name=updateId]").val();
+		var lxName=$("#lxUpdates input[name=updateName]").val();
+		var dhId=$("#lxUpdates select[name=updateLx]").val();
+		if(confirm("确定修改吗？")){
+			updateType("ArticleTypeTBServlet","update",lxId,lxName,dhId);
+		}
+		$("#lxUpdates").hide();
+		$("#lxs").empty();
+		ArticleTyp("IDServlet","searchArticleTypeTB");
+		$("#lxgroup").show();
+		disables();
+		lxUpdate();
+	});
+}
+/************************************素材模糊查询点击事件*************************************************************/
+function MaterialAll(){
+	$("#scgroup button[name=repeatedly]").click(function(){
+		var scName=$("#scgroup input[name=scText]").val();
+		var scType=$("#scgroup select[name=updateLx]").val();
+		$("#scs").empty();
+		Materrial("MaterrialTBServlet",null,0,8,scType,scName);
+		disables();
 	});
 }
 $(function(){
@@ -300,12 +389,15 @@ $(function(){
     //修改按钮点击事件
     //文章标题查询表单提交点击事件
     sbClick();
-    xgClick();
+    TiTleUpdateClick();
     dhClick();
     lxClick();
     lxUpdate();
     dhUpdadte();
     demoDelete();
+    addMaterial("MaterrialTBServlet","type");
+    MaterialAll();
+    lxUpdateLoad();
     //获取文章Id
      /*$("button[name=update]").live("click",function(){
     	 alert(1);
