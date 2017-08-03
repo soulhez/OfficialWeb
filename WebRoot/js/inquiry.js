@@ -56,6 +56,9 @@ function Nvntitle(Type,address,method,content,id){
 				for(var j in data){
 					$("#lxgroup select[name=updateLx]").append('<option value="'+data[j].nId+'">'+data[j].nContent+'</option>');
 				}
+				for(var m in data){
+					$("#lxxggroup select[name=updateLx]").append('<option value="'+data[m].nId+'">'+data[m].nContent+'</option>');
+				}
 			}
 		}
 	})
@@ -78,6 +81,9 @@ function ArticleTyp(address,method,name,id){
 			 }
 			 for(var j in data){
 				 $("#btgroup select[name=updateLx").append('<option value="'+data[j].aId+'">'+data[j].aName+'</option>');
+			 }
+			 for(var m in data){
+				 $("#xggroup select[name=updateLx").append('<option value="'+data[m].aId+'">'+data[m].aName+'</option>');
 			 }
 		 }
 	 });
@@ -208,26 +214,25 @@ function xgClick(){
 };
 //导航修改
 function NvnUpdate(){
-	$("#dhgroup button[name=update]").click(function(){
-		
-	});
 }
-//通过文章标题id获取文章标题信息
+//通过标题id获取标题信息进行修改
 function checklx(address,method,id){
 	$.ajax({
 		url:address,
-		dataType:"json",
+		dataType:"html",
 		async:false,
 		cache:false,
+		data:{"method":method,"id":id},
 		error:function(e){
 			alert(e.status);
 		},
 		success:function(data){
-			$("#lxxggroup input[name=updateName]").val();
+			$("#lxxggroup input[name=updateName]").val(data.aName);
 			var size=$("#lxxggroup select[name=updateLx]").children().length;
+			var TypeName=data.aArticleTypetbName;
 			for(var i=0;i<size;i++){
-				if(TypeName===$("#xggroup select[name=updateLx]").children().eq(i).text()){
-					$("#xggroup select[name=updateLx").children().eq(i).attr("selected",true);
+				if(TypeName===$("#lxxggroup select[name=updateLx]").children().eq(i).text()){
+					$("#lxxggroup select[name=updateLx").children().eq(i).attr("selected",true);
 				}
 			}
 		}
@@ -273,8 +278,8 @@ function lxUpdate(){
 	
 }
 $(function(){
-	 //查询所有文章信息
-	 ArticleTB("IDServlet","searchArticleTB","0","8");
+	//查询所有文章信息
+	ArticleTB("IDServlet","searchArticleTB","0","8");
 	//查询所有导航信息
 	Nvntitle("json","NvntitleTBServlet",null);
 	//显示所有类型信息
@@ -287,13 +292,15 @@ $(function(){
 	//		danji();
 	//});
     //修改按钮点击事件
-     //文章标题查询表单提交点击事件
+    //文章标题查询表单提交点击事件
     sbClick();
     xgClick();
     dhClick();
     lxClick();
+    lxUpdate();
     dhUpdadte();
     demoDelete();
+    checklx();
      /*$("button[name=update]").live("click",function(){
     	 alert(1);
     	$("#btgroup").hide();
