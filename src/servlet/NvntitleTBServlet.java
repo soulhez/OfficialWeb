@@ -38,9 +38,7 @@ public class NvntitleTBServlet extends HttpServlet {
 				String id= request.getParameter("id");
 				String newContent=request.getParameter("newContent");
 				//通过获取的id和新的导航内容修改导航内容
-				if (new NvntitleTBDaoImpl().updateNvntitleTB(id, newContent)>0) {
-					out.write(newContent);
-				}
+				out.write(new NvntitleTBDaoImpl().updateNvntitleTB(id, newContent)>0?"修改成功":"修改失败");
 				return;
 			}else if(method.equalsIgnoreCase("selectNvntitle")){
 				//根据导航内容模糊查询

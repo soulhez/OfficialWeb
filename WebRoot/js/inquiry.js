@@ -8,7 +8,6 @@ function ArticleTB(address,method,start,end,id,title){
 			dataType:"json",
 			data:{"method":method,"start":start,"end":end,"id":id,"title":title},
 			error:function(e){
-				alert(sadfas);
 			alert(e.status);
 			},
 			success:function(data){
@@ -42,17 +41,21 @@ function Nvntitle(address,method,content,id){
 		type:"post",
 		cache:false,
 		async:false,
-		dataType:"json",
-		data:{"method":method,"id":id,"content":content},
+		data:{"method":method,"id":id,"newContent":content},
 		error:function(e){
 		alert(e.status);
 		},
 		success:function(data){
-			for(var i in data){
-				 $("#dhs").append('<tr><td>'+data[i].nId+'</td>'+'<td>'+'<input type="text" class="form-control" value='+data[i].nContent+'>'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">添加</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="dhupdate">修改</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;display: none;" name="dhsave">保存</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="delete">删除</button></td></tr>');
-			}
-			for(var j in data){
-				$("#lxgroup select[name=updateLx]").append('<option value="'+data[j].nId+'">'+data[j].nContent+'</option>');
+			if(data===content){
+				alert(data);
+			}else{
+				alert(4);
+				for(var i in data){
+					 $("#dhs").append('<tr><td>'+data[i].nId+'</td>'+'<td>'+'<input type="text" class="form-control" value='+data[i].nContent+'>'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">添加</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="dhupdate">修改</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;display: none;" name="dhsave">保存</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="delete">删除</button></td></tr>');
+				}
+				for(var j in data){
+					$("#lxgroup select[name=updateLx]").append('<option value="'+data[j].nId+'">'+data[j].nContent+'</option>');
+				}
 			}
 		}
 	})
@@ -151,10 +154,8 @@ function selectId(address,method,id){
 //删除点击事件
 function demoDelete(){
 	$("#btgroup button[name=delete]").click(function(){
-		alert("1");
 		if(confirm("确认删除吗?")){
 			var id=$(this).parent().siblings().html();
-			alert(id);
 			ArticleTBDelete("ArticleTBServlet","delete",id);
 			$("#bt").empty();
 			ArticleTB("IDServlet","searchArticleTB","0","8");
@@ -180,6 +181,12 @@ function danji(){
 			$(this).parent().siblings().children("input").removeAttr("disabled");
 	});
 	$("#dhgroup button[name=dhsave]").click(function(){
+			//获取Id
+			var dhId=$(this).parent().prev().prev().text();
+			var dhName=$(this).parent().prev().children().val();
+			if(confirm("确定修改吗?")){
+				Nvntitle("NvntitleTBServlet","update",dhName,dhId);
+			}
 			$(this).hide();
 			$(this).prev().show();
 			disables();
@@ -217,7 +224,7 @@ function dhClick(){
 	$("#dhgroup button[name=repeatedly]").click(function(){
 		var dhName=$("#dhText").val();
 		$("#dhs").empty();
-		Nvntitle("NvntitleTBServlet","selectNvntitle",dhName);
+		Nvntitle("json","NvntitleTBServlet","selectNvntitle",dhName);
 		disables();
 	});
 }
