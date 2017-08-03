@@ -597,15 +597,15 @@ $(function(){
 					div+='<center>';
 					div+='<nav aria-label="Page navigation" id="pageNav">';
 					div+='<ul class="pagination">';
-					div+='<li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+					div+='<li class="disabled" name="prev"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
 					for(var i=1;i<=searchNewsPages;i++){
 						if(i==1){
 							div+='<li name="searchNewsPage" class="active"><a href="#">'+i+'</a></li>';
 							continue;
 						}
-						div+=i<=10?'<li name="searchNewsPage"><a href="#">'+i+'</a></li>':'<li class="hidden" name="searchNewsPage"><a href="#">'+i+'</a></li>';
+						div+=i<=5?'<li name="searchNewsPage"><a href="#">'+i+'</a></li>':'<li class="hidden" name="searchNewsPage"><a href="#">'+i+'</a></li>';
 					}
-					div+=searchNewsPages>10?'<li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>':'<li class="disabled"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
+					div+=searchNewsPages>5?'<li name="next"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>':'<li class="disabled"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
 					div+='</ul>';
 					div+='</nav>';
 					div+='</center>';
@@ -632,7 +632,7 @@ $(function(){
 	$("#search").live("keydown",function(e){
 		var ev = document.all ? window.event : e;
 		if(ev.keyCode==13){
-			searchByTitle($.trim($(this).text()));
+			searchByTitle($.trim($(this).val()));
 		}
 	});
 	//导航鼠标悬浮事件
@@ -666,9 +666,18 @@ $(function(){
 	});
 	//搜索分页单击事件
 	$("[name=searchNewsPage]").live("click",function(){
-		$("[name=searchNewsPage").attr("class","");
+		$("[name=searchNewsPage][class!=hidden]").attr("class","");
 		$(this).attr("class","active");
 		$("#searchNewsTable").html(showPage($(this).children("a").text()));
+	});
+	//下一页按钮单击事件
+	$("#pageNav li:last").live("click",function(){
+		var dqBigin=$("#pageNav li[class!=hidden][name!=prev][name!=next]:last").text();
+		//隐藏
+		for(var i=0;i<dqBigin;i++){
+			
+		}
+		//显示
 	});
 	//轮播图鼠标悬浮事件
 	$("#box").live("mouseover",function(){
