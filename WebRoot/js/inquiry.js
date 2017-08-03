@@ -35,26 +35,29 @@ function ArticleTBDelete(address,method,id){
 	})
 }
 //关于导航的ajax
-function Nvntitle(address,method,content,id){
+function Nvntitle(Type,address,method,content,id){
 	$.ajax({
 		url:address,
 		type:"post",
 		cache:false,
 		async:false,
+		dataType:Type,
 		data:{"method":method,"id":id,"newContent":content},
 		error:function(e){
 		alert(e.status);
 		},
 		success:function(data){
-			if(data===content){
+			if(data==="修改成功"){
 				alert(data);
 			}else{
-				alert(4);
 				for(var i in data){
-					 $("#dhs").append('<tr><td>'+data[i].nId+'</td>'+'<td>'+'<input type="text" class="form-control" value='+data[i].nContent+'>'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;">添加</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="dhupdate">修改</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;display: none;" name="dhsave">保存</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="delete">删除</button></td></tr>');
+					 $("#dhs").append('<tr><td>'+data[i].nId+'</td>'+'<td>'+'<input type="text" class="form-control" value='+data[i].nContent+'>'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="dhupdate">修改</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;display: none;" name="dhsave">保存</button></td></tr>');
 				}
 				for(var j in data){
 					$("#lxgroup select[name=updateLx]").append('<option value="'+data[j].nId+'">'+data[j].nContent+'</option>');
+				}
+				for(var m in data){
+					$("#lxxggroup select[name=updateLx]").append('<option value="'+data[m].nId+'">'+data[m].nContent+'</option>');
 				}
 			}
 		}
@@ -78,6 +81,9 @@ function ArticleTyp(address,method,name,id){
 			 }
 			 for(var j in data){
 				 $("#btgroup select[name=updateLx").append('<option value="'+data[j].aId+'">'+data[j].aName+'</option>');
+			 }
+			 for(var m in data){
+				 $("#xggroup select[name=updateLx").append('<option value="'+data[m].aId+'">'+data[m].aName+'</option>');
 			 }
 		 }
 	 });
@@ -139,11 +145,11 @@ function selectId(address,method,id){
 		success:function(data){
 			$("input[name=updateName]").val(data.aArticleTitle);
 			$("input[name=updateTime]").val(data.aNewDate);
-			var TypeName= data.aArticleTypetbName
+			var TypeName= data.aArticleTypetbName;
 			var size=$("select[name=updateLx]").children().length;
 			for(var i=0;i<size;i++){
 				if(TypeName===$("#xggroup select[name=updateLx").children().eq(i).text()){
-					$("#xggroup select[name=updateLx").children().eq(i).attr("selected",true);
+					$("#xggroup select[name=updateLx]").children().eq(i).attr("selected",true);
 				}
 			}
 			var textbean=readText("news/"+data.aArticleTitle+".txt")
@@ -163,18 +169,8 @@ function demoDelete(){
 		}
 	});
 }
-function danji(){
-	/*$
-	 * ("#dhgroup button[name=dhupdate]").toggle(function(){
-		alert(1);
-		 $(this).parent().siblings().children("input").removeAttr("disabled");
-    	 $(this).text("保存");
-    	 $("#test").removeAttr("disabled");
-	},function(){
-		alert(1);
-		$(this).text("修改");
-	})
-	 * */
+//导航修改
+function dhUpdadte(){
 	$("#dhgroup button[name=dhupdate]").click(function(){
 			$(this).hide();
 			$(this).next().show();
@@ -185,11 +181,14 @@ function danji(){
 			var dhId=$(this).parent().prev().prev().text();
 			var dhName=$(this).parent().prev().children().val();
 			if(confirm("确定修改吗?")){
-				Nvntitle("NvntitleTBServlet","update",dhName,dhId);
+				Nvntitle("html","NvntitleTBServlet","update",dhName,dhId);
 			}
+			$("#dhs").empty();
+			Nvntitle("json","NvntitleTBServlet",null);
 			$(this).hide();
 			$(this).prev().show();
 			disables();
+			dhUpdadte();
 	});
 };
 //导航点击查询事件
@@ -215,8 +214,28 @@ function xgClick(){
 };
 //导航修改
 function NvnUpdate(){
-	$("#dhgroup button[name=update]").click(function(){
-		
+}
+//通过标题id获取标题信息进行修改
+function checklx(address,method,id){
+	$.ajax({
+		url:address,
+		dataType:"html",
+		async:false,
+		cache:false,
+		data:{"method":method,"id":id},
+		error:function(e){
+			alert(e.status);
+		},
+		success:function(data){
+			$("#lxxggroup input[name=updateName]").val(data.aName);
+			var size=$("#lxxggroup select[name=updateLx]").children().length;
+			var TypeName=data.aArticleTypetbName;
+			for(var i=0;i<size;i++){
+				if(TypeName===$("#lxxggroup select[name=updateLx]").children().eq(i).text()){
+					$("#lxxggroup select[name=updateLx").children().eq(i).attr("selected",true);
+				}
+			}
+		}
 	});
 }
 //导航标题模糊查询
@@ -249,13 +268,20 @@ function scClick(){
 		var scType=$("#scgroup ")
 	});
 }
+//标题类型修改
+function lxUpdate(){
+	$("#lxs  button[name=update]").click(function(){
+		$("#lxxggroup").show();
+		$("#lxgroup").hide();
+	});
+	
+	
+}
 $(function(){
-	 //查询所有文章信息
-	 ArticleTB("IDServlet","searchArticleTB","0","8");
-	 $("li").click(function(){
-	 })
+	//查询所有文章信息
+	ArticleTB("IDServlet","searchArticleTB","0","8");
 	//查询所有导航信息
-	Nvntitle("NvntitleTBServlet",null);
+	Nvntitle("json","NvntitleTBServlet",null);
 	//显示所有类型信息
 	ArticleTyp("IDServlet","searchArticleTypeTB");
 	//显示所有素材信息
@@ -266,13 +292,15 @@ $(function(){
 	//		danji();
 	//});
     //修改按钮点击事件
-     //文章标题查询表单提交点击事件
+    //文章标题查询表单提交点击事件
     sbClick();
     xgClick();
     dhClick();
     lxClick();
-    danji();
+    lxUpdate();
+    dhUpdadte();
     demoDelete();
+    checklx();
      /*$("button[name=update]").live("click",function(){
     	 alert(1);
     	$("#btgroup").hide();
