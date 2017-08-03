@@ -600,10 +600,10 @@ $(function(){
 					div+='<li class="disabled" name="prev"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
 					for(var i=1;i<=searchNewsPages;i++){
 						if(i==1){
-							div+='<li name="searchNewsPage" class="active"><a href="#">'+i+'</a></li>';
+							div+='<li name="searchNewsPage" class="active" style="display:block; float:left;"><a href="#">'+i+'</a></li>';
 							continue;
 						}
-						div+=i<=5?'<li name="searchNewsPage"><a href="#">'+i+'</a></li>':'<li class="hidden" name="searchNewsPage"><a href="#">'+i+'</a></li>';
+						div+=i<=5?'<li name="searchNewsPage" style="display:block; float:left"><a href="#">'+i+'</a></li>':'<li style="display:none; float:left" name="searchNewsPage"><a href="#">'+i+'</a></li>';
 					}
 					div+=searchNewsPages>5?'<li name="next"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>':'<li class="disabled"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
 					div+='</ul>';
@@ -672,12 +672,36 @@ $(function(){
 	});
 	//下一页按钮单击事件
 	$("#pageNav li:last").live("click",function(){
-		var dqBigin=$("#pageNav li[class!=hidden][name!=prev][name!=next]:last").text();
+		var dqBegin=$("[name='searchNewsPage']:hidden").text();
+		$("#pageNav li[name=prev]").attr("class","");
 		//隐藏
-		for(var i=0;i<dqBigin;i++){
-			
+		for(var i=dqBegin-5;i<dqBegin;i++){
+			$("[name='searchNewsPage']").eq(i).hide();
 		}
 		//显示
+		var length=(searchNewsPages-dqBegin)>5?5:searchNewsPages-dqBegin;
+		for(var i=dqBegin;i<dqBegin+length;i++){
+			i==dqBegin?$("[name=searchNewsPage]").eq(i).attr("class","active"):$("[name=searchNewsPage]").eq(i).attr("class","");
+		}
+		if(length<5){
+			$("#pageNav li[name=next]").attr("class","disable");
+		}
+	});
+	//上一页按钮单击事件
+	$("#pageNav li:first").live("click",function(){
+		var dqBegin=$("[name=searchNewsPage][class!=hidden]:last").text();
+		$("#pageNav li[name=next]").attr("class","");
+		//隐藏
+		for(var i=dqBegin-5;i<dqBegin;i++){
+			$("[name=searchNewsPage][class!=hidden]").eq(i).attr("class","hidden");
+		}
+		//显示
+		for(var i=dqBegin-5;i>=dqBegin-10;i--){
+			i==dqBegin-20?$("[name=searchNewsPage]").eq(i).attr("class","active"):$("[name=searchNewsPage]").eq(i).attr("class","");
+		}
+		if(dqBegin-10==0){
+			$("#pageNav li[name=next]").attr("class","disable");
+		}
 	});
 	//轮播图鼠标悬浮事件
 	$("#box").live("mouseover",function(){
