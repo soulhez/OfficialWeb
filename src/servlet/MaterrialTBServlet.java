@@ -46,6 +46,7 @@ public class MaterrialTBServlet extends HttpServlet {
 				out.write(json.toString());
 				return;
 			}else if(method.equalsIgnoreCase("type")){
+				//查询去重所有的素材类型
 				List<String> list=new MaterialTBDaoImpl().searchMaterialTBType();
 				JSONArray ja=JSONArray.fromObject(list);
 				out.write(ja.toString());
