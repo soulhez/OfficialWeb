@@ -23,7 +23,6 @@ import entity.ArticleTypeTB;
 
 public class IDServlet extends HttpServlet {
 	
-
 	/**
 	 * »ñÈ¡IDµÄservlet
 	 */
