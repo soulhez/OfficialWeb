@@ -19,7 +19,7 @@ $(function(){
 	/*加载导航方法*/
 	function loadAll(){
 		var Nvntitle='<div class="navbar-header">';
-		Nvntitle+='<a href="#"><img src="img/logo.png"/></a>';
+		Nvntitle+='<a href="index.html"><img src="img/logo.png"/></a>';
 		Nvntitle+='</div>';
 		Nvntitle+='<div class="collapse navbar-collapse">';
 		Nvntitle+='<ul class="nav navbar-nav" style="font-size: 20px; padding-top: 10px;">';
@@ -37,7 +37,7 @@ $(function(){
 					Nvntitle+='<a href="#" name="navbar'+i+'">'+'&nbsp&nbsp'+data[i]["nContent"]+'&nbsp&nbsp'+'</a>';
 					Nvntitle+='</li>';
 				}
-				Nvntitle+='<li class="navli" style="position:relative;top:8px;left:40px;">';
+				Nvntitle+='<li class="navli" style="position:relative;top:8px;left:40px;width:210px;">';
 				Nvntitle+='<div class="input-group">';
 				Nvntitle+='<input type="text" class="form-control" placeholder="搜索" id="search">';
 				Nvntitle+='<span class="input-group-addon" id="searchImg">';
