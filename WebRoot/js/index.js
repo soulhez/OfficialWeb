@@ -634,7 +634,7 @@ $(function(){
 		},1000);
 	});
 	$("[name=searchNewsPage]").live("click",function(){
-		$("[name=searchNewsPage]:visible").attr("class","");
+		$("[name=searchNewsPage").attr("class","");
 		$(this).attr("class","active");
 		$("#searchNewsTable").html(showPage($(this).children("a").text()));
 	});
