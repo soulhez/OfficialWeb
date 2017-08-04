@@ -671,8 +671,8 @@ $(function(){
 		$("#searchNewsTable").html(showPage($(this).children("a").text()));
 	});
 	//下一页按钮单击事件
-	$("#pageNav li:last").live("click",function(){
-		var dqBegin=$("[name='searchNewsPage']:hidden").text();
+	$("#pageNav li[name=next]").live("click",function(){
+		var dqBegin=$("[name='searchNewsPage']:visible:last").text();
 		$("#pageNav li[name=prev]").attr("class","");
 		//隐藏
 		for(var i=dqBegin-5;i<dqBegin;i++){
@@ -681,26 +681,27 @@ $(function(){
 		//显示
 		var length=(searchNewsPages-dqBegin)>5?5:searchNewsPages-dqBegin;
 		for(var i=dqBegin;i<dqBegin+length;i++){
-			i==dqBegin?$("[name=searchNewsPage]").eq(i).attr("class","active"):$("[name=searchNewsPage]").eq(i).attr("class","");
+			$("[name=searchNewsPage]").eq(i).show();
 		}
 		if(length<5){
-			$("#pageNav li[name=next]").attr("class","disable");
+			$("#pageNav li[name=next]").attr("class","disabled");
 		}
 	});
 	//上一页按钮单击事件
-	$("#pageNav li:first").live("click",function(){
-		var dqBegin=$("[name=searchNewsPage][class!=hidden]:last").text();
+	$("#pageNav li[name=prev]").live("click",function(){
+		var dqEnd=$("[name=searchNewsPage]:visible:last").text();
 		$("#pageNav li[name=next]").attr("class","");
 		//隐藏
-		for(var i=dqBegin-5;i<dqBegin;i++){
-			$("[name=searchNewsPage][class!=hidden]").eq(i).attr("class","hidden");
+		var dqBegin=dqEnd-5%5==0?dqEnd-5:dqEnd-(dqEnd%5);
+		for(var i=dqBegin;i<dqEnd;i++){
+			$("[name=searchNewsPage]").eq(i).hide();
 		}
 		//显示
-		for(var i=dqBegin-5;i>=dqBegin-10;i--){
-			i==dqBegin-20?$("[name=searchNewsPage]").eq(i).attr("class","active"):$("[name=searchNewsPage]").eq(i).attr("class","");
+		for(var i=dqBegin-1;i>=dqBegin-5;i--){
+			$("[name=searchNewsPage]").eq(i).show();
 		}
-		if(dqBegin-10==0){
-			$("#pageNav li[name=next]").attr("class","disable");
+		if(dqBegin-10<0){
+			$("#pageNav li[name=prev]").attr("class","disabled");
 		}
 	});
 	//轮播图鼠标悬浮事件
