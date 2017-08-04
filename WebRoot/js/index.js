@@ -3,10 +3,7 @@ $(function(){
 	var navindex=0;//导航下标
 	var lbindex=0;//轮播图下标
 	var dwindex=0;//定位下标
-	var timer=window.setInterval(step,4000);//图片轮播定时器
-	var imgli=$(".imglist li");//图片下面的li
-	var numli=$(".numlist li");//数字下面的li
-	imgli.eq(0).show();//显示第一张图片
+	var timer="";//图片轮播定时器
 	change();
 	//新闻分页控制变量
 	var searchNewsPageCount=10;
@@ -454,7 +451,7 @@ $(function(){
 		var numsList=0;
 		/*图片*/
 		$.ajax({
-			url:"IDServlet",
+			url:"MaterrialTBServlet",
 			type:"POST",
 			dataType:"json",
 			async:false,
@@ -470,7 +467,7 @@ $(function(){
 				}
 				/*文字*/
 				$.ajax({
-					url:"IDServlet",
+					url:"MaterrialTBServlet",
 					type:"POST",
 					dataType:"json",
 					async:false,
@@ -485,9 +482,9 @@ $(function(){
 						/*替换节点*/
 						var box='<ul class="imglist">';
 						for(var i=0;i<imageList.length;i++){
-							box+='<li style="background-image: url(img/'+imageList[i]+');">';
-							box+='<img src="img/'+imageList[i]+'"/ class="con">';
-							box+='<img src="img/'+textList[i]+'"/ class="txt">';
+							box+=i==0?'<li style="background-image: url(img/'+imageList[i]+');">':'<li style="background-image: url(img/'+imageList[i]+');display:none;">';
+							box+='<img src="img/'+imageList[i]+'" class="con"/>';
+							box+='<img src="img/'+textList[i]+'" class="txt"/>';
 							box+='</li>';
 						}
 						box+='</ul>';
@@ -497,6 +494,8 @@ $(function(){
 						}
 						box+='</ul>';
 						$("#box").html(box);
+						change();
+						timer=window.setInterval(step,4000);//图片轮播定时器
 					}
 				});
 			}
@@ -509,18 +508,18 @@ $(function(){
 	}
 	//下一张轮播图
 	function step(){
-		lbindex=++lbindex%numli.length;
+		lbindex=++lbindex%$(".numlist li").length;
 	    change();
 	}
 	//轮播图改变方法
 	function change(){
-	    numli.eq(lbindex).addClass("active").siblings().removeClass("active");
-	    imgli.eq(lbindex).show().siblings().hide();
-	    imgli.eq(lbindex).find(".txt").stop().animate({left:0},700,function(){
-	        imgli.eq(lbindex).find(".con").show().stop().animate({left:0},700)
+		$(".numlist li").eq(lbindex).addClass("active").siblings().removeClass("active");
+	    $(".imglist li").eq(lbindex).show().siblings().hide();
+	    $(".imglist li").eq(lbindex).find(".txt").stop().animate({left:0},700,function(){
+	    	$(".imglist li").eq(lbindex).find(".con").show().stop().animate({left:0},700)
 	    });
-	    imgli.eq(lbindex).siblings().find(".txt").css("left","-760px");
-	    imgli.eq(lbindex).siblings().find(".con").css({"left":"-20px","display":"none"});
+	    $(".imglist li").eq(lbindex).siblings().find(".txt").css("left","-760px");
+	    $(".imglist li").eq(lbindex).siblings().find(".con").css({"left":"-20px","display":"none"});
 	}
 	//分页显示方法
 	function showPage(dqy){
@@ -713,9 +712,9 @@ $(function(){
 		timer=window.setInterval(step,4000);
 	});
 	//数字点击方法
-	numli.click(function(){
+	$(".numlist li").click(function(){
 	    lbindex=numli.index(this);
-	    change()
+	    change();
 	});
 	//视频播放
 	$("#dongcha img").live("click",function(){

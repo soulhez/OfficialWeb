@@ -21,28 +21,47 @@ public class MaterialTBDaoImpl extends BaseDao implements MaterialTBDao {
 	public List<MaterialTB> searchMaterialTB(String mType,String mName,String start,String end) {
 		String sql=null;
 		if(start==null || end==null||"".equals(start)||"".equals(end)){
-			sql="select * from materialTB";
-			rs=executeQuery(sql);
-		}else 
-		if(mType==null||"".equals(mType)){
-			if(mName==null||"".equals(mName)){
-				sql="select * from materialTB limit ?,?";
-				 rs=executeQuery(sql,Integer.parseInt(start),Integer.parseInt(end));	
+			if(mType==null||"".equals(mType)){
+				if(mName==null||"".equals(mName)){
+					sql="select * from materialTB";
+					 rs=executeQuery(sql);	
+				}else{
+					sql="select * from materialTB where name like ?";
+					rs=executeQuery(sql,mName);
+				}
+				 
 			}else{
-				sql="select * from materialTB where name like ? limit ?,?";
-				rs=executeQuery(sql,mName,Integer.parseInt(start),Integer.parseInt(end));
+				if(mName==null||"".equals(mName)){
+					sql="select * from materialTB where type=?";
+					rs=executeQuery(sql,mType);	
+				}else{
+					sql="select * from materialTB where type=? and name like ?";
+					rs=executeQuery(sql,mType,mName);
+				}
+				
 			}
-			 
 		}else{
-			if(mName==null||"".equals(mName)){
-				sql="select * from materialTB where type=? limit ?,?";
-				rs=executeQuery(sql,mType,Integer.parseInt(start),Integer.parseInt(end));	
+			if(mType==null||"".equals(mType)){
+				if(mName==null||"".equals(mName)){
+					sql="select * from materialTB limit ?,?";
+					 rs=executeQuery(sql,Integer.parseInt(start),Integer.parseInt(end));	
+				}else{
+					sql="select * from materialTB where name like ? limit ?,?";
+					rs=executeQuery(sql,mName,Integer.parseInt(start),Integer.parseInt(end));
+				}
+				 
 			}else{
-				sql="select * from materialTB where type=? and name like ? limit ?,?";
-				rs=executeQuery(sql,mType,mName,Integer.parseInt(start),Integer.parseInt(end));
+				if(mName==null||"".equals(mName)){
+					sql="select * from materialTB where type=? limit ?,?";
+					rs=executeQuery(sql,mType,Integer.parseInt(start),Integer.parseInt(end));	
+				}else{
+					sql="select * from materialTB where type=? and name like ? limit ?,?";
+					rs=executeQuery(sql,mType,mName,Integer.parseInt(start),Integer.parseInt(end));
+				}
+				
 			}
-			
 		}
+		
 		List<MaterialTB> list=new ArrayList<MaterialTB>();
 		MaterialTB mt=null;
 		try {
