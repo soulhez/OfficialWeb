@@ -51,6 +51,23 @@ function ArticleTBUpdate(address,method,aId,aArticleTitle,aContent,aNewDate,aArt
 		}
 	})
 }
+/******************************************文章添加的AJAX*******************************************/
+function ArticleTBAdd(address,method,aArticleTitle,aContent,aNewDate,aArticleTypetbID){
+	$.ajax({
+		url:address,
+		type:"post",
+		cache:false,
+		async:false,
+		dataType:"html",
+		data:{"method":method,"aArticleTitle":aArticleTitle,"aContent":aContent,"aNewDate":aNewDate,"aArticleTypetbID":aArticleTypetbID},
+		error:function(e){
+		alert(e.status);
+		},
+		success:function(data){
+			alert(data);
+		}
+	})
+}
 /****************************************关于导航的AJAX*********************************************/
 function Nvntitle(Type,address,method,content,id){
 	$.ajax({
@@ -126,6 +143,12 @@ function ArticleTyp(address,method,name,id){
 					 $("#xggroup select[name=updateLx]").append('<option value="'+data[m].aId+'">'+data[m].aName+'</option>');
 				 }
 			}
+			var sizes=$("#addgroup select[name=addLx]").children().length;
+			if(sizes==1){
+				 for(var m in data){
+					 $("#addgroup select[name=addLx]").append('<option value="'+data[m].aId+'">'+data[m].aName+'</option>');
+				 }
+			}
 		 }
 	 });
 }
@@ -194,6 +217,8 @@ function articleUpdate(){
 			$("#bt").empty();
 			ArticleTB("IDServlet","searchArticleTB","0","8");
 			$("#btgroup").show();
+			TiTleUpdateClick();
+			demoDelete();
 			disables();
 		}
 	});
@@ -346,7 +371,7 @@ function sbClick(){
 	    	 demoDelete();
 	     });
 }
-/*****************************************标题修改点击**********************************************/
+/*****************************************文章标题修改点击**********************************************/
 function TiTleUpdateClick(){
 	 $("#btgroup button[name=update]").click(function(){
 	     	$("#btgroup").hide();
@@ -355,7 +380,7 @@ function TiTleUpdateClick(){
 	     	$("#xggroup").show();
 	      });
 };
-/******************************通过标题id获取标题信息进行修改*******************************************/
+/******************************通过标题id获取标题信息进行修改AJAX*******************************************/
 function checklx(address,method,id){
 	$.ajax({
 		type:"post",
@@ -502,29 +527,24 @@ function login(address){
 function articleAdd(){
 	$("#btgroup button[name=repeatedlyAdd]").click(function(){
 		$("#btgroup").hide();
-		$("#xggroup").show();
-		$("#xggroup input[name=updateId]").val("");
-		$("#xggroup input[name=updateName]").val("");
-		$("#xggroup select[name=updateLx]").val("");
-		$("#xggroup input[name=updateTime]").val("");
-		$("#xggroup div[name=summernote]").summernote('code',"");
-		$("#xggroup button[name=lxUpdates]").text("添加");
+		$("#addgroup").show();
 	});
 }
 /*******************************文章添加按钮提交点击事件***********************************************/
 function articleAddSubmit(){
-	$("#xggroup button[type=button]").click(function(){
-		var articleId=$("#xggroup input[name=updateId]").val();
-		var articleTitle=$("#xggroup input[name=updateName]").val();
-		var articleTypeId=$("#xggroup select[name=updateLx]").val();
-		var articleData=$("#xggroup input[name=updateTime]").val();
-		var articleContent=$("#xggroup div[name=summernote]").summernote('code');
+	$("#addgroup button[type=button]").click(function(){
+		var articleTitle=$("#addgroup input[name=addName]").val();
+		var articleTypeId=$("#addgroup select[name=addLx]").val();
+		var articleData=$("#addgroup input[name=addTime]").val();
+		var articleContent=$("#addgroup div[name=summernote]").summernote('code');
 		if(confirm("确认添加吗?")){
-			ArticleTBUpdate("ArticleTBServlet",null,articleId,articleTitle,articleContent,articleData,articleTypeId);
-			$("#xggroup").hide();
+			ArticleTBAdd("ArticleTBServlet",null,articleTitle,articleContent,articleData,articleTypeId);
+			$("#addgroup").hide();
 			$("#bt").empty();
 			ArticleTB("IDServlet","searchArticleTB","0","8");
 			$("#btgroup").show();
+			demoDelete();
+			TiTleUpdateClick();
 			disables();
 		}
 	});
@@ -586,6 +606,7 @@ function materialPageNumber(){
 		$(this).addClass("active");
 		$(this).siblings().removeClass("active");
 		 disables();
+		 lxUpdate();
 	});
 }
 /**********************************************文章表格按钮页码点击事件********************************/

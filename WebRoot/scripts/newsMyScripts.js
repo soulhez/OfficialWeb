@@ -10,6 +10,8 @@ $(function(){
 		$("#lxgroup").hide();
 		$("#xggroup").hide();
 		$("#lxUpdates").hide();
+		$("#addgroup").hide();
+		$("#materialUpdate").hide();
 		$("#zy").show();
 		$("label[for=two]").addClass("fuck");
 	}
@@ -43,7 +45,9 @@ $(function(){
 		$("#scgroup").hide();
 		$("#lxgroup").hide();
 		$("#xggroup").hide();
+		$("#addgroup").hide();
 		$("#lxUpdates").hide();
+		$("#materialUpdate").hide();
 		$("#zy").show();
 	});
 	$("#wz").click(function(){
@@ -52,6 +56,8 @@ $(function(){
 		$("#scgroup").hide();
 		$("#lxgroup").hide();
 		$("#xggroup").hide();
+		$("#addgroup").hide();
+		$("#materialUpdate").hide();
 		$("#lxUpdates").hide();
 	});
 	$("#sc").click(function(){
@@ -60,6 +66,8 @@ $(function(){
 		$("#btgroup").hide();
 		$("#dhgroup").hide();
 		$("#xggroup").hide();
+		$("#addgroup").hide();
+		$("#materialUpdate").hide();
 		$("#lxUpdates").hide();
 	});
 	$("#lx").click(function(){
@@ -68,6 +76,8 @@ $(function(){
 		$("#btgroup").hide();
 		$("#dhgroup").hide();
 		$("#xggroup").hide();
+		$("#addgroup").hide();
+		$("#materialUpdate").hide();
 		$("#lxUpdates").hide();
 	});
 	$("#dh").click(function(){
@@ -76,7 +86,9 @@ $(function(){
 		$("#scgroup").hide();
 		$("#btgroup").hide();
 		$("#xggroup").hide();
+		$("#addgroup").hide();
 		$("#lxUpdates").hide();
+		$("#materialUpdate").hide();
 	});
 	$("#two").click(function(){
 		$("#btgroup").hide();
@@ -84,7 +96,9 @@ $(function(){
 		$("#scgroup").hide();
 		$("#lxgroup").hide();
 		$("#xggroup").hide();
+		$("#addgroup").hide();
 		$("#lxUpdates").hide();
+		$("#materialUpdate").hide();
 		$("#zy").show();
 		$("button[name=wenz]").show();
 		$("label[class=bal]").hide();

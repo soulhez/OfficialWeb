@@ -521,7 +521,7 @@
 														<label class="control-label" style="font-size: 17px;">文章内容:</label>
 													</td>
 													<td>
-													<div name="summernote">123</div>
+													<div name="summernote"></div>
 													</td>
 												</tr>
 											</tbody>
@@ -622,8 +622,117 @@
 									<!--
                                 	作者：1770723191@qq.com
                                 	时间：2017-07-27
-                                	描述：账户修改
+                                	描述：文章添加
                                 	-->
+                                	<div class="row" style="display: none;" id="addgroup">
+									<div class="col-md-12 col-lg-12">
+									<form class="form-horizontal" action="" method="post" id="xgform">
+										<table class="table table-hover table-bordered">
+											<thead style="background-color:#31B0D5;">
+												<tr>
+												<th style="text-align: center;width: 120px;"><samp>增加信息</samp></th>
+												<th style="text-align: center;">
+												<button type="button" class="btn btn-default" style="width: 100px;">添加</button>
+						       					<button type="reset" class="btn btn-default" style="width: 100px;">重置</button>
+												</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td style="text-align: right;">
+														<label class="control-label" style="font-size: 17px;">文章标题:</label>
+													</td>
+													<td>
+														<input type="text" class="form-control input-lg" name="addName" placeholder="文章标题" />
+													</td>
+												</tr>
+												<tr>
+													<td style="text-align: right;">
+														<label class="control-label"  style="font-size: 17px;">文章类型:</label>
+													</td>
+													<td>
+														<select class="form-control" name=addLx>
+														<option value="">请选择</option>
+														</select>
+													</td>
+												</tr>
+												<tr>
+													<td style="text-align: right;">
+														<label class="control-label" style="font-size: 17px;">文章时间:</label>
+													</td>
+													<td>
+														<input type="datetime"  class="form-control input-lg" name="addTime" placeholder="格式yyyy-mm-dd" /><samp></samp>
+													</td>
+												</tr>
+												<tr>
+													<td style="text-align: right;">
+														<label class="control-label" style="font-size: 17px;">文章内容:</label>
+													</td>
+													<td>
+													<div name="summernote"></div>
+													</td>
+												</tr>
+											</tbody>
+									</table>						
+									</form>
+									</div>
+									</div>
+									<!--
+                                	作者：1770723191@qq.com
+                                	时间：2017-07-27
+                                	描述：账户修改表单
+                                	-->
+                                	<div class="row" style="display: none;" id="admingroup">
+									<div class="col-md-12 col-lg-12">
+									<form class="form-horizontal" action="" method="post" id="xgform">
+										<table class="table table-hover table-bordered">
+											<thead style="background-color:#31B0D5;">
+												<tr>
+												<th style="text-align: center;width: 120px;"><samp>增加信息</samp></th>
+												<th style="text-align: center;">
+												<button type="button" class="btn btn-default" style="width: 100px;">修改</button>
+						       					<button type="reset" class="btn btn-default" style="width: 100px;">重置</button>
+												</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td style="text-align: right;">
+														<label class="control-label" style="font-size: 17px;">用户名:</label>
+													</td>
+													<td>
+														<input type="text" class="form-control input-lg" name="UpdateName" placeholder="用户名数字+字母" />
+													</td>
+												</tr>
+												<tr>
+													<td style="text-align: right;">
+														<label class="control-label" style="font-size: 17px;">密码:</label>
+													</td>
+													<td>
+														<input type="password" class="form-control input-lg" name="UpdatepawwWord" placeholder="密码" />
+													</td>
+												</tr>
+												<tr>
+													<td style="text-align: right;">
+														<label class="control-label" style="font-size: 17px;">确认密码:</label>
+													</td>
+													<td>
+														<input type="password" class="form-control input-lg" name="UpdatepawwWordTwo" placeholder="确认密码" />
+													</td>
+												</tr>
+												<tr>
+													<td style="text-align: right;">
+														<label class="control-label" style="font-size: 17px;">文章内容:</label>
+													</td>
+													<td>
+													<div name="summernote"></div>
+													</td>
+												</tr>
+											</tbody>
+									</table>						
+									</form>
+									</div>
+									</div>
 								</div>
                                 </div>
 							</div>
