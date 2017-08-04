@@ -36,6 +36,7 @@ public class IDServlet extends HttpServlet {
 				AdminTB admin=(AdminTB)request.getSession().getAttribute("admin");
 				JSONObject json=JSONObject.fromObject(admin);
 				out.write(json.toString());
+				System.out.print(json.toString());
 				return;
 			}else
 			//根据文章类型ID和文章标题模糊查询文章后，以文章创建时间降序排列

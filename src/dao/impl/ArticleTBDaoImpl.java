@@ -27,18 +27,16 @@ public class ArticleTBDaoImpl extends BaseDao implements ArticleTBDao {
 	public int updateArticleTB(ArticleTB articleTB,String path) {
 		String titleString=getTitleById(articleTB.getaId());
 		int num=0;
-		ArticleTypeTB type=new ArticleTypeTBDaoImpl().searchArticleTypeTBByArticleTypeTBId(articleTB.getaArticleTypetbID());
-		if(!type.getaName().equalsIgnoreCase(articleTB.getaArticleTypetbName())){
-			type.setaName(articleTB.getaArticleTypetbName());
-			num=new ArticleTypeTBDaoImpl().updateArticleTypeTB(type);
-		}
+
 		String sql="update articleTB set articletitle=?,newDate=?,articletypetbID=? where id=?";
 		if (!articleTB.getaArticleTitle().equalsIgnoreCase(titleString)) {
 			if(!WebUtils.deleteFile(path, titleString)){
 				num=0;
 			}
 		}
-		num =WebUtils.newFile(path, articleTB.getaArticleTitle(),articleTB.getaContent());
+		if(articleTB.getaContent()!=null||!"".equals(articleTB.getaContent())){
+			num =WebUtils.newFile(path, articleTB.getaArticleTitle(),articleTB.getaContent());			
+		}
 		return num<=0?0:executeUpdate(sql,articleTB.getaArticleTitle(),articleTB.getaNewDate(),articleTB.getaArticleTypetbID(),articleTB.getaId());
 	}
 	/**
@@ -157,6 +155,9 @@ public class ArticleTBDaoImpl extends BaseDao implements ArticleTBDao {
 		}
 		return at;
 	}
+	/**
+	 * 返回文章标题
+	 */
 	public String getTitleById(String id) {
 		String titleString=null;
 		String sql="select articletitle from articleTB where id=?";

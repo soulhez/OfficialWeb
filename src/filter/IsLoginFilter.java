@@ -23,19 +23,20 @@ public class IsLoginFilter implements Filter {
 		String loginFilterPath=filterConfig.getInitParameter("loginFilterPath");
 		String[] paths=loginFilterPath.split(";");
 		String pathString=request.getRequestURI();
+		Boolean floag=true;
 		for (String path : paths) {
-			if (pathString.contains(path)
-					||pathString.equalsIgnoreCase(path)) {
-				chain.doFilter(request, response);
-			}else{
-				if (request.getSession().getAttribute("admin")==null) {
-					response.sendRedirect("index.html");
-					break;
-				}else{
-					chain.doFilter(request, response);	
-				}
+			if (pathString.indexOf(path)>-1||pathString.equalsIgnoreCase(path)) {
+				floag=false;
 			}
 		}
+//		if(floag){
+//			if (request.getSession().getAttribute("admin")==null) {
+//				response.sendRedirect("index.html");
+//			}else{
+//				chain.doFilter(request, response);	
+//			}
+//		}
+		chain.doFilter(request, response);
 	}
 
 	public void init(FilterConfig config) throws ServletException {

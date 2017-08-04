@@ -5,14 +5,14 @@
 		<title>后台管理页面</title>
 		 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<link type="text/css" href="mycss/newsMy.css" rel="stylesheet"/>
-		<link href="mycss/bootstrap.min.css" rel="stylesheet" />
+		<script type="text/javascript" src="summernote/jQuery.min.js"></script>
+		<link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="summernote/summernote.css" rel="stylesheet">
 		<script type="text/javascript" src="scripts/jquery.js"></script>
 		<script type="text/javascript" src="scripts/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/inquiry.js"></script>
 		<script type="text/javascript" src="scripts/newsMyScripts.js"></script>
 		<script type="text/javascript" src="summernote/summernote.js"></script>
-		<script type="text/javascript" src="summernote/jQuery.min.js"></script>
 		<script type="text/javascript" src="js/faterText.js"></script>
 		<style>
 			.row{
@@ -83,7 +83,7 @@
 						</div>
 						<div class="media-body">
 							<ul class="list-unstyled" style="line-height: 25px;">
-							<li><samp>您好!欢迎您<span>系统管理员&nbsp;&nbsp;<a href="#"><span class="glyphicon glyphicon-remove-circle"></span></a></span></samp></li>
+							<li><samp>您好!欢迎您<span>系统管理员&nbsp;&nbsp;<a href="ReLoginServlet"><span class="glyphicon glyphicon-remove-circle"></span></a></span></samp></li>
 							<li><samp>系统管理员</<samp></li>
 							<li><samp>上一次登录<span>2016-2-12</span></samp></li>
 							</ul>
@@ -247,7 +247,12 @@
 											<button name="repeatedly" type="button" class="btn btn-primary form-control btn-block">查询</button>
 										</div>
 									</div>
-									<div class="col-md-4 col-lg-4">1</div>
+									<div class="col-md-2 col-lg-2">
+										<div class="form-group">
+											<button name="repeatedlyAdd" type="button" class="btn btn-primary form-control btn-block">添加</button>
+										</div>
+									</div>
+									<div class="col-md-2 col-lg-2">1</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12 col-lg-12">
@@ -269,14 +274,14 @@
 								<div class="row">
 									<div class="col-md-12 col-lg-12">
 									<nav aria-label="Page navigation">
-											<ul class="pagination pull-right">
-												<li><a href="#"><span aria-hidden="true">&laquo;</span></a></li>
-												<li value="1"  class="active"><a href="#">1</a></li>
-												<li value="2"><a href="#">2</a></li>
-												<li value="3"><a href="#">3</a></li>
-												<li value="4"><a href="#">4</a></li>
-												<li value="5"><a href="#">5</a></li>
-												<li><a href="#"><span aria-hidden="true">&laquo;</span></a></li>
+											<ul id="qk" class="pagination pull-right">
+												<li name="up" class="disabled"><a href="#"><span aria-hidden="true">&laquo;</span></a></li>
+												<li value="0" class="active"><a href="#">1</a></li>
+												<li value="1"><a href="#">2</a></li>
+												<li value="2"><a href="#">3</a></li>
+												<li value="3"><a href="#">4</a></li>
+												<li value="4"><a href="#">5</a></li>
+												<li name="down"><a href="#"><span aria-hidden="true">&raquo;</span></a></li>
 											</ul>
 									</nav>
 									</div>
@@ -299,9 +304,12 @@
 											<button type="button" name="repeatedly" class="btn btn-primary form-control btn-block">查询</button>
 										</div>
 									</div>
-									<div class="col-md-3 col-lg-3">
+									<div class="col-md-2 col-lg-2">
+										<div class="form-group">
+											<button name="repeatedlyAdd" type="button" class="btn btn-primary form-control btn-block">添加</button>
+										</div>
 									</div>
-									<div class="col-md-4 col-lg-4">1</div>
+									<div class="col-md-5 col-lg-5">1</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12 col-lg-12">
@@ -380,13 +388,13 @@
 									<div class="col-md-12 col-lg-12">
 									<nav aria-label="Page navigation">
 											<ul class="pagination pull-right">
-												<li><a href="#"><span aria-hidden="true">&laquo;</span></a></li>
-												<li value="1"  class="active"><a href="#">1</a></li>
-												<li value="2"><a href="#">2</a></li>
-												<li value="3"><a href="#">3</a></li>
-												<li value="4"><a href="#">4</a></li>
-												<li value="5"><a href="#">5</a></li>
-												<li><a href="#"><span aria-hidden="true">&laquo;</span></a></li>
+												<li class="disabled"><a href="#"><span aria-hidden="true">&laquo;</span></a></li>
+												<li class="active" value="1"  class="active"><a href="#">1</a></li>
+												<li value="2" class="disabled"><a href="#">2</a></li>
+												<li value="3" class="disabled"><a href="#">3</a></li>
+												<li value="4" class="disabled"><a href="#">4</a></li>
+												<li value="5" class="disabled"><a href="#">5</a></li>
+												<li class="disabled" ><a href="#"><span aria-hidden="true">&raquo;</span></a></li>
 											</ul>
 									</nav>
 									</div>
@@ -440,13 +448,13 @@
 									<div class="col-md-12 col-lg-12">
 									<nav aria-label="Page navigation">
 											<ul class="pagination pull-right">
-												<li><a href="#"><span aria-hidden="true">&laquo;</span></a></li>
-												<li value="1"  class="active"><a href="#">1</a></li>
-												<li value="2"><a href="#">2</a></li>
-												<li value="3"><a href="#">3</a></li>
-												<li value="4"><a href="#">4</a></li>
-												<li value="5"><a href="#">5</a></li>
-												<li><a href="#"><span aria-hidden="true">&laquo;</span></a></li>
+												<li class="disabled" name="up"><a href="#"><span aria-hidden="true">&laquo;</span></a></li>
+												<li value="0"  class="active"><a href="#">1</a></li>
+												<li value="1"><a href="#">2</a></li>
+												<li value="2"><a href="#">3</a></li>
+												<li value="3"><a href="#">4</a></li>
+												<li value="4"><a href="#">5</a></li>
+												<li name="down"><a href="#"><span aria-hidden="true">&raquo;</span></a></li>
 											</ul>
 									</nav>
 									</div>
@@ -513,9 +521,7 @@
 														<label class="control-label" style="font-size: 17px;">文章内容:</label>
 													</td>
 													<td>
-													<div id="summernote"></div>
-													<button type="button">获取</button>
-													<button type="button">设置</button>
+													<div name="summernote">123</div>
 													</td>
 												</tr>
 											</tbody>
@@ -523,7 +529,7 @@
 									</form>
 									</div>
 									</div>
-									 <!--
+									<!--
                                 	作者：1770723191@qq.com
                                 	时间：2017-07-30
                                 	描述：类型修改页面
@@ -556,6 +562,51 @@
 												<tr>
 													<td style="text-align: right;">
 														<label class="control-label"  style="font-size: 17px;">导航类型:</label>
+													</td>
+													<td>
+														<select class="form-control" name="updateLx">
+														<option value="">请选择</option>
+														</select>
+													</td>
+												</tr>
+											</tbody>
+									</table>						
+									</form>
+									</div>
+									</div>
+									<!--
+                                	作者：1770723191@qq.com
+                                	时间：2017-07-30
+                                	描述：素材修改页面
+                                	-->
+                                	<div class="row" style="display: none;" id="materialUpdate">
+									<div class="col-md-12 col-lg-12">
+									<form class="form-horizontal" action="" method="post" id="xgform">
+										<table class="table table-hover table-bordered">
+											<thead style="background-color:#31B0D5;">
+												<tr>
+												<th style="text-align: center;width: 120px;"><samp>增加信息</samp></th>
+												<th style="text-align: center;">
+												<button type="button" class="btn btn-default" style="width: 100px;">修改</button>
+						       					<button type="reset" class="btn btn-default" style="width: 100px;">重置</button>
+												</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td style="text-align: right;">
+														<label class="control-label" style="font-size: 17px;">素材名称:</label>
+													</td>
+													<td>
+														<input type="text" class="form-control input-lg" name="updateName" placeholder="类型名称" />
+													</td>
+													<td style="display: none;">
+														<input type="text" class="form-control input-lg" name="updateId" placeholder="类型Id" />
+													</td>
+												</tr>
+												<tr>
+													<td style="text-align: right;">
+														<label class="control-label"  style="font-size: 17px;">素材类型:</label>
 													</td>
 													<td>
 														<select class="form-control" name="updateLx">

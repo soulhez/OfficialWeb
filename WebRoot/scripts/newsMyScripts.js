@@ -9,6 +9,7 @@ $(function(){
 		$("#scgroup").hide();
 		$("#lxgroup").hide();
 		$("#xggroup").hide();
+		$("#lxUpdates").hide();
 		$("#zy").show();
 		$("label[for=two]").addClass("fuck");
 	}
@@ -42,6 +43,7 @@ $(function(){
 		$("#scgroup").hide();
 		$("#lxgroup").hide();
 		$("#xggroup").hide();
+		$("#lxUpdates").hide();
 		$("#zy").show();
 	});
 	$("#wz").click(function(){
@@ -50,6 +52,7 @@ $(function(){
 		$("#scgroup").hide();
 		$("#lxgroup").hide();
 		$("#xggroup").hide();
+		$("#lxUpdates").hide();
 	});
 	$("#sc").click(function(){
 		$("#scgroup").show();
@@ -57,6 +60,7 @@ $(function(){
 		$("#btgroup").hide();
 		$("#dhgroup").hide();
 		$("#xggroup").hide();
+		$("#lxUpdates").hide();
 	});
 	$("#lx").click(function(){
 		$("#lxgroup").show();
@@ -64,6 +68,7 @@ $(function(){
 		$("#btgroup").hide();
 		$("#dhgroup").hide();
 		$("#xggroup").hide();
+		$("#lxUpdates").hide();
 	});
 	$("#dh").click(function(){
 		$("#dhgroup").show();
@@ -71,6 +76,7 @@ $(function(){
 		$("#scgroup").hide();
 		$("#btgroup").hide();
 		$("#xggroup").hide();
+		$("#lxUpdates").hide();
 	});
 	$("#two").click(function(){
 		$("#btgroup").hide();
@@ -78,6 +84,7 @@ $(function(){
 		$("#scgroup").hide();
 		$("#lxgroup").hide();
 		$("#xggroup").hide();
+		$("#lxUpdates").hide();
 		$("#zy").show();
 		$("button[name=wenz]").show();
 		$("label[class=bal]").hide();

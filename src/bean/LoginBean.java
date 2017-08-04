@@ -1,5 +1,4 @@
 package bean;
-
 public class LoginBean {
 	private String aEmail;
 	private String aPwd;

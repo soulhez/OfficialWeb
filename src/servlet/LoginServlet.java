@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,16 +28,20 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out=response.getWriter();
 			LoginBean bean=WebUtils.beanFrom(request, LoginBean.class);
 			if (!bean.isLogin()) {
-				response.sendRedirect("login.html");
+				out.write("用户名或者密码不能为空!");
+				return;
 			}
 			AdminTB admin=new AdminTBDaoImpl().login(bean);
 			if (admin==null||"".equals(admin)) {
-				response.sendRedirect("login.html");
+				out.write("账户或者密码错误!");
+				return;
 			}else{
 				request.getSession().setAttribute("admin", admin);
-				response.sendRedirect("newsPages.html");
+				out.write("登录成功！");
+				return;
 			}
 	}
 	

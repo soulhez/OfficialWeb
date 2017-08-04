@@ -75,7 +75,7 @@ public class ArticleTypeTBDaoImpl extends BaseDao implements ArticleTypeTBDao {
 	//根据文章类型Id查询文章类型
 	public ArticleTypeTB searchArticleTypeTBByArticleTypeTBId(String id) {
 		ArticleTypeTB at=null;
-		String sql="select ty.id,ty.name,ty.nvntitleTBid,n.content from articletypeTB ty inner join nvntitleTB n on n.id=ty.nvntitleTBid where n.id=?";
+		String sql="select ty.id,ty.name,ty.nvntitleTBid,n.content from articletypeTB ty inner join nvntitleTB n on n.id=ty.nvntitleTBid where ty.id=?";
 		rs=executeQuery(sql,id);
 		try {
 			while(rs.next()){
