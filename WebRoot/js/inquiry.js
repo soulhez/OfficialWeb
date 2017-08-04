@@ -362,16 +362,24 @@ function updateType(address,method,aId,aName,aNvntitleTBid){
 /**********************************标题页面模糊查询点击查询事件*****************************************/
 function sbClick(){
 	 $("#btgroup button[name=repeatedly]").click(function(){
-	    	var btText=$("#btText").val();
-	    	var btType=$("#btgroup select[name=updateLx]").val();
-	    	$("#bt").empty();
-	    	 ArticleTB("IDServlet","searchArticleTB",0,8,btType,btText);
+	    	 /***标题的内容**/
+		 	 titleText=$("#btText").val();
+		 	 /***导航的Id**/
+	    	 navigationType=$("#btgroup select[name=updateLx]").val();
+	    	 $("#bt").empty();
+	    	 ArticleTB("IDServlet","searchArticleTB",0,8,navigationType,titleText);
 	    	 TiTleUpdateClick();
 	    	 disables();
+	    	 if(YouClickOnMe>0){
+	    		 $("#btgroup #qk").empty();
+	    		 $("#btgroup #qk").append('<li name="up"><a href="#"><span aria-hidden="true">&laquo;</span></a></li><li value="0"><a href="#">1</a></li><li value="1"><a href="#">2</a></li><li value="2"><a href="#">3</a></li><li value="3"><a href="#">4</a></li><li value="4"><a href="#">5</a></li><li name="down"><a href="#"><span aria-hidden="true">&raquo;</span></a></li>') 
+	    	 }
 	    	 demoDelete();
+	    	 $("#btgroup li").removeClass("disabled");
+	    	 getArticleTBLength("IDServlet","searchArticleTB",navigationType,titleText);
 	     });
 }
-/*****************************************文章标题修改点击**********************************************/
+/*****************************************文章标题修改点击*******************************************/
 function TiTleUpdateClick(){
 	 $("#btgroup button[name=update]").click(function(){
 	     	$("#btgroup").hide();
@@ -380,7 +388,7 @@ function TiTleUpdateClick(){
 	     	$("#xggroup").show();
 	      });
 };
-/******************************通过标题id获取标题信息进行修改AJAX*******************************************/
+/******************************通过标题id获取标题信息进行修改AJAX***************************************/
 function checklx(address,method,id){
 	$.ajax({
 		type:"post",
@@ -416,7 +424,7 @@ function dhClick(){
 		dhUpdadte();
 	});
 }
-/***********************************为素材添加去重下拉列表*********************************************/
+/************************************为素材添加去重下拉列表********************************************/
 function addMaterial(address,method){
 	$.ajax({
 		type:"post",
@@ -561,21 +569,23 @@ function checkArticle(){
 }
 /********************************************按钮下一页的点击事件*************************************/
 function buttonDown(){
+	YouClickOnMe=0;
 	$("#btgroup li[name=down]").click(function(){
 		var upLength=$(this).prev().val();
 		var upText=$(this).prev().children().text();
 		$(this).parent().children().empty();
 		$("#btgroup ul").append('<li name="up"><a href="#"><span aria-hidden="true">&laquo;</span></a></li><li value="'+(parseInt(upLength)+parseInt(1))+'"><a href="#">'+(parseInt(upText)+parseInt(1))+'</a></li><li value="'+(parseInt(upLength)+parseInt(2))+'"><a href="#">'+(parseInt(upText)+parseInt(2))+'</a></li><li value="'+(parseInt(upLength)+parseInt(3))+'"><a href="#">'+(parseInt(upText)+parseInt(3))+'</a></li><li value="'+(parseInt(upLength)+parseInt(4))+'"><a href="#">'+(parseInt(upText)+parseInt(4))+'</a></li><li value="'+(parseInt(upLength)+parseInt(5))+'"><a href="#">'+(parseInt(upText)+parseInt(5))+'</a></li><li name="down"><a href="#"><span aria-hidden="true">&raquo;</span></a></li>');
-		getArticleTBLength("IDServlet","searchArticleTB");
+		getArticleTBLength("IDServlet","searchArticleTB",navigationType,titleText);
 		var start=$(this).next().next().val();
 		$(this).next().next().addClass("active");
 		$("#btgroup #bt").empty();
-		ArticleTB("IDServlet","searchArticleTB",(start*8)+"","8");
+		ArticleTB("IDServlet","searchArticleTB",(start*8)+"","8",navigationType,titleText);
 		disables();
 		articlePageNumber();
 		buttonUp();
 		TiTleUpdateClick();
 		demoDelete();
+		YouClickOnMe=YouClickOnMe+1;
 	});
 }
 /*******************************************按钮上一页点击事件****************************************/
@@ -585,10 +595,10 @@ function buttonUp(){
 		var downText=$(this).next().children().text();
 		$(this).parent().children().empty();
 		$("#btgroup ul").append('<li name="up" class="disabled"><a href="#"><span aria-hidden="true">&laquo;</span></a></li><li value="'+(parseInt(downLengt)-parseInt(5))+'"><a href="#">'+(parseInt(downText)-parseInt(5))+'</a></li><li value="'+(parseInt(downLengt)-parseInt(4))+'"><a href="#">'+(parseInt(downText)-parseInt(4))+'</a></li><li value="'+(parseInt(downLengt)-parseInt(3))+'"><a href="#">'+(parseInt(downText)-parseInt(3))+'</a></li><li value="'+(parseInt(downLengt)-parseInt(2))+'"><a href="#">'+(parseInt(downText)-parseInt(2))+'</a></li><li class="active" value="'+(parseInt(downLengt)-parseInt(1))+'"><a href="#">'+(parseInt(downText)-parseInt(1))+'</a></li><li name="down"><a href="#"><span aria-hidden="true">&raquo;</span></a></li>');
-		getArticleTBLength("IDServlet","searchArticleTB");
+		getArticleTBLength("IDServlet","searchArticleTB",navigationType,titleText);
 		var start=$(this).prev().prev().val();
 		$("#btgroup #bt").empty();
-		ArticleTB("IDServlet","searchArticleTB",(start*8)+"","8");
+		ArticleTB("IDServlet","searchArticleTB",(start*8)+"","8",navigationType,titleText);
 		disables();
 		articlePageNumber();
 		buttonDown();
@@ -616,21 +626,23 @@ function articlePageNumber(){
 		$(this).addClass("active");
 		$(this).siblings().removeClass("active");
 		$("#btgroup #bt").empty();
-		ArticleTB("IDServlet","searchArticleTB",(start*8)+"","8");
+		ArticleTB("IDServlet","searchArticleTB",(start*8)+"","8",navigationType,titleText);
+		alert(navigationType);
+		alert(titleText);
 		disables();
 		TiTleUpdateClick();
 		demoDelete();
 	});
 }
 /**********************************************获取所有文章的数量*************************************/
-function getArticleTBLength(address,method){
+function getArticleTBLength(address,method,id,title){
 	$.ajax({
 		url:address,
 		type:"post",
 		cache:false,
 		async:false,
 		dataType:"json",
-		data:{"method":method},
+		data:{"method":method,"id":id,"title":title},
 		error:function(e){
 		alert(e.status);
 		},
@@ -654,6 +666,8 @@ function getArticleTBLength(address,method){
 	})
 }
 $(function(){
+	titleText="";
+	navigationType="";
 	//查询所有文章信息
 	ArticleTB("IDServlet","searchArticleTB","0","8");
 	//查询所有导航信息
