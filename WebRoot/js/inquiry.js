@@ -527,9 +527,10 @@ function login(address){
 		alert(e.status);
 		},
 		success:function(data){
-			alert(data);
 			if(data=="登录成功！"){
 				location.replace("newsPages.html");
+			}else{
+				alert(data);
 			}
 		}
 	});
@@ -696,17 +697,24 @@ function updateAdmin(){
 		var admin=$("#admingroup input[name=UpdateAdminName]").val();
 		var adminPassword=$("#admingroup input[name=UpdatepawwWord]").val();
 		$.ajax({
-			url:address,
+			url:'AdminServlet',
 			type:"post",
 			cache:false,
 			async:false,
 			dataType:"html",
-			data:{"method":"AdminServlet","aUserName":admin,"aPwd":adminPassword},
+			data:{"aUserName":admin,"aPwd":adminPassword},
 			error:function(e){
 			alert(e.status);
 			},
 			success:function(data){
 				alert(data);
+				$("#admingroup").hide();
+				$("#annius").hide();
+				$("#admin").show();
+				$("label[for=one]").removeClass("fuck");
+				$("label[for=two]").addClass("fuck");
+				$(this).prev().show();
+				$("#zy").show();
 			}
 		});
 	}

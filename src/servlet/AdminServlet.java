@@ -26,6 +26,8 @@ public class AdminServlet extends HttpServlet {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
 			AdminTB atAdminTB=WebUtils.beanFrom(request, AdminTB.class);
+			AdminTB atAdminTB2=(AdminTB)request.getSession().getAttribute("admin");
+			atAdminTB.setaID(atAdminTB2.getaID());
 			int number=new AdminTBDaoImpl().updateAdminTB(atAdminTB);
 			PrintWriter out=response.getWriter();
 			out.write(number>0?"修改成功":"修改失败");
