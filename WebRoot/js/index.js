@@ -712,8 +712,8 @@ $(function(){
 		timer=window.setInterval(step,4000);
 	});
 	//数字点击方法
-	$(".numlist li").click(function(){
-	    lbindex=numli.index(this);
+	$(".numlist li").live("click",function(){
+	    lbindex=$(this).index();
 	    change();
 	});
 	//视频播放
