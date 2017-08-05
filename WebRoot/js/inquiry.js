@@ -224,7 +224,7 @@ function articleUpdate(){
 	});
 	
 }
-/***********************************获取总素材页面长度***********************************************/
+/***********************************获取总素材页面长度************************************************/
 function getMaterrialLength(address,method){
 	$.ajax({
 		url:address,
@@ -278,7 +278,7 @@ function readText(address){
 	});
 	return datas;
 }
-/************************************根据文章Id查询文章**********************************************/
+/*************************************根据文章Id查询文章*********************************************/
 function selectId(address,method,id){
 	$.ajax({
 		url:address,
@@ -306,7 +306,7 @@ function selectId(address,method,id){
 		}
 	})
 }
-/*********************************文章页面删除点击事件************************************************/
+/**********************************文章页面删除点击事件***********************************************/
 function demoDelete(){
 	$("#btgroup button[name=delete]").click(function(){
 		if(confirm("确认删除吗?")){
@@ -319,7 +319,7 @@ function demoDelete(){
 		}
 	});
 }
-/**********************************导航修改点击事件的效果**********************************************/
+/**********************************导航修改点击事件的效果*********************************************/
 function dhUpdadte(){
 	$("#dhgroup button[name=dhupdate]").click(function(){
 			$(this).hide();
@@ -492,7 +492,6 @@ function lxUpdateLoad(){
 function MaterialAll(){
 	$("#scgroup button[name=repeatedly]").click(function(){
 		var scName=$("#scgroup input[name=scText]").val();
-		alert(scName);
 		var scType=$("#scgroup select[name=updateLx]").val();
 		$("#scs").empty();
 		Materrial("MaterrialTBServlet",null,0,8,scType,scName);
@@ -509,7 +508,7 @@ function materialUpdate(){
 		
 	});
 }
-/*******************************登录页面按钮点击事件*************************************************/
+/*******************************登录页面按钮点击事件**************************************************/
 function login(address){
 	var admin=$("input[name=loginName]").val();
 	var passWord=$("input[name=loginPassword]").val();
@@ -531,7 +530,7 @@ function login(address){
 		}
 	});
 }
-/*******************************文章添加按钮点击事件*************************************************/
+/*******************************文章添加按钮点击事件**************************************************/
 function articleAdd(){
 	$("#btgroup button[name=repeatedlyAdd]").click(function(){
 		$("#btgroup").hide();
@@ -588,7 +587,7 @@ function buttonDown(){
 		YouClickOnMe=YouClickOnMe+1;
 	});
 }
-/*******************************************按钮上一页点击事件****************************************/
+/*******************************************按钮上一页点击事件***************************************/
 function buttonUp(){
 	$("#btgroup li[name=up]").click(function(){
 		var downLengt=$(this).next().val();
@@ -627,14 +626,12 @@ function articlePageNumber(){
 		$(this).siblings().removeClass("active");
 		$("#btgroup #bt").empty();
 		ArticleTB("IDServlet","searchArticleTB",(start*8)+"","8",navigationType,titleText);
-		alert(navigationType);
-		alert(titleText);
 		disables();
 		TiTleUpdateClick();
 		demoDelete();
 	});
 }
-/**********************************************获取所有文章的数量*************************************/
+/**********************************************获取所有文章的数量************************************/
 function getArticleTBLength(address,method,id,title){
 	$.ajax({
 		url:address,
@@ -659,7 +656,7 @@ function getArticleTBLength(address,method,id,title){
 			var lengths=$("#btgroup li").length;
 			for(var j=0;j<lengths;j++){
 				if($("#btgroup li").eq(j).children().text()==anniu){
-						$("#btgroup li:gt("+j+")").addClass("disabled");
+						$("#btgroup li:gt("+j+")").hide();
 					}
 				}
 		}
@@ -700,6 +697,11 @@ $(function(){
     articlePageNumber();
     buttonUp();
     buttonDown();
+    $("#Logins").keydown(function(event){
+    	if(event.keyCode==13){
+    		login("LoginServlet");
+    	}
+    });
     $("#login").click(function(){
     	login("LoginServlet");
     });
