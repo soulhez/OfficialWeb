@@ -12,6 +12,7 @@ $(function(){
 		$("#lxUpdates").hide();
 		$("#addgroup").hide();
 		$("#materialUpdate").hide();
+		$("#admingroup").hide();
 		$("#zy").show();
 		$("label[for=two]").addClass("fuck");
 	}
@@ -48,10 +49,10 @@ $(function(){
 		$("#addgroup").hide();
 		$("#lxUpdates").hide();
 		$("#materialUpdate").hide();
+		$("#admingroup").hide();
 		$("#zy").show();
 	});
 	$("#wz").click(function(){
-		$("#btgroup").show();
 		$("#dhgroup").hide();
 		$("#scgroup").hide();
 		$("#lxgroup").hide();
@@ -59,9 +60,10 @@ $(function(){
 		$("#addgroup").hide();
 		$("#materialUpdate").hide();
 		$("#lxUpdates").hide();
+		$("#admingroup").hide();
+		$("#btgroup").show();
 	});
 	$("#sc").click(function(){
-		$("#scgroup").show();
 		$("#lxgroup").hide();
 		$("#btgroup").hide();
 		$("#dhgroup").hide();
@@ -69,9 +71,10 @@ $(function(){
 		$("#addgroup").hide();
 		$("#materialUpdate").hide();
 		$("#lxUpdates").hide();
+		$("#admingroup").hide();
+		$("#scgroup").show();
 	});
 	$("#lx").click(function(){
-		$("#lxgroup").show();
 		$("#scgroup").hide();
 		$("#btgroup").hide();
 		$("#dhgroup").hide();
@@ -79,9 +82,10 @@ $(function(){
 		$("#addgroup").hide();
 		$("#materialUpdate").hide();
 		$("#lxUpdates").hide();
+		$("#admingroup").hide();
+		$("#lxgroup").show();
 	});
 	$("#dh").click(function(){
-		$("#dhgroup").show();
 		$("#lxgroup").hide();
 		$("#scgroup").hide();
 		$("#btgroup").hide();
@@ -89,6 +93,8 @@ $(function(){
 		$("#addgroup").hide();
 		$("#lxUpdates").hide();
 		$("#materialUpdate").hide();
+		$("#admingroup").hide();
+		$("#dhgroup").show();
 	});
 	$("#two").click(function(){
 		$("#btgroup").hide();
@@ -99,9 +105,22 @@ $(function(){
 		$("#addgroup").hide();
 		$("#lxUpdates").hide();
 		$("#materialUpdate").hide();
+		$("#admingroup").hide();
 		$("#zy").show();
 		$("button[name=wenz]").show();
 		$("label[class=bal]").hide();
+	});
+	$("#admin").click(function(){
+		$("#btgroup").hide();
+		$("#dhgroup").hide();
+		$("#scgroup").hide();
+		$("#lxgroup").hide();
+		$("#xggroup").hide();
+		$("#addgroup").hide();
+		$("#lxUpdates").hide();
+		$("#materialUpdate").hide();
+		$("#admingroup").hide();
+		$("#admingroup").show();
 	});
 	var dt=new Date();
 	var dae=dt.getDate();

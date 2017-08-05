@@ -132,7 +132,7 @@ function ArticleTyp(address,method,name,id){
 		 },
 		 success:function(data){
 			 for(var i in data){
-				 $("#lxs").append('<tr><td>'+data[i].aId+'</td>'+'<td>'+'<input type="text" class="form-control" value='+data[i].aName+'>'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+data[i].aNvntitleTBName+'>'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="update">修改</button><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="delete">删除</button></td></tr>');
+				 $("#lxs").append('<tr><td>'+data[i].aId+'</td>'+'<td>'+'<input type="text" class="form-control" value='+data[i].aName+'>'+'</td>'+'<td>'+'<input type="text" class="form-control" value='+data[i].aNvntitleTBName+'>'+'</td>'+'<td align="center"><button type="button" class="btn btn-default" style="width: 45px;height: 30px;padding-left: 7px;" name="update">修改</button></td></tr>');
 			 }
 			 for(var j in data){
 				 $("#btgroup select[name=updateLx]").append('<option value="'+data[j].aId+'">'+data[j].aName+'</option>');
@@ -211,16 +211,20 @@ function articleUpdate(){
 		var articleTypeId=$("#xggroup select[name=updateLx]").val();
 		var articleData=$("#xggroup input[name=updateTime]").val();
 		var articleContent=$("#xggroup div[name=summernote]").summernote('code');
-		if(confirm("确认修改吗?")){
-			ArticleTBUpdate("ArticleTBServlet","update",articleId,articleTitle,articleContent,articleData,articleTypeId);
-			$("#xggroup").hide();
-			$("#bt").empty();
-			ArticleTB("IDServlet","searchArticleTB","0","8");
-			$("#btgroup").show();
-			TiTleUpdateClick();
-			demoDelete();
-			disables();
-		}
+			if(checkArticleUpdates()==true){
+				if(confirm("确认修改吗?")){
+					ArticleTBUpdate("ArticleTBServlet","update",articleId,articleTitle,articleContent,articleData,articleTypeId);
+					$("#xggroup").hide();
+					$("#bt").empty();
+					ArticleTB("IDServlet","searchArticleTB","0","8");
+					$("#btgroup").show();
+					TiTleUpdateClick();
+					demoDelete();
+					disables();
+				}
+			}else{
+				alert("请完善文章信息，并检查格式是否正确!");
+			}
 	});
 	
 }
@@ -544,27 +548,51 @@ function articleAddSubmit(){
 		var articleTypeId=$("#addgroup select[name=addLx]").val();
 		var articleData=$("#addgroup input[name=addTime]").val();
 		var articleContent=$("#addgroup div[name=summernote]").summernote('code');
-		if(confirm("确认添加吗?")){
-			ArticleTBAdd("ArticleTBServlet",null,articleTitle,articleContent,articleData,articleTypeId);
-			$("#addgroup").hide();
-			$("#bt").empty();
-			ArticleTB("IDServlet","searchArticleTB","0","8");
-			$("#btgroup").show();
-			demoDelete();
-			TiTleUpdateClick();
-			disables();
+		if(checkArticle()){
+			if(confirm("确认添加吗?")){
+					ArticleTBAdd("ArticleTBServlet",null,articleTitle,articleContent,articleData,articleTypeId);
+					$("#addgroup").hide();
+					$("#bt").empty();
+					ArticleTB("IDServlet","searchArticleTB","0","8");
+					$("#btgroup").show();
+					demoDelete();
+					TiTleUpdateClick();
+					disables();
+			}
+		}else{
+			alert("请完善信息！并检查格式！");
 		}
 	});
 }
 /*******************************文章添加按钮提交验证数据事件********************************************/
 function checkArticle(){
-	var articleId=$("#xggroup input[name=updateId]").val();
-	var articleTitle=$("#xggroup input[name=updateName]").val();
-	var articleTypeId=$("#xggroup select[name=updateLx]").val();
-	var articleData=$("#xggroup input[name=updateTime]").val();
-	if(articleId==""){
-		
+	var articleTitle=$("#addgroup input[name=addName]").val();
+	var articleTypeId=$("#addgroup select[name=addLx]").val();
+	var articleData=$("#addgroup input[name=addTime]").val();
+	var pttr=/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
+	if(articleTitle==""){
+		//alert($("button[name=xuanze]").text());
+		//$("button[name=xuanze]").attr({"data-toggle":"popover","data-trigger":"focus","data-placement":"right","data-content":"用户名不能为空!"});
+		//$("button[name=xuanze]").attr({"disabled":"disabled"});
+		return false;
+	}else if(articleTypeId==""){
+		//$("button[name=xuanze]").attr({"data-toggle":"popover","data-trigger":"focus","data-placement":"left","data-content":"请至少选择标题类型!"});
+		return false;
+	}else if(articleData==""||!pttr.test(articleData)){
+		//$("button[name=xuanze]").attr({"data-toggle":"popover","data-trigger":"focus","data-placement":"left","data-content":"日期不能为空请!并且请填写正确的日期格式YYYY-MM-DD"});
+		return false;
 	}
+	return true;
+}
+/*******************************文章修改按钮提交验证数据事件********************************************/
+function checkArticleUpdates(){
+	var pttsr=/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
+	if($("#xggroup input[name=updateName]").val()==""||$("#xggroup select[name=updateLx]").val()==""||$("#xggroup input[name=updateTime]").val()==""){
+		return false;
+	}else if(!pttsr.test($("#xggroup input[name=updateTime]").val())){
+		return false;
+	}
+	return true;
 }
 /********************************************按钮下一页的点击事件*************************************/
 function buttonDown(){
@@ -662,6 +690,65 @@ function getArticleTBLength(address,method,id,title){
 		}
 	})
 }
+/**********************************************账户的修改************************************/
+function updateAdmin(){
+	if(confirm("确定修改吗?")){
+		var admin=$("#admingroup input[name=UpdateAdminName]").val();
+		var adminPassword=$("#admingroup input[name=UpdatepawwWord]").val();
+		$.ajax({
+			url:address,
+			type:"post",
+			cache:false,
+			async:false,
+			dataType:"html",
+			data:{"method":"AdminServlet","aUserName":admin,"aPwd":adminPassword},
+			error:function(e){
+			alert(e.status);
+			},
+			success:function(data){
+				alert(data);
+			}
+		});
+	}
+}
+/**********************************************获取管理员的信息************************************/
+function checkAdminAll(){
+	$.ajax({
+		url:"IDServlet",
+		type:"post",
+		cache:false,
+		async:false,
+		dataType:"json",
+		data:{"method":null},
+		error:function(e){
+		alert(e.status);
+		},
+		success:function(data){
+			$("#showName").text(data.aUserName);
+			$("#showAdminTwo").text(data.aUserName);
+			$("#showAdminThree").text(data.aUserName);
+		}
+	});
+}
+/****************************************管理员账户修改的按钮点击**************************************/
+function AdminsClick(){
+	$("#admingroup button[type=button]").click(function(){
+		if(adminCheckd()){
+			updateAdmin();
+		}else{
+			alert("请检查用户信息不为空!或者用户格式正确！");
+		}
+	});
+}
+/*******************************管理员验证事件******************************************************/
+function adminCheckd(){
+	if($("#admingroup input[name=UpdateAdminName]").val()==""||$("#admingroup input[name=UpdatepawwWord]").val()==""||$("#admingroup input[name=UpdatepawwWordTwo]").val()==""){
+		return false;
+	}else if($("#admingroup input[name=UpdatepawwWord]").val()!=$("#admingroup input[name=UpdatepawwWordTwo]").val()){
+		return false;
+	}
+	return true;
+}
 $(function(){
 	titleText="";
 	navigationType="";
@@ -705,4 +792,12 @@ $(function(){
     $("#login").click(function(){
     	login("LoginServlet");
     });
+	$('[data-toggle="popover"]').popover()
+	$("#admingroup input[type=button]").click(function(){
+		if(confirm("确认修改吗?")){
+			updateAdmin();
+		}
+	});
+	checkAdminAll();
+	AdminsClick();
 });

@@ -83,7 +83,7 @@
 						</div>
 						<div class="media-body">
 							<ul class="list-unstyled" style="line-height: 25px;">
-							<li><samp>您好!欢迎您<span>系统管理员&nbsp;&nbsp;<a href="ReLoginServlet"><span class="glyphicon glyphicon-remove-circle"></span></a></span></samp></li>
+							<li><samp>您好!欢迎您<span id="showAdminTwo"></span>&nbsp;&nbsp;<a href="ReLoginServlet"><span class="glyphicon glyphicon-remove-circle"></a></span></samp></li>
 							<li><samp>系统管理员</<samp></li>
 							<li><samp>上一次登录<span>2016-2-12</span></samp></li>
 							</ul>
@@ -215,7 +215,7 @@
 						<div class="panel-heading">
 						<span class="panel-title">
 						<div class="pull-left">
-							<img class="img-rounded" src="img/zs_ico.jpg" style="width: 30px; height: 30px;"/>&nbsp;&nbsp;<span>Admin</span> <span id="time"></span>，欢迎使用cms后台管理系统</span>
+							<img class="img-rounded" src="img/zs_ico.jpg" style="width: 30px; height: 30px;"/>&nbsp;&nbsp;<span id="showAdminThree">Admin</span> <span id="time"></span>，欢迎使用cms后台管理系统</span>
 						</div>
 								<input  id="one" name="tabs" type="radio" value="one">
 	   							<label  for="one">标题修改</label>
@@ -466,7 +466,7 @@
                                 	描述：主页
                                 -->
                                 <div id="zy" style="display:none;">
-									<h1>你好欢迎来到主页</h1>
+									<h1><smap id="showName"></smap>你好欢迎来到主页</h1>
 								</div>
 								 <!--
                                 	作者：1770723191@qq.com
@@ -481,7 +481,7 @@
 												<tr>
 												<th style="text-align: center;width: 120px;"><samp>增加信息</samp></th>
 												<th style="text-align: center;">
-												<button type="button" class="btn btn-default" style="width: 100px;">修改</button>
+												<button name="Updatebutton" type="button" class="btn btn-default" style="width: 100px;">修改</button>
 						       					<button type="reset" class="btn btn-default" style="width: 100px;">重置</button>
 												</th>
 												</tr>
@@ -632,7 +632,7 @@
 												<tr>
 												<th style="text-align: center;width: 120px;"><samp>增加信息</samp></th>
 												<th style="text-align: center;">
-												<button type="button" class="btn btn-default" style="width: 100px;">添加</button>
+												<button name="xuanze" type="button" class="btn btn-default" style="width: 100px;">添加</button>
 						       					<button type="reset" class="btn btn-default" style="width: 100px;">重置</button>
 												</th>
 												</tr>
@@ -701,7 +701,7 @@
 														<label class="control-label" style="font-size: 17px;">用户名:</label>
 													</td>
 													<td>
-														<input type="text" class="form-control input-lg" name="UpdateName" placeholder="用户名数字+字母" />
+														<input type="text" class="form-control input-lg" name="UpdateAdminName" placeholder="用户名数字+字母" />
 													</td>
 												</tr>
 												<tr>
